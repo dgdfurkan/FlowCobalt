@@ -17,13 +17,17 @@ export default function Header() {
   }, [])
 
   return (
-    <header
-      className={`fixed top-0 left-0 right-0 z-50 transition-all duration-300 ${
-        isScrolled ? 'bg-white shadow-soft' : 'bg-white/95 backdrop-blur-sm'
-      }`}
-    >
-      <nav className="container-custom">
-        <div className="flex items-center justify-between h-16 md:h-20">
+    <header className="fixed top-0 left-0 right-0 z-50 transition-all duration-300">
+      <div className="container-custom pt-4">
+        <nav
+          className={`rounded-2xl transition-all duration-300 ${
+            isScrolled
+              ? 'bg-white shadow-medium'
+              : 'bg-white/95 backdrop-blur-md shadow-soft'
+          }`}
+        >
+          <div className="container-custom px-6 md:px-8">
+            <div className="flex items-center justify-between h-16 md:h-20">
           {/* Logo */}
           <Link href="/" className="flex items-center space-x-2">
             <Image
@@ -190,7 +194,9 @@ export default function Header() {
             </div>
           </div>
         )}
-      </nav>
+          </div>
+        </nav>
+      </div>
     </header>
   )
 }

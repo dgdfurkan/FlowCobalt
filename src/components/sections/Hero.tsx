@@ -30,23 +30,104 @@ export default function Hero() {
   }, [])
 
   return (
-    <section className="section-padding bg-background">
-      <div className="container-custom">
+    <section className="section-padding bg-background relative overflow-hidden">
+      {/* Decorative lines background */}
+      <div className="absolute inset-0 pointer-events-none overflow-hidden">
+        {/* Line behind title - responsive positioning */}
+        <svg
+          className="absolute left-0 w-full opacity-[0.15]"
+          style={{
+            top: 'clamp(15%, 20%, 25%)',
+            height: 'clamp(300px, 50vh, 600px)',
+          }}
+          viewBox="0 0 1440 400"
+          preserveAspectRatio="none"
+        >
+          <defs>
+            <linearGradient id="lineGradient1" x1="0%" y1="0%" x2="100%" y2="0%">
+              <stop offset="0%" stopColor="#9ca3af" stopOpacity="0.3" />
+              <stop offset="50%" stopColor="#6b7280" stopOpacity="0.4" />
+              <stop offset="100%" stopColor="#9ca3af" stopOpacity="0.3" />
+            </linearGradient>
+          </defs>
+          {/* Main wavy line */}
+          <path
+            d="M-200,200 Q200,120 500,200 T1100,200 T1600,200"
+            stroke="url(#lineGradient1)"
+            strokeWidth="2.5"
+            fill="none"
+            strokeLinecap="round"
+            className="hidden md:block"
+          />
+          {/* Secondary subtle line */}
+          <path
+            d="M-150,180 Q250,100 550,180 T1050,180 T1550,180"
+            stroke="#d1d5db"
+            strokeWidth="1.5"
+            fill="none"
+            strokeLinecap="round"
+            strokeOpacity="0.4"
+            className="hidden lg:block"
+          />
+        </svg>
+        
+        {/* Line behind buttons - responsive positioning */}
+        <svg
+          className="absolute left-0 w-full opacity-[0.15]"
+          style={{
+            top: 'clamp(60%, 70%, 75%)',
+            height: 'clamp(200px, 30vh, 400px)',
+          }}
+          viewBox="0 0 1440 300"
+          preserveAspectRatio="none"
+        >
+          <defs>
+            <linearGradient id="lineGradient2" x1="0%" y1="0%" x2="100%" y2="0%">
+              <stop offset="0%" stopColor="#9ca3af" stopOpacity="0.3" />
+              <stop offset="50%" stopColor="#6b7280" stopOpacity="0.4" />
+              <stop offset="100%" stopColor="#9ca3af" stopOpacity="0.3" />
+            </linearGradient>
+          </defs>
+          {/* Main curved line */}
+          <path
+            d="M-200,200 Q300,150 700,200 T1400,200"
+            stroke="url(#lineGradient2)"
+            strokeWidth="2.5"
+            fill="none"
+            strokeLinecap="round"
+            className="hidden sm:block"
+          />
+          {/* Secondary subtle line */}
+          <path
+            d="M-150,180 Q350,130 750,180 T1350,180"
+            stroke="#d1d5db"
+            strokeWidth="1.5"
+            fill="none"
+            strokeLinecap="round"
+            strokeOpacity="0.4"
+            className="hidden md:block"
+          />
+        </svg>
+      </div>
+
+      <div className="container-custom relative z-10">
         <div className="max-w-4xl mx-auto text-center">
-          <h1
-            ref={titleRef}
-            className="text-4xl md:text-5xl lg:text-6xl font-bold text-text-primary mb-6"
-          >
-            Manual ops work →{' '}
-            <span className="text-gradient-brand">automated workflows</span>{' '}
-            in days, not months.
-          </h1>
+          <div className="relative">
+            <h1
+              ref={titleRef}
+              className="text-4xl md:text-5xl lg:text-6xl font-bold text-text-primary mb-6 relative z-10"
+            >
+              Manual ops work →{' '}
+              <span className="text-gradient-brand">automated workflows</span>{' '}
+              in days, not months.
+            </h1>
+          </div>
           
-          <p ref={subtitleRef} className="text-lg md:text-xl text-text-secondary mb-8 max-w-2xl mx-auto">
+          <p ref={subtitleRef} className="text-lg md:text-xl text-text-secondary mb-8 max-w-2xl mx-auto relative z-10">
             We build practical AI + n8n automations that reduce errors and free up your team&apos;s time.
           </p>
           
-          <div ref={buttonsRef} className="flex flex-col sm:flex-row gap-4 justify-center items-center">
+          <div ref={buttonsRef} className="flex flex-col sm:flex-row gap-4 justify-center items-center relative z-10">
             <Button href="/contact" variant="primary" size="lg">
               Get a 7-day Automation Audit
             </Button>
