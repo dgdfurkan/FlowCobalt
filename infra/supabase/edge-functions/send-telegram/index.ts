@@ -26,9 +26,13 @@ serve(async (req) => {
       .eq('key', 'telegram_enabled')
       .single()
 
-    if (!telegramEnabled || telegramEnabled.value !== true) {
+    // Check if enabled (value can be JSONB boolean true or string "true")
+    const isEnabled = telegramEnabled?.value === true || telegramEnabled?.value === 'true' || telegramEnabled?.value === '"true"'
+    
+    if (!telegramEnabled || !isEnabled) {
+      console.log('Telegram notifications disabled or not configured:', telegramEnabled)
       return new Response(
-        JSON.stringify({ success: false, message: 'Telegram notifications disabled' }),
+        JSON.stringify({ success: false, message: 'Telegram notifications disabled', debug: telegramEnabled }),
         { headers: { ...corsHeaders, 'Content-Type': 'application/json' }, status: 200 }
       )
     }
@@ -50,8 +54,14 @@ serve(async (req) => {
       throw new Error('Telegram configuration not found')
     }
 
-    const botToken = botTokenData.value
-    const chatIds = chatIdsData.value as string[]
+    // Parse JSONB values correctly
+    const botToken = typeof botTokenData.value === 'string' 
+      ? botTokenData.value.replace(/^"|"$/g, '') // Remove quotes if string
+      : botTokenData.value
+    
+    const chatIds = Array.isArray(chatIdsData.value) 
+      ? chatIdsData.value 
+      : (typeof chatIdsData.value === 'string' ? JSON.parse(chatIdsData.value) : [])
 
     if (!botToken || chatIds.length === 0) {
       throw new Error('Telegram bot token or chat IDs not configured')
@@ -85,26 +95,37 @@ serve(async (req) => {
 
     // Send to all chat IDs
     const results = await Promise.allSettled(
-      chatIds.map((chatId) =>
-        fetch(`https://api.telegram.org/bot${botToken}/sendMessage`, {
+      chatIds.map((chatId) => {
+        const chatIdStr = String(chatId).trim()
+        console.log(`Sending Telegram message to chat ID: ${chatIdStr}`)
+        return fetch(`https://api.telegram.org/bot${botToken}/sendMessage`, {
           method: 'POST',
           headers: { 'Content-Type': 'application/json' },
           body: JSON.stringify({
-            chat_id: chatId,
+            chat_id: chatIdStr,
             text: message,
-            parse_mode: 'HTML',
           }),
         })
-      )
+      })
     )
 
     const successCount = results.filter((r) => r.status === 'fulfilled').length
+    const failures = results
+      .filter((r) => r.status === 'rejected')
+      .map((r) => (r as PromiseRejectedResult).reason)
+
+    // Log results for debugging
+    console.log(`Telegram notification results: ${successCount}/${chatIds.length} sent successfully`)
+    if (failures.length > 0) {
+      console.error('Telegram notification failures:', failures)
+    }
 
     return new Response(
       JSON.stringify({
         success: true,
         sentTo: successCount,
         total: chatIds.length,
+        failures: failures.length > 0 ? failures : undefined,
       }),
       {
         headers: { ...corsHeaders, 'Content-Type': 'application/json' },

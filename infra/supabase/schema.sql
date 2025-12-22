@@ -161,6 +161,9 @@ ON CONFLICT (key) DO UPDATE SET
   value = EXCLUDED.value,
   updated_at = TIMEZONE('utc', NOW());
 
+-- Ensure telegram_enabled is boolean true (not string)
+UPDATE settings SET value = 'true'::jsonb WHERE key = 'telegram_enabled';
+
 -- Insert default admin users
 INSERT INTO users (username, password) VALUES
   ('Furkan', '123'),
