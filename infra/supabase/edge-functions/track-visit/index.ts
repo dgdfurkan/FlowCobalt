@@ -29,6 +29,12 @@ serve(async (req) => {
     // Initialize Supabase client
     const supabaseUrl = Deno.env.get('SUPABASE_URL')!
     const supabaseKey = Deno.env.get('SUPABASE_SERVICE_ROLE_KEY')!
+    
+    console.log('Supabase URL:', supabaseUrl)
+    console.log('Service Role Key exists:', !!supabaseKey)
+    console.log('Service Role Key length:', supabaseKey?.length || 0)
+    console.log('Service Role Key prefix:', supabaseKey?.substring(0, 20) || 'N/A')
+    
     const supabase = createClient(supabaseUrl, supabaseKey)
 
     // Get geolocation using ip-api.com (free tier, no API key needed)
@@ -164,6 +170,8 @@ serve(async (req) => {
       try {
         // For Supabase Edge Function to Edge Function calls, use apikey header only
         // Service role key should be used as apikey, not as Bearer token
+        console.log('Sending request with apikey:', supabaseKey ? `${supabaseKey.substring(0, 20)}...` : 'MISSING')
+        
         const response = await fetch(telegramUrl, {
           method: 'POST',
           headers: {
