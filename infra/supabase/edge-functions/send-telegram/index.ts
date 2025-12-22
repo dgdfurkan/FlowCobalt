@@ -6,6 +6,120 @@ const corsHeaders = {
   'Access-Control-Allow-Headers': 'authorization, x-client-info, apikey, content-type',
 }
 
+async function handleAdminAccessNotification(body: any, corsHeaders: Record<string, string>) {
+  const { accessType, ipAddress, country, city, region, pagePath, attemptedUsername } = body
+  
+  // Initialize Supabase client
+  const supabaseUrl = Deno.env.get('SUPABASE_URL')!
+  const supabaseKey = Deno.env.get('SUPABASE_SERVICE_ROLE_KEY')!
+  const supabase = createClient(supabaseUrl, supabaseKey)
+
+  // Get Telegram settings
+  const { data: telegramEnabled } = await supabase
+    .from('settings')
+    .select('value')
+    .eq('key', 'telegram_enabled')
+    .single()
+
+  const isEnabled = telegramEnabled?.value === true || telegramEnabled?.value === 'true' || telegramEnabled?.value === '"true"'
+  
+  if (!telegramEnabled || !isEnabled) {
+    return new Response(
+      JSON.stringify({ success: false, message: 'Telegram notifications disabled' }),
+      { headers: { ...corsHeaders, 'Content-Type': 'application/json' }, status: 200 }
+    )
+  }
+
+  // Get bot token and chat IDs
+  const { data: botTokenData } = await supabase
+    .from('settings')
+    .select('value')
+    .eq('key', 'telegram_bot_token')
+    .single()
+
+  const { data: chatIdsData } = await supabase
+    .from('settings')
+    .select('value')
+    .eq('key', 'telegram_chat_ids')
+    .single()
+
+  if (!botTokenData || !chatIdsData) {
+    throw new Error('Telegram configuration not found')
+  }
+
+  const botToken = typeof botTokenData.value === 'string' 
+    ? botTokenData.value.replace(/^"|"$/g, '')
+    : botTokenData.value
+  
+  const chatIds = Array.isArray(chatIdsData.value) 
+    ? chatIdsData.value 
+    : (typeof chatIdsData.value === 'string' ? JSON.parse(chatIdsData.value) : [])
+
+  if (!botToken || chatIds.length === 0) {
+    throw new Error('Telegram bot token or chat IDs not configured')
+  }
+
+  // Format admin access message
+  const dateTime = new Date().toLocaleString('en-US', {
+    timeZone: 'UTC',
+    dateStyle: 'short',
+    timeStyle: 'short',
+  })
+
+  const location = region && region !== 'Unknown' 
+    ? `${country}, ${region}, ${city}` 
+    : `${country}, ${city}`
+
+  let message = ''
+  if (accessType === 'login_page') {
+    message = `⚠️ Admin Login Page Access\n📍 IP: ${ipAddress}\n🌍 Location: ${location}\n📄 Page: ${pagePath}\n🕐 Time: ${dateTime}`
+  } else if (accessType === 'admin_panel') {
+    message = `🚨 Admin Panel Access\n📍 IP: ${ipAddress}\n🌍 Location: ${location}\n📄 Page: ${pagePath}\n🕐 Time: ${dateTime}`
+  } else if (accessType === 'failed_login') {
+    message = `❌ Failed Login Attempt\n📍 IP: ${ipAddress}\n🌍 Location: ${location}\n👤 Username: ${attemptedUsername || 'Unknown'}\n📄 Page: ${pagePath}\n🕐 Time: ${dateTime}`
+  } else {
+    message = `⚠️ Admin Access Alert\n📍 IP: ${ipAddress}\n🌍 Location: ${location}\n📄 Type: ${accessType}\n🕐 Time: ${dateTime}`
+  }
+
+  // Send to all chat IDs
+  const results = await Promise.allSettled(
+    chatIds.map(async (chatId) => {
+      const chatIdStr = String(chatId).trim()
+      const telegramUrl = `https://api.telegram.org/bot${botToken}/sendMessage`
+      
+      const response = await fetch(telegramUrl, {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({
+          chat_id: chatIdStr,
+          text: message,
+        }),
+      })
+      
+      const responseData = await response.json()
+      if (!response.ok) {
+        throw new Error(`Telegram API error: ${JSON.stringify(responseData)}`)
+      }
+      
+      return responseData
+    })
+  )
+
+  const successCount = results.filter((r) => r.status === 'fulfilled').length
+
+  return new Response(
+    JSON.stringify({
+      success: true,
+      sentTo: successCount,
+      total: chatIds.length,
+    }),
+    {
+      headers: { ...corsHeaders, 'Content-Type': 'application/json' },
+      status: 200,
+    }
+  )
+}
+
 serve(async (req) => {
   console.log('Send-telegram function called')
   
@@ -17,6 +131,12 @@ serve(async (req) => {
     const body = await req.json()
     console.log('Request body received:', body)
     
+    // Check if this is an admin access notification
+    if (body.type === 'admin_access') {
+      return await handleAdminAccessNotification(body, corsHeaders)
+    }
+    
+    // Regular visitor notification
     const { visitorId, visitId, isNewVisit, ipAddress, country, city, region } = body
     console.log('Parsed params:', { visitorId, visitId, isNewVisit, ipAddress, country, city, region })
 

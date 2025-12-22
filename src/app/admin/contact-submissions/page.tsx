@@ -41,7 +41,33 @@ export default function ContactSubmissionsPage() {
     }
 
     loadSubmissions()
+    trackAdminPanelAccess()
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [router])
+
+  const trackAdminPanelAccess = async () => {
+    if (!isSupabaseAvailable()) return
+    
+    try {
+      const supabaseUrl = process.env.NEXT_PUBLIC_SUPABASE_URL!
+      const supabaseAnonKey = process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY!
+      
+      await fetch(`${supabaseUrl}/functions/v1/track-admin-access`, {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+          'Authorization': `Bearer ${supabaseAnonKey}`,
+        },
+        body: JSON.stringify({
+          accessType: 'admin_panel',
+          pagePath: '/admin/contact-submissions',
+          userAgent: navigator.userAgent,
+        }),
+      })
+    } catch (error) {
+      console.error('Error tracking admin panel access:', error)
+    }
+  }
 
   const loadSubmissions = async () => {
     if (!supabase) return

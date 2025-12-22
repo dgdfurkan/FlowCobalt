@@ -24,6 +24,16 @@ interface Visit {
   user_agent: string | null
   referer: string | null
   is_new_visit: boolean
+  scroll_depth: number | null
+  scroll_events: number[] | null
+  created_at: string
+}
+
+interface AdminAccessLog {
+  id: string
+  access_type: string
+  page_path: string | null
+  attempted_username: string | null
   created_at: string
 }
 
@@ -34,6 +44,8 @@ function VisitorDetailContent() {
   const [loading, setLoading] = useState(true)
   const [visitor, setVisitor] = useState<Visitor | null>(null)
   const [visits, setVisits] = useState<Visit[]>([])
+  const [adminAccessLogs, setAdminAccessLogs] = useState<AdminAccessLog[]>([])
+  const [adminAccessLogs, setAdminAccessLogs] = useState<AdminAccessLog[]>([])
 
   useEffect(() => {
     if (!isSupabaseAvailable()) {
@@ -55,9 +67,34 @@ function VisitorDetailContent() {
 
     if (visitorId) {
       loadVisitorDetails()
+      trackAdminPanelAccess()
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [router, visitorId])
+
+  const trackAdminPanelAccess = async () => {
+    if (!isSupabaseAvailable()) return
+    
+    try {
+      const supabaseUrl = process.env.NEXT_PUBLIC_SUPABASE_URL!
+      const supabaseAnonKey = process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY!
+      
+      await fetch(`${supabaseUrl}/functions/v1/track-admin-access`, {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+          'Authorization': `Bearer ${supabaseAnonKey}`,
+        },
+        body: JSON.stringify({
+          accessType: 'admin_panel',
+          pagePath: `/admin/visitors/detail?id=${visitorId}`,
+          userAgent: navigator.userAgent,
+        }),
+      })
+    } catch (error) {
+      console.error('Error tracking admin panel access:', error)
+    }
+  }
 
   const loadVisitorDetails = async () => {
     if (!supabase || !visitorId) return
@@ -73,16 +110,38 @@ function VisitorDetailContent() {
       if (visitorError) throw visitorError
       setVisitor(visitorData)
 
-      // Load visits
-      const { data: visitsData, error: visitsError } = await supabase
-        .from('visits')
-        .select('*')
-        .eq('visitor_id', visitorId)
-        .order('created_at', { ascending: false })
-        .limit(50)
+            // Load visits
+            const { data: visitsData, error: visitsError } = await supabase
+              .from('visits')
+              .select('*')
+              .eq('visitor_id', visitorId)
+              .order('created_at', { ascending: false })
+              .limit(50)
 
-      if (visitsError) throw visitsError
-      setVisits(visitsData || [])
+            if (visitsError) throw visitsError
+            setVisits(visitsData || [])
+
+            // Load admin access logs
+            const { data: accessLogsData, error: accessLogsError } = await supabase
+              .from('admin_access_logs')
+              .select('id, access_type, page_path, attempted_username, created_at')
+              .eq('visitor_id', visitorId)
+              .order('created_at', { ascending: false })
+              .limit(50)
+
+            if (accessLogsError) throw accessLogsError
+            setAdminAccessLogs(accessLogsData || [])
+
+            // Load admin access logs
+            const { data: accessLogsData, error: accessLogsError } = await supabase
+              .from('admin_access_logs')
+              .select('id, access_type, page_path, attempted_username, created_at')
+              .eq('visitor_id', visitorId)
+              .order('created_at', { ascending: false })
+              .limit(50)
+
+            if (accessLogsError) throw accessLogsError
+            setAdminAccessLogs(accessLogsData || [])
     } catch (error) {
       console.error('Error loading visitor details:', error)
     } finally {
@@ -249,6 +308,9 @@ function VisitorDetailContent() {
                     User Agent
                   </th>
                   <th className="px-6 py-3 text-left text-xs font-medium text-text-secondary uppercase tracking-wider">
+                    Scroll Depth
+                  </th>
+                  <th className="px-6 py-3 text-left text-xs font-medium text-text-secondary uppercase tracking-wider">
                     Type
                   </th>
                 </tr>
@@ -256,7 +318,7 @@ function VisitorDetailContent() {
               <tbody className="divide-y divide-gray-200">
                 {visits.length === 0 ? (
                   <tr>
-                    <td colSpan={5} className="px-6 py-8 text-center text-text-secondary">
+                    <td colSpan={6} className="px-6 py-8 text-center text-text-secondary">
                       No visits recorded
                     </td>
                   </tr>
@@ -274,6 +336,26 @@ function VisitorDetailContent() {
                       </td>
                       <td className="px-6 py-4 text-sm text-text-secondary max-w-xs truncate">
                         {visit.user_agent || '-'}
+                      </td>
+                      <td className="px-6 py-4 whitespace-nowrap text-sm">
+                        {visit.scroll_depth !== null && visit.scroll_depth !== undefined ? (
+                          <div className="flex items-center gap-2">
+                            <div className="w-16 bg-gray-200 rounded-full h-2">
+                              <div
+                                className="bg-brand-purple h-2 rounded-full"
+                                style={{ width: `${visit.scroll_depth}%` }}
+                              />
+                            </div>
+                            <span className="text-text-secondary">{visit.scroll_depth}%</span>
+                            {visit.scroll_events && Array.isArray(visit.scroll_events) && visit.scroll_events.length > 0 && (
+                              <span className="text-xs text-text-secondary">
+                                ({visit.scroll_events.join(', ')}%)
+                              </span>
+                            )}
+                          </div>
+                        ) : (
+                          <span className="text-text-secondary">-</span>
+                        )}
                       </td>
                       <td className="px-6 py-4 whitespace-nowrap">
                         {visit.is_new_visit ? (
@@ -293,6 +375,70 @@ function VisitorDetailContent() {
             </table>
           </div>
         </div>
+
+        {/* Admin Access Logs */}
+        {adminAccessLogs.length > 0 && (
+          <div className="bg-white rounded-xl shadow-soft overflow-hidden mt-6">
+            <div className="p-6 border-b border-gray-200">
+              <h2 className="text-xl font-bold text-text-primary">Admin Access Attempts</h2>
+              <p className="text-sm text-text-secondary mt-1">
+                {adminAccessLogs.length} access attempt(s) recorded
+              </p>
+            </div>
+            <div className="overflow-x-auto">
+              <table className="w-full">
+                <thead className="bg-background-secondary">
+                  <tr>
+                    <th className="px-6 py-3 text-left text-xs font-medium text-text-secondary uppercase tracking-wider">
+                      Date & Time
+                    </th>
+                    <th className="px-6 py-3 text-left text-xs font-medium text-text-secondary uppercase tracking-wider">
+                      Access Type
+                    </th>
+                    <th className="px-6 py-3 text-left text-xs font-medium text-text-secondary uppercase tracking-wider">
+                      Page
+                    </th>
+                    <th className="px-6 py-3 text-left text-xs font-medium text-text-secondary uppercase tracking-wider">
+                      Attempted Username
+                    </th>
+                  </tr>
+                </thead>
+                <tbody className="divide-y divide-gray-200">
+                  {adminAccessLogs.map((log) => (
+                    <tr key={log.id} className="hover:bg-background-secondary transition-colors">
+                      <td className="px-6 py-4 whitespace-nowrap text-sm text-text-secondary">
+                        {new Date(log.created_at).toLocaleString()}
+                      </td>
+                      <td className="px-6 py-4 whitespace-nowrap">
+                        {log.access_type === 'login_page' && (
+                          <span className="px-2 py-1 text-xs font-medium bg-yellow-100 text-yellow-800 rounded">
+                            Login Page
+                          </span>
+                        )}
+                        {log.access_type === 'admin_panel' && (
+                          <span className="px-2 py-1 text-xs font-medium bg-red-100 text-red-800 rounded">
+                            Admin Panel
+                          </span>
+                        )}
+                        {log.access_type === 'failed_login' && (
+                          <span className="px-2 py-1 text-xs font-medium bg-orange-100 text-orange-800 rounded">
+                            Failed Login
+                          </span>
+                        )}
+                      </td>
+                      <td className="px-6 py-4 text-sm text-text-primary">
+                        {log.page_path || '-'}
+                      </td>
+                      <td className="px-6 py-4 text-sm text-text-secondary">
+                        {log.attempted_username || '-'}
+                      </td>
+                    </tr>
+                  ))}
+                </tbody>
+              </table>
+            </div>
+          </div>
+        )}
       </div>
     </div>
   )

@@ -39,6 +39,8 @@ CREATE TABLE IF NOT EXISTS visits (
   page_path TEXT,
   is_new_visit BOOLEAN DEFAULT TRUE,
   visit_duration INTEGER, -- in seconds
+  scroll_depth INTEGER, -- Maximum scroll depth percentage (0-100)
+  scroll_events JSONB, -- Array of scroll milestones reached [25, 50, 75, 100]
   created_at TIMESTAMP WITH TIME ZONE DEFAULT TIMEZONE('utc', NOW())
 );
 
@@ -76,6 +78,21 @@ CREATE TABLE IF NOT EXISTS contact_submissions (
   created_at TIMESTAMP WITH TIME ZONE DEFAULT TIMEZONE('utc', NOW())
 );
 
+-- Admin access logs table
+CREATE TABLE IF NOT EXISTS admin_access_logs (
+  id UUID PRIMARY KEY DEFAULT uuid_generate_v4(),
+  visitor_id UUID REFERENCES visitors(id) ON DELETE SET NULL,
+  ip_address TEXT NOT NULL,
+  access_type TEXT NOT NULL, -- 'login_page', 'admin_panel', 'failed_login'
+  page_path TEXT,
+  attempted_username TEXT, -- for failed logins
+  user_agent TEXT,
+  country TEXT,
+  city TEXT,
+  region TEXT,
+  created_at TIMESTAMP WITH TIME ZONE DEFAULT TIMEZONE('utc', NOW())
+);
+
 -- Indexes for performance
 CREATE INDEX IF NOT EXISTS idx_visitors_ip ON visitors(ip_address);
 CREATE INDEX IF NOT EXISTS idx_visitors_last_seen ON visitors(last_seen_at);
@@ -84,6 +101,10 @@ CREATE INDEX IF NOT EXISTS idx_visits_created_at ON visits(created_at);
 CREATE INDEX IF NOT EXISTS idx_events_visit_id ON events(visit_id);
 CREATE INDEX IF NOT EXISTS idx_events_created_at ON events(created_at);
 CREATE INDEX IF NOT EXISTS idx_events_event_type ON events(event_type);
+CREATE INDEX IF NOT EXISTS idx_admin_access_logs_visitor_id ON admin_access_logs(visitor_id);
+CREATE INDEX IF NOT EXISTS idx_admin_access_logs_ip ON admin_access_logs(ip_address);
+CREATE INDEX IF NOT EXISTS idx_admin_access_logs_access_type ON admin_access_logs(access_type);
+CREATE INDEX IF NOT EXISTS idx_admin_access_logs_created_at ON admin_access_logs(created_at);
 
 -- RLS Policies (Simplified - no auth.role() checks)
 ALTER TABLE users ENABLE ROW LEVEL SECURITY;
@@ -92,6 +113,7 @@ ALTER TABLE visits ENABLE ROW LEVEL SECURITY;
 ALTER TABLE events ENABLE ROW LEVEL SECURITY;
 ALTER TABLE settings ENABLE ROW LEVEL SECURITY;
 ALTER TABLE contact_submissions ENABLE ROW LEVEL SECURITY;
+ALTER TABLE admin_access_logs ENABLE ROW LEVEL SECURITY;
 
 -- Drop existing policies if they exist (to avoid conflicts)
 DROP POLICY IF EXISTS "Public can read users" ON users;
@@ -113,6 +135,9 @@ DROP POLICY IF EXISTS "Admins can manage users" ON users;
 DROP POLICY IF EXISTS "Public can insert contact_submissions" ON contact_submissions;
 DROP POLICY IF EXISTS "Public can read contact_submissions" ON contact_submissions;
 DROP POLICY IF EXISTS "Admins can read contact_submissions" ON contact_submissions;
+DROP POLICY IF EXISTS "Public can insert admin_access_logs" ON admin_access_logs;
+DROP POLICY IF EXISTS "Public can read admin_access_logs" ON admin_access_logs;
+DROP POLICY IF EXISTS "Admins can read admin_access_logs" ON admin_access_logs;
 
 -- Users: Public can read (for login check)
 -- Note: In production, you might want to restrict this
@@ -157,6 +182,15 @@ CREATE POLICY "Public can insert contact_submissions" ON contact_submissions
 CREATE POLICY "Admins can read contact_submissions" ON contact_submissions
   FOR SELECT USING (true);
 
+-- Admin access logs: Public can insert (for tracking)
+CREATE POLICY "Public can insert admin_access_logs" ON admin_access_logs
+  FOR INSERT WITH CHECK (true);
+
+-- Admin access logs: Public can read (for admin panel)
+-- Note: In production, add proper admin check
+CREATE POLICY "Admins can read admin_access_logs" ON admin_access_logs
+  FOR SELECT USING (true);
+
 -- Insert default settings
 INSERT INTO settings (key, value, description) VALUES
   ('telegram_enabled', 'true'::jsonb, 'Enable/disable Telegram notifications'),
@@ -175,3 +209,7 @@ INSERT INTO users (username, password) VALUES
   ('Furkan', '123'),
   ('Erdem', '123')
 ON CONFLICT (username) DO NOTHING;
+
+-- Add scroll_depth and scroll_events columns to existing visits table (if not exists)
+ALTER TABLE visits ADD COLUMN IF NOT EXISTS scroll_depth INTEGER;
+ALTER TABLE visits ADD COLUMN IF NOT EXISTS scroll_events JSONB;

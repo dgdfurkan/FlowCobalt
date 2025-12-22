@@ -23,8 +23,8 @@ serve(async (req) => {
     console.log('IP Address:', ipAddress)
 
     // Get request body
-    const { pagePath, userAgent, referer } = await req.json()
-    console.log('Request body:', { pagePath, userAgent, referer })
+    const { pagePath, userAgent, referer, scrollDepth, scrollEvents } = await req.json()
+    console.log('Request body:', { pagePath, userAgent, referer, scrollDepth, scrollEvents })
 
     // Initialize Supabase client
     const supabaseUrl = Deno.env.get('SUPABASE_URL')!
@@ -122,6 +122,8 @@ serve(async (req) => {
         referer: referer || null,
         page_path: pagePath,
         is_new_visit: isNewVisit,
+        scroll_depth: scrollDepth || null,
+        scroll_events: scrollEvents || null,
       })
       .select()
       .single()

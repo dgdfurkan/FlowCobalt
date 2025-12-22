@@ -25,8 +25,40 @@ export default function AdminDashboard() {
 
     checkAuth()
     loadStats()
+    
+    // Track admin panel access after authentication check
+    if (typeof window !== 'undefined') {
+      const storedUser = sessionStorage.getItem('admin_user')
+      if (storedUser) {
+        trackAdminPanelAccess()
+      }
+    }
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [router])
+
+  const trackAdminPanelAccess = async () => {
+    if (!isSupabaseAvailable()) return
+    
+    try {
+      const supabaseUrl = process.env.NEXT_PUBLIC_SUPABASE_URL!
+      const supabaseAnonKey = process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY!
+      
+      await fetch(`${supabaseUrl}/functions/v1/track-admin-access`, {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+          'Authorization': `Bearer ${supabaseAnonKey}`,
+        },
+        body: JSON.stringify({
+          accessType: 'admin_panel',
+          pagePath: '/admin',
+          userAgent: navigator.userAgent,
+        }),
+      })
+    } catch (error) {
+      console.error('Error tracking admin panel access:', error)
+    }
+  }
 
   const checkAuth = () => {
     // Simple session check from sessionStorage
@@ -177,6 +209,15 @@ export default function AdminDashboard() {
             </h2>
             <p className="text-text-secondary">
               View messages from the contact form
+            </p>
+          </Link>
+          
+          <Link href="/admin/security" className="bg-white rounded-xl shadow-soft p-6 hover:shadow-medium transition-shadow">
+            <h2 className="text-xl font-bold text-text-primary mb-2">
+              Security Logs
+            </h2>
+            <p className="text-text-secondary">
+              Monitor admin access attempts and security events
             </p>
           </Link>
         </div>

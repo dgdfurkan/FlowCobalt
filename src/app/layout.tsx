@@ -1,6 +1,7 @@
 import type { Metadata } from "next";
 import Header from "@/components/layout/Header";
 import Footer from "@/components/layout/Footer";
+import ScrollTracker from "@/components/tracking/ScrollTracker";
 import "../styles/globals.css";
 
 export const metadata: Metadata = {
@@ -16,6 +17,7 @@ export default function RootLayout({
   return (
     <html lang="en">
       <body className="antialiased">
+        <ScrollTracker />
         <Header />
         <main className="pt-20 md:pt-24">{children}</main>
         <Footer />

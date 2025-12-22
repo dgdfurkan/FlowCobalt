@@ -1,6 +1,6 @@
 'use client'
 
-import { useState } from 'react'
+import { useState, useEffect } from 'react'
 import { useRouter } from 'next/navigation'
 import { supabase, isSupabaseAvailable } from '@/lib/supabase'
 import Button from '@/components/ui/Button'
@@ -14,6 +14,35 @@ export default function AdminLogin() {
   const [password, setPassword] = useState('')
   const [loading, setLoading] = useState(false)
   const [error, setError] = useState('')
+
+  // Track access to login page
+  useEffect(() => {
+    if (typeof window === 'undefined' || !isSupabaseAvailable()) return
+
+    const trackAdminAccess = async () => {
+      try {
+        const supabaseUrl = process.env.NEXT_PUBLIC_SUPABASE_URL!
+        const supabaseAnonKey = process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY!
+        
+        await fetch(`${supabaseUrl}/functions/v1/track-admin-access`, {
+          method: 'POST',
+          headers: {
+            'Content-Type': 'application/json',
+            'Authorization': `Bearer ${supabaseAnonKey}`,
+          },
+          body: JSON.stringify({
+            accessType: 'login_page',
+            pagePath: '/admin/login',
+            userAgent: navigator.userAgent,
+          }),
+        })
+      } catch (error) {
+        console.error('Error tracking admin access:', error)
+      }
+    }
+
+    trackAdminAccess()
+  }, [])
 
   if (!isSupabaseAvailable()) {
     return (
@@ -51,6 +80,28 @@ export default function AdminLogin() {
         .single()
 
       if (userError || !userData) {
+        // Track failed login attempt
+        try {
+          const supabaseUrl = process.env.NEXT_PUBLIC_SUPABASE_URL!
+          const supabaseAnonKey = process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY!
+          
+          await fetch(`${supabaseUrl}/functions/v1/track-admin-access`, {
+            method: 'POST',
+            headers: {
+              'Content-Type': 'application/json',
+              'Authorization': `Bearer ${supabaseAnonKey}`,
+            },
+            body: JSON.stringify({
+              accessType: 'failed_login',
+              pagePath: '/admin/login',
+              attemptedUsername: username,
+              userAgent: navigator.userAgent,
+            }),
+          })
+        } catch (trackError) {
+          console.error('Error tracking failed login:', trackError)
+        }
+        
         throw new Error('Invalid username or password')
       }
 
