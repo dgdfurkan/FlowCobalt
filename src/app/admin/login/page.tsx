@@ -10,7 +10,7 @@ export const dynamic = 'force-dynamic'
 
 export default function AdminLogin() {
   const router = useRouter()
-  const [email, setEmail] = useState('')
+  const [username, setUsername] = useState('')
   const [password, setPassword] = useState('')
   const [loading, setLoading] = useState(false)
   const [error, setError] = useState('')
@@ -42,25 +42,40 @@ export default function AdminLogin() {
     }
 
     try {
+      // First, get admin by username from admins table
+      const { data: adminData, error: adminError } = await supabase
+        .from('admins')
+        .select('id, username, email')
+        .eq('username', username)
+        .single()
+
+      if (adminError || !adminData) {
+        throw new Error('Invalid username or password')
+      }
+
+      // Supabase Auth requires email, so we use the email from admin record
+      if (!adminData.email) {
+        throw new Error('Admin account is missing email. Please contact administrator.')
+      }
+
+      // Authenticate with email from admin record
       const { data, error: authError } = await supabase.auth.signInWithPassword({
-        email,
+        email: adminData.email,
         password,
       })
 
       if (authError) throw authError
 
-      if (data.user && supabase) {
-        // Check if user is admin
-        const { data: adminData, error: adminError } = await supabase
+      if (data.user) {
+        // Verify admin status one more time
+        const { data: verifyAdmin } = await supabase
           .from('admins')
-          .select('id')
-          .eq('email', email)
+          .select('id, username')
+          .eq('username', username)
           .single()
 
-        if (adminError || !adminData) {
-          if (supabase) {
-            await supabase.auth.signOut()
-          }
+        if (!verifyAdmin) {
+          await supabase.auth.signOut()
           throw new Error('Access denied. Admin privileges required.')
         }
 
@@ -88,17 +103,17 @@ export default function AdminLogin() {
 
         <form onSubmit={handleLogin} className="space-y-6">
           <div>
-            <label htmlFor="email" className="block text-sm font-medium text-text-primary mb-2">
-              Email
+            <label htmlFor="username" className="block text-sm font-medium text-text-primary mb-2">
+              Username
             </label>
             <input
-              id="email"
-              type="email"
-              value={email}
-              onChange={(e) => setEmail(e.target.value)}
+              id="username"
+              type="text"
+              value={username}
+              onChange={(e) => setUsername(e.target.value)}
               required
               className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-brand-purple focus:border-transparent"
-              placeholder="admin@example.com"
+              placeholder="admin"
             />
           </div>
 

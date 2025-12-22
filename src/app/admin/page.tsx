@@ -8,6 +8,7 @@ import Button from '@/components/ui/Button'
 export default function AdminDashboard() {
   const router = useRouter()
   const [user, setUser] = useState<any>(null)
+  const [adminUsername, setAdminUsername] = useState<string>('')
   const [loading, setLoading] = useState(true)
   const [stats, setStats] = useState({
     totalVisitors: 0,
@@ -41,13 +42,13 @@ export default function AdminDashboard() {
         return
       }
 
-      // Verify admin status
+      // Get admin username from admins table by email
       const { data: adminData } = await supabase
         .from('admins')
-        .select('id')
+        .select('id, username, email')
         .eq('email', currentUser.email)
         .single()
-
+      
       if (!adminData) {
         await supabase.auth.signOut()
         router.push('/admin/login')
@@ -55,6 +56,7 @@ export default function AdminDashboard() {
       }
 
       setUser(currentUser)
+      setAdminUsername(adminData.username)
     } catch (error) {
       console.error('Auth error:', error)
       if (supabase) {
@@ -128,7 +130,7 @@ export default function AdminDashboard() {
               Admin Dashboard
             </h1>
             <p className="text-text-secondary">
-              Welcome, {user?.email}
+              Welcome, {adminUsername || user?.email || 'Admin'}
             </p>
           </div>
           <Button variant="secondary" onClick={handleLogout}>
