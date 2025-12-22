@@ -1,0 +1,75 @@
+# Component Yapıları
+
+## COMPONENT
+
+- `home_customers-grid_component`
+- `w-layout-grid home_key-features_component`
+- `rel-navbar_component is-desktop w-nav`
+- `faqs_component`
+- `rel-navbar_component is-mobile w-nav`
+- `home_ai-agent-templates_component`
+- `testimonial18_component`
+- `home_awards-recognition_component`
+- `slider-main_component`
+- `logo3_component`
+- `typed-js_component`
+- `home_press-releases_component`
+- `w-layout-grid home_workforce-features_component`
+- `home_hero-header_component`
+- `home_footer-cta_component`
+- `layout484_component`
+- `home_scale-your-team_component`
+
+## CARD
+
+- `home_workforce-features_card card-1`
+- `feature-page-features_logos-card`
+- `home_key-features_card card-1`
+- `home_key-features_card-content-top`
+- `home_key-features_card card-3`
+- `home_key-features_card-content`
+- `home_key-features_icon-cards-items-content`
+- `home_awards-recognition_card shadow-small`
+- `home_footer-cta_card-content`
+- `home_key-features_card card-4`
+- `home_footer-cta_card text-color-alternate`
+- `heading-style-h5 is-agent-card`
+- `home_workforce-features_card-content`
+- `home_workforce-features_card card-3`
+- `home_workforce-features_card card-2`
+- `button is-secondary is-icon is-small is-card`
+- `home_awards-recognition_card-content-top`
+- `home_press-releases_card`
+- `home_key-features_card card-2`
+- `home_awards-recognition_card-content`
+- `home_key-features_icon-cards-wrapper`
+- `home_key-features_icon-cards-item`
+- `heading-style-h5 text-color-primary is-card`
+
+## SECTION
+
+- `padding-section-large`
+- `padding-section-medium`
+- `pill section-pill center`
+- `padding-section-medium none-bottom`
+- `section_home_hero-header`
+- `padding-section-large is-tight-top`
+- `padding-section-large is-none-bottom`
+
+## BUTTON
+
+- `button-group is-center`
+- `slider-main_button-wrapper hide`
+- `button is-secondary is-icon is-small is-card`
+- `button-group`
+- `rel-navbar_button-wrapper hide-mobile-landscape`
+- `rel-navbar_button-wrapper is-menu-buttons`
+- `home_customers-grid_button-wrapper`
+- `button-group is-left`
+- `rel-navbar_menu-button w-nav-button`
+- `slider-main_button-icon is-reversed w-embed`
+- `button is-link is-small text-style-link text-color-secondary`
+- `rel-navbar_button-wrapper`
+- `slider-main_button-icon w-embed`
+- `button-group is-banner`
+
