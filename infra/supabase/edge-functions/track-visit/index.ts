@@ -13,13 +13,18 @@ serve(async (req) => {
   }
 
   try {
+    console.log('Track-visit function called')
+    
     // Get IP address from request headers
     const forwardedFor = req.headers.get('x-forwarded-for')
     const realIp = req.headers.get('x-real-ip')
     const ipAddress = forwardedFor?.split(',')[0] || realIp || 'unknown'
+    
+    console.log('IP Address:', ipAddress)
 
     // Get request body
     const { pagePath, userAgent, referer } = await req.json()
+    console.log('Request body:', { pagePath, userAgent, referer })
 
     // Initialize Supabase client
     const supabaseUrl = Deno.env.get('SUPABASE_URL')!
@@ -115,18 +120,31 @@ serve(async (req) => {
       .select()
       .single()
 
-    if (visitError) throw visitError
+    if (visitError) {
+      console.error('Error creating visit:', visitError)
+      throw visitError
+    }
+
+    console.log('Visit created successfully:', visit.id, 'isNewVisit:', isNewVisit)
 
     // Check if notifications should be sent (not muted)
-    const { data: visitor } = await supabase
+    const { data: visitor, error: visitorCheckError } = await supabase
       .from('visitors')
       .select('is_muted')
       .eq('id', visitorId)
       .single()
 
+    if (visitorCheckError) {
+      console.error('Error checking visitor mute status:', visitorCheckError)
+    }
+
+    console.log('Visitor mute status:', visitor?.is_muted)
+
     if (!visitor?.is_muted) {
       // Trigger Telegram notification (async, don't wait)
       console.log('Triggering Telegram notification for visitor:', visitorId, 'isNewVisit:', isNewVisit)
+      console.log('Supabase URL:', supabaseUrl)
+      console.log('Telegram endpoint:', `${supabaseUrl}/functions/v1/send-telegram`)
       
       fetch(`${supabaseUrl}/functions/v1/send-telegram`, {
         method: 'POST',
