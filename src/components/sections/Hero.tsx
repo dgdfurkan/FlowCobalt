@@ -31,83 +31,39 @@ export default function Hero() {
 
   return (
     <section className="section-padding bg-background relative overflow-hidden">
-      {/* Decorative lines background */}
+      {/* Decorative grate lines background - Relevance AI style */}
       <div className="absolute inset-0 pointer-events-none overflow-hidden">
-        {/* Line behind title - responsive positioning */}
-        <svg
-          className="absolute left-0 w-full opacity-[0.15]"
+        {/* Grate pattern behind title */}
+        <div 
+          className="absolute left-0 w-full opacity-30"
           style={{
-            top: 'clamp(15%, 20%, 25%)',
-            height: 'clamp(300px, 50vh, 600px)',
+            top: 'clamp(10%, 15%, 20%)',
+            height: 'clamp(200px, 40vh, 500px)',
           }}
-          viewBox="0 0 1440 400"
-          preserveAspectRatio="none"
         >
-          <defs>
-            <linearGradient id="lineGradient1" x1="0%" y1="0%" x2="100%" y2="0%">
-              <stop offset="0%" stopColor="#9ca3af" stopOpacity="0.3" />
-              <stop offset="50%" stopColor="#6b7280" stopOpacity="0.4" />
-              <stop offset="100%" stopColor="#9ca3af" stopOpacity="0.3" />
-            </linearGradient>
-          </defs>
-          {/* Main wavy line */}
-          <path
-            d="M-200,200 Q200,120 500,200 T1100,200 T1600,200"
-            stroke="url(#lineGradient1)"
-            strokeWidth="2.5"
-            fill="none"
-            strokeLinecap="round"
-            className="hidden md:block"
+          <img
+            src={`${process.env.NEXT_PUBLIC_BASE_PATH || ''}/images/decorative-lines.svg`}
+            alt=""
+            className="w-full h-full object-cover object-center"
+            style={{ mixBlendMode: 'multiply' }}
           />
-          {/* Secondary subtle line */}
-          <path
-            d="M-150,180 Q250,100 550,180 T1050,180 T1550,180"
-            stroke="#d1d5db"
-            strokeWidth="1.5"
-            fill="none"
-            strokeLinecap="round"
-            strokeOpacity="0.4"
-            className="hidden lg:block"
-          />
-        </svg>
+        </div>
         
-        {/* Line behind buttons - responsive positioning */}
-        <svg
-          className="absolute left-0 w-full opacity-[0.15]"
+        {/* Grate pattern behind buttons */}
+        <div 
+          className="absolute left-0 w-full opacity-30"
           style={{
-            top: 'clamp(60%, 70%, 75%)',
-            height: 'clamp(200px, 30vh, 400px)',
+            top: 'clamp(55%, 65%, 70%)',
+            height: 'clamp(150px, 25vh, 300px)',
           }}
-          viewBox="0 0 1440 300"
-          preserveAspectRatio="none"
         >
-          <defs>
-            <linearGradient id="lineGradient2" x1="0%" y1="0%" x2="100%" y2="0%">
-              <stop offset="0%" stopColor="#9ca3af" stopOpacity="0.3" />
-              <stop offset="50%" stopColor="#6b7280" stopOpacity="0.4" />
-              <stop offset="100%" stopColor="#9ca3af" stopOpacity="0.3" />
-            </linearGradient>
-          </defs>
-          {/* Main curved line */}
-          <path
-            d="M-200,200 Q300,150 700,200 T1400,200"
-            stroke="url(#lineGradient2)"
-            strokeWidth="2.5"
-            fill="none"
-            strokeLinecap="round"
-            className="hidden sm:block"
+          <img
+            src={`${process.env.NEXT_PUBLIC_BASE_PATH || ''}/images/decorative-lines.svg`}
+            alt=""
+            className="w-full h-full object-cover object-center"
+            style={{ mixBlendMode: 'multiply' }}
           />
-          {/* Secondary subtle line */}
-          <path
-            d="M-150,180 Q350,130 750,180 T1350,180"
-            stroke="#d1d5db"
-            strokeWidth="1.5"
-            fill="none"
-            strokeLinecap="round"
-            strokeOpacity="0.4"
-            className="hidden md:block"
-          />
-        </svg>
+        </div>
       </div>
 
       <div className="container-custom relative z-10">
