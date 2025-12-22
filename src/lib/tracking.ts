@@ -75,7 +75,7 @@ class TrackingService {
   }
 
   async trackEvent(event: TrackingEvent) {
-    if (!isSupabaseAvailable() || !this.isInitialized) return
+    if (!isSupabaseAvailable() || !this.isInitialized || !supabase) return
 
     try {
       await supabase.from('events').insert({

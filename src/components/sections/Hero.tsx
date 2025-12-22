@@ -43,7 +43,7 @@ export default function Hero() {
           </h1>
           
           <p ref={subtitleRef} className="text-lg md:text-xl text-text-secondary mb-8 max-w-2xl mx-auto">
-            We build practical AI + n8n automations that reduce errors and free up your team's time.
+            We build practical AI + n8n automations that reduce errors and free up your team&apos;s time.
           </p>
           
           <div ref={buttonsRef} className="flex flex-col sm:flex-row gap-4 justify-center items-center">

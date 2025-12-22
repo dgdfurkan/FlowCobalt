@@ -63,7 +63,7 @@ export default function CaseStudies() {
             Success Stories
           </h2>
           <p className="text-lg text-text-secondary max-w-2xl mx-auto">
-            See how we've helped teams automate their workflows
+            See how we&apos;ve helped teams automate their workflows
           </p>
         </div>
         

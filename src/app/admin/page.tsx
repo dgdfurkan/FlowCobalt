@@ -24,13 +24,19 @@ export default function AdminDashboard() {
 
     checkAuth()
     loadStats()
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [router])
 
   const checkAuth = async () => {
+    if (!supabase) {
+      router.push('/admin/login')
+      return
+    }
+    
     try {
       const { data: { user: currentUser } } = await supabase.auth.getUser()
       
-      if (!currentUser) {
+      if (!currentUser || !supabase) {
         router.push('/admin/login')
         return
       }
@@ -51,6 +57,9 @@ export default function AdminDashboard() {
       setUser(currentUser)
     } catch (error) {
       console.error('Auth error:', error)
+      if (supabase) {
+        await supabase.auth.signOut()
+      }
       router.push('/admin/login')
     } finally {
       setLoading(false)
@@ -58,6 +67,8 @@ export default function AdminDashboard() {
   }
 
   const loadStats = async () => {
+    if (!supabase) return
+    
     try {
       // Total visitors
       const { count: totalVisitors } = await supabase
@@ -93,7 +104,9 @@ export default function AdminDashboard() {
   }
 
   const handleLogout = async () => {
-    await supabase.auth.signOut()
+    if (supabase) {
+      await supabase.auth.signOut()
+    }
     router.push('/admin/login')
   }
 

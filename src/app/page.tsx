@@ -11,8 +11,10 @@ export default function Home() {
   const tracking = useTracking()
 
   useEffect(() => {
-    // Track page view
-    tracking.trackPageView('/')
+    // Track page view (only in browser, not during build)
+    if (typeof window !== 'undefined') {
+      tracking.trackPageView('/')
+    }
   }, [tracking])
 
   return (

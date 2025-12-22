@@ -5,6 +5,9 @@ import { useRouter } from 'next/navigation'
 import { supabase, isSupabaseAvailable } from '@/lib/supabase'
 import Button from '@/components/ui/Button'
 
+// Disable static generation for admin pages
+export const dynamic = 'force-dynamic'
+
 export default function AdminLogin() {
   const router = useRouter()
   const [email, setEmail] = useState('')
@@ -32,6 +35,12 @@ export default function AdminLogin() {
     setLoading(true)
     setError('')
 
+    if (!supabase) {
+      setError('Authentication service unavailable')
+      setLoading(false)
+      return
+    }
+
     try {
       const { data, error: authError } = await supabase.auth.signInWithPassword({
         email,
@@ -40,7 +49,7 @@ export default function AdminLogin() {
 
       if (authError) throw authError
 
-      if (data.user) {
+      if (data.user && supabase) {
         // Check if user is admin
         const { data: adminData, error: adminError } = await supabase
           .from('admins')
@@ -49,7 +58,9 @@ export default function AdminLogin() {
           .single()
 
         if (adminError || !adminData) {
-          await supabase.auth.signOut()
+          if (supabase) {
+            await supabase.auth.signOut()
+          }
           throw new Error('Access denied. Admin privileges required.')
         }
 
