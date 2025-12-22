@@ -126,6 +126,8 @@ serve(async (req) => {
 
     if (!visitor?.is_muted) {
       // Trigger Telegram notification (async, don't wait)
+      console.log('Triggering Telegram notification for visitor:', visitorId, 'isNewVisit:', isNewVisit)
+      
       fetch(`${supabaseUrl}/functions/v1/send-telegram`, {
         method: 'POST',
         headers: {
@@ -141,7 +143,19 @@ serve(async (req) => {
           city,
           region,
         }),
-      }).catch(console.error)
+      })
+        .then(async (response) => {
+          const result = await response.json()
+          console.log('Telegram notification response:', result)
+          if (!response.ok) {
+            console.error('Telegram notification failed:', result)
+          }
+        })
+        .catch((error) => {
+          console.error('Telegram notification error:', error)
+        })
+    } else {
+      console.log('Visitor is muted, skipping Telegram notification')
     }
 
     return new Response(
