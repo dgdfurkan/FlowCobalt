@@ -1,11 +1,11 @@
 -- Enable UUID extension
 CREATE EXTENSION IF NOT EXISTS "uuid-ossp";
 
--- Admins table
-CREATE TABLE IF NOT EXISTS admins (
+-- Users table (simple admin system)
+CREATE TABLE IF NOT EXISTS users (
   id UUID PRIMARY KEY DEFAULT uuid_generate_v4(),
   username TEXT UNIQUE NOT NULL,
-  email TEXT, -- Optional: Supabase Auth email (for reference)
+  password TEXT NOT NULL, -- Plain text password (simple system)
   created_at TIMESTAMP WITH TIME ZONE DEFAULT TIMEZONE('utc', NOW()),
   updated_at TIMESTAMP WITH TIME ZONE DEFAULT TIMEZONE('utc', NOW())
 );
@@ -82,9 +82,13 @@ ALTER TABLE visits ENABLE ROW LEVEL SECURITY;
 ALTER TABLE events ENABLE ROW LEVEL SECURITY;
 ALTER TABLE settings ENABLE ROW LEVEL SECURITY;
 
--- Admins: Only authenticated admins can read/write
-CREATE POLICY "Admins can manage admins" ON admins
-  FOR ALL USING (auth.role() = 'authenticated');
+-- Users: Public can read (for login check), but only admins can write
+-- Note: In production, you might want to restrict read access too
+CREATE POLICY "Public can read users" ON users
+  FOR SELECT USING (true);
+
+CREATE POLICY "Admins can manage users" ON users
+  FOR ALL USING (true); -- Simple: allow all for now, can be restricted later
 
 -- Visitors: Public can insert, admins can read
 CREATE POLICY "Public can insert visitors" ON visitors

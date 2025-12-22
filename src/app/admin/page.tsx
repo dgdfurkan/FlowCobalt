@@ -8,7 +8,6 @@ import Button from '@/components/ui/Button'
 export default function AdminDashboard() {
   const router = useRouter()
   const [user, setUser] = useState<any>(null)
-  const [adminUsername, setAdminUsername] = useState<string>('')
   const [loading, setLoading] = useState(true)
   const [stats, setStats] = useState({
     totalVisitors: 0,
@@ -28,40 +27,25 @@ export default function AdminDashboard() {
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [router])
 
-  const checkAuth = async () => {
-    if (!supabase) {
+  const checkAuth = () => {
+    // Simple session check from sessionStorage
+    if (typeof window === 'undefined') {
       router.push('/admin/login')
       return
     }
-    
+
+    const storedUser = sessionStorage.getItem('admin_user')
+    if (!storedUser) {
+      router.push('/admin/login')
+      return
+    }
+
     try {
-      const { data: { user: currentUser } } = await supabase.auth.getUser()
-      
-      if (!currentUser || !supabase) {
-        router.push('/admin/login')
-        return
-      }
-
-      // Get admin username from admins table by email
-      const { data: adminData } = await supabase
-        .from('admins')
-        .select('id, username, email')
-        .eq('email', currentUser.email)
-        .single()
-      
-      if (!adminData) {
-        await supabase.auth.signOut()
-        router.push('/admin/login')
-        return
-      }
-
-      setUser(currentUser)
-      setAdminUsername(adminData.username)
+      const userData = JSON.parse(storedUser)
+      setUser(userData)
     } catch (error) {
       console.error('Auth error:', error)
-      if (supabase) {
-        await supabase.auth.signOut()
-      }
+      sessionStorage.removeItem('admin_user')
       router.push('/admin/login')
     } finally {
       setLoading(false)
@@ -105,10 +89,8 @@ export default function AdminDashboard() {
     }
   }
 
-  const handleLogout = async () => {
-    if (supabase) {
-      await supabase.auth.signOut()
-    }
+  const handleLogout = () => {
+    sessionStorage.removeItem('admin_user')
     router.push('/admin/login')
   }
 
@@ -130,7 +112,7 @@ export default function AdminDashboard() {
               Admin Dashboard
             </h1>
             <p className="text-text-secondary">
-              Welcome, {adminUsername || user?.email || 'Admin'}
+              Welcome, {user?.username || 'Admin'}
             </p>
           </div>
           <Button variant="secondary" onClick={handleLogout}>

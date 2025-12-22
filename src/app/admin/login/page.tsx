@@ -42,46 +42,26 @@ export default function AdminLogin() {
     }
 
     try {
-      // First, get admin by username from admins table
-      const { data: adminData, error: adminError } = await supabase
-        .from('admins')
-        .select('id, username, email')
+      // Simple username/password check from users table
+      const { data: userData, error: userError } = await supabase
+        .from('users')
+        .select('id, username, password')
         .eq('username', username)
+        .eq('password', password) // Plain text comparison
         .single()
 
-      if (adminError || !adminData) {
+      if (userError || !userData) {
         throw new Error('Invalid username or password')
       }
 
-      // Supabase Auth requires email, so we use the email from admin record
-      if (!adminData.email) {
-        throw new Error('Admin account is missing email. Please contact administrator.')
-      }
+      // Store user info in sessionStorage for simple session management
+      sessionStorage.setItem('admin_user', JSON.stringify({
+        id: userData.id,
+        username: userData.username,
+      }))
 
-      // Authenticate with email from admin record
-      const { data, error: authError } = await supabase.auth.signInWithPassword({
-        email: adminData.email,
-        password,
-      })
-
-      if (authError) throw authError
-
-      if (data.user) {
-        // Verify admin status one more time
-        const { data: verifyAdmin } = await supabase
-          .from('admins')
-          .select('id, username')
-          .eq('username', username)
-          .single()
-
-        if (!verifyAdmin) {
-          await supabase.auth.signOut()
-          throw new Error('Access denied. Admin privileges required.')
-        }
-
-        router.push('/admin')
-        router.refresh()
-      }
+      router.push('/admin')
+      router.refresh()
     } catch (err: any) {
       setError(err.message || 'An error occurred during login')
     } finally {
