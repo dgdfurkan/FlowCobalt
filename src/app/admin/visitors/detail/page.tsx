@@ -91,18 +91,32 @@ function VisitorDetailContent() {
   }
 
   const toggleMute = async () => {
-    if (!supabase || !visitor) return
+    if (!supabase || !visitor || !visitorId) return
+
+    const newMuteStatus = !visitor.is_muted
 
     try {
-      const { error } = await supabase
+      const { data, error } = await supabase
         .from('visitors')
-        .update({ is_muted: !visitor.is_muted })
+        .update({ is_muted: newMuteStatus })
         .eq('id', visitorId)
+        .select()
+        .single()
 
-      if (error) throw error
-      setVisitor({ ...visitor, is_muted: !visitor.is_muted })
+      if (error) {
+        console.error('Error updating mute status:', error)
+        alert(`Failed to update mute status: ${error.message}`)
+        return
+      }
+
+      // Update local state with the response from Supabase
+      if (data) {
+        setVisitor(data)
+        console.log(`Visitor ${newMuteStatus ? 'muted' : 'unmuted'} successfully`)
+      }
     } catch (error) {
       console.error('Error toggling mute:', error)
+      alert(`Failed to update mute status: ${error instanceof Error ? error.message : 'Unknown error'}`)
     }
   }
 

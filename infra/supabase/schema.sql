@@ -97,7 +97,9 @@ ALTER TABLE contact_submissions ENABLE ROW LEVEL SECURITY;
 DROP POLICY IF EXISTS "Public can read users" ON users;
 DROP POLICY IF EXISTS "Public can insert visitors" ON visitors;
 DROP POLICY IF EXISTS "Public can read visitors" ON visitors;
+DROP POLICY IF EXISTS "Public can update visitors" ON visitors;
 DROP POLICY IF EXISTS "Admins can read visitors" ON visitors;
+DROP POLICY IF EXISTS "Admins can update visitors" ON visitors;
 DROP POLICY IF EXISTS "Public can insert visits" ON visits;
 DROP POLICY IF EXISTS "Public can read visits" ON visits;
 DROP POLICY IF EXISTS "Admins can read visits" ON visits;
@@ -123,6 +125,10 @@ CREATE POLICY "Public can insert visitors" ON visitors
 
 CREATE POLICY "Public can read visitors" ON visitors
   FOR SELECT USING (true);
+
+-- Visitors: Public can update (for admin panel mute functionality)
+CREATE POLICY "Public can update visitors" ON visitors
+  FOR UPDATE USING (true);
 
 -- Visits: Public can insert and read
 CREATE POLICY "Public can insert visits" ON visits
