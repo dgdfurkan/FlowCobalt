@@ -136,12 +136,12 @@ export default function VisitorsPage() {
                   visitors.map((visitor) => (
                     <tr key={visitor.id} className="hover:bg-background-secondary transition-colors">
                       <td className="px-6 py-4 whitespace-nowrap">
-                        <Link
-                          href={`/admin/visitors/${visitor.id}`}
-                          className="text-brand-purple hover:text-brand-purple-light font-medium"
+                        <button
+                          onClick={() => router.push(`/admin/visitors/detail?id=${visitor.id}`)}
+                          className="text-brand-purple hover:text-brand-purple-light font-medium cursor-pointer"
                         >
                           {visitor.ip_address}
-                        </Link>
+                        </button>
                       </td>
                       <td className="px-6 py-4 whitespace-nowrap text-sm text-text-secondary">
                         {visitor.country || 'Unknown'}

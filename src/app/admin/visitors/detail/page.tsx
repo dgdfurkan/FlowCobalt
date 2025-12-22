@@ -1,7 +1,7 @@
 'use client'
 
-import { useEffect, useState } from 'react'
-import { useRouter } from 'next/navigation'
+import { useEffect, useState, Suspense } from 'react'
+import { useRouter, useSearchParams } from 'next/navigation'
 import Link from 'next/link'
 import { supabase, isSupabaseAvailable } from '@/lib/supabase'
 import Button from '@/components/ui/Button'
@@ -27,12 +27,10 @@ interface Visit {
   created_at: string
 }
 
-interface Props {
-  visitorId: string
-}
-
-export default function VisitorDetailClient({ visitorId }: Props) {
+function VisitorDetailContent() {
   const router = useRouter()
+  const searchParams = useSearchParams()
+  const visitorId = searchParams.get('id')
   const [loading, setLoading] = useState(true)
   const [visitor, setVisitor] = useState<Visitor | null>(null)
   const [visits, setVisits] = useState<Visit[]>([])
@@ -55,7 +53,9 @@ export default function VisitorDetailClient({ visitorId }: Props) {
       return
     }
 
-    loadVisitorDetails()
+    if (visitorId) {
+      loadVisitorDetails()
+    }
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [router, visitorId])
 
@@ -281,6 +281,18 @@ export default function VisitorDetailClient({ visitorId }: Props) {
         </div>
       </div>
     </div>
+  )
+}
+
+export default function VisitorDetailPage() {
+  return (
+    <Suspense fallback={
+      <div className="min-h-screen flex items-center justify-center">
+        <div className="text-text-secondary">Loading...</div>
+      </div>
+    }>
+      <VisitorDetailContent />
+    </Suspense>
   )
 }
 

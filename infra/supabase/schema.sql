@@ -110,6 +110,7 @@ DROP POLICY IF EXISTS "Admins can manage admins" ON admins;
 DROP POLICY IF EXISTS "Admins can manage users" ON users;
 DROP POLICY IF EXISTS "Public can insert contact_submissions" ON contact_submissions;
 DROP POLICY IF EXISTS "Public can read contact_submissions" ON contact_submissions;
+DROP POLICY IF EXISTS "Admins can read contact_submissions" ON contact_submissions;
 
 -- Users: Public can read (for login check)
 -- Note: In production, you might want to restrict this
