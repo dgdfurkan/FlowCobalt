@@ -144,34 +144,52 @@ serve(async (req) => {
       // Trigger Telegram notification (async, don't wait)
       console.log('Triggering Telegram notification for visitor:', visitorId, 'isNewVisit:', isNewVisit)
       console.log('Supabase URL:', supabaseUrl)
+      console.log('Supabase Key exists:', !!supabaseKey)
       console.log('Telegram endpoint:', `${supabaseUrl}/functions/v1/send-telegram`)
       
-      fetch(`${supabaseUrl}/functions/v1/send-telegram`, {
-        method: 'POST',
-        headers: {
-          'Content-Type': 'application/json',
-          'Authorization': `Bearer ${supabaseKey}`,
-        },
-        body: JSON.stringify({
-          visitorId,
-          visitId: visit.id,
-          isNewVisit,
-          ipAddress,
-          country,
-          city,
-          region,
-        }),
-      })
-        .then(async (response) => {
-          const result = await response.json()
-          console.log('Telegram notification response:', result)
-          if (!response.ok) {
-            console.error('Telegram notification failed:', result)
-          }
+      const telegramPayload = {
+        visitorId,
+        visitId: visit.id,
+        isNewVisit,
+        ipAddress,
+        country,
+        city,
+        region,
+      }
+      console.log('Telegram payload:', telegramPayload)
+      
+      const telegramUrl = `${supabaseUrl}/functions/v1/send-telegram`
+      console.log('Calling Telegram function at:', telegramUrl)
+      
+      try {
+        const response = await fetch(telegramUrl, {
+          method: 'POST',
+          headers: {
+            'Content-Type': 'application/json',
+            'Authorization': `Bearer ${supabaseKey}`,
+          },
+          body: JSON.stringify(telegramPayload),
         })
-        .catch((error) => {
-          console.error('Telegram notification error:', error)
+        
+        console.log('Telegram fetch response status:', response.status)
+        console.log('Telegram fetch response ok:', response.ok)
+        
+        const result = await response.json()
+        console.log('Telegram notification response:', result)
+        
+        if (!response.ok) {
+          console.error('Telegram notification failed:', result)
+        } else {
+          console.log('Telegram notification succeeded:', result)
+        }
+      } catch (fetchError) {
+        console.error('Telegram fetch error:', fetchError)
+        console.error('Error details:', {
+          message: fetchError.message,
+          stack: fetchError.stack,
+          name: fetchError.name,
         })
+      }
     } else {
       console.log('Visitor is muted, skipping Telegram notification')
     }
