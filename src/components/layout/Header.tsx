@@ -27,7 +27,7 @@ export default function Header() {
           {/* Logo */}
           <Link href="/" className="flex items-center space-x-2">
             <Image
-              src="/images/logo/FlowCobaltLogo.png"
+              src={`${process.env.NEXT_PUBLIC_BASE_PATH || ''}/images/logo/FlowCobaltLogo.png`}
               alt="FlowCobalt Logo"
               width={40}
               height={40}
