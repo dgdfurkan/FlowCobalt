@@ -168,8 +168,8 @@ serve(async (req) => {
       console.log('Calling Telegram function at:', telegramUrl)
       
       try {
-        // For Supabase Edge Function to Edge Function calls, use apikey header only
-        // Service role key should be used as apikey, not as Bearer token
+        // For Supabase Edge Function to Edge Function calls
+        // Use both apikey and Authorization headers with service role key
         console.log('Sending request with apikey:', supabaseKey ? `${supabaseKey.substring(0, 20)}...` : 'MISSING')
         
         const response = await fetch(telegramUrl, {
@@ -177,6 +177,8 @@ serve(async (req) => {
           headers: {
             'Content-Type': 'application/json',
             'apikey': supabaseKey,
+            'Authorization': `Bearer ${supabaseKey}`,
+            'x-client-info': 'edge-function',
           },
           body: JSON.stringify(telegramPayload),
         })
