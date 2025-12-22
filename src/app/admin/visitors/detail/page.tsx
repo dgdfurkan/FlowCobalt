@@ -45,7 +45,6 @@ function VisitorDetailContent() {
   const [visitor, setVisitor] = useState<Visitor | null>(null)
   const [visits, setVisits] = useState<Visit[]>([])
   const [adminAccessLogs, setAdminAccessLogs] = useState<AdminAccessLog[]>([])
-  const [adminAccessLogs, setAdminAccessLogs] = useState<AdminAccessLog[]>([])
 
   useEffect(() => {
     if (!isSupabaseAvailable()) {
@@ -120,17 +119,6 @@ function VisitorDetailContent() {
 
             if (visitsError) throw visitsError
             setVisits(visitsData || [])
-
-            // Load admin access logs
-            const { data: accessLogsData, error: accessLogsError } = await supabase
-              .from('admin_access_logs')
-              .select('id, access_type, page_path, attempted_username, created_at')
-              .eq('visitor_id', visitorId)
-              .order('created_at', { ascending: false })
-              .limit(50)
-
-            if (accessLogsError) throw accessLogsError
-            setAdminAccessLogs(accessLogsData || [])
 
             // Load admin access logs
             const { data: accessLogsData, error: accessLogsError } = await supabase
