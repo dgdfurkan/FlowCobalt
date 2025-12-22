@@ -76,12 +76,6 @@ export default function Header() {
             >
               Contact
             </Link>
-            <Link
-              href="/admin/login"
-              className="text-sm font-medium text-text-secondary hover:text-brand-purple transition-colors"
-            >
-              Admin
-            </Link>
           </div>
 
           {/* CTA Buttons - Desktop */}

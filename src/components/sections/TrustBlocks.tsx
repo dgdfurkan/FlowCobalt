@@ -4,17 +4,17 @@ const trustBlocks = [
   {
     title: 'Fast delivery',
     description: '1–2 weeks',
-    subtitle: 'Hızlı teslimat garantisi',
+    subtitle: 'Fast delivery guarantee',
   },
   {
     title: 'Async-first communication',
     description: 'Works across time zones',
-    subtitle: 'Zaman dilimi engeli yok',
+    subtitle: 'No time zone barriers',
   },
   {
     title: 'Documentation + monitoring',
     description: 'Included',
-    subtitle: 'Dokümantasyon ve izleme dahil',
+    subtitle: 'Documentation and monitoring included',
   },
 ]
 

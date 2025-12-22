@@ -2,22 +2,22 @@ const processSteps = [
   {
     number: '01',
     title: 'Discover',
-    description: 'Süreci anlıyoruz',
+    description: 'We understand your process',
   },
   {
     number: '02',
     title: 'Build',
-    description: 'Otomasyonu geliştiriyoruz',
+    description: 'We develop the automation',
   },
   {
     number: '03',
     title: 'Deploy',
-    description: 'Canlıya alıyoruz',
+    description: 'We deploy to production',
   },
   {
     number: '04',
     title: 'Support',
-    description: 'Destek sağlıyoruz',
+    description: 'We provide ongoing support',
   },
 ]
 
