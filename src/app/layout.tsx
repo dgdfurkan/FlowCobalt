@@ -8,13 +8,13 @@ export const metadata: Metadata = {
   description: "We build practical AI + n8n automations that reduce errors and free up your team's time.",
   icons: {
     icon: [
-      { url: '/images/logo/logo2.png', sizes: '32x32', type: 'image/png' },
-      { url: '/images/logo/logo2.png', sizes: '16x16', type: 'image/png' },
+      { url: '/FlowCobalt/images/logo/logo2.png', sizes: '32x32', type: 'image/png' },
+      { url: '/FlowCobalt/images/logo/logo2.png', sizes: '16x16', type: 'image/png' },
     ],
     apple: [
-      { url: '/images/logo/logo2.png', sizes: '180x180', type: 'image/png' },
+      { url: '/FlowCobalt/images/logo/logo2.png', sizes: '180x180', type: 'image/png' },
     ],
-    shortcut: '/images/logo/logo2.png',
+    shortcut: '/FlowCobalt/images/logo/logo2.png',
   },
 };
 
