@@ -75,45 +75,42 @@ CREATE INDEX IF NOT EXISTS idx_events_visit_id ON events(visit_id);
 CREATE INDEX IF NOT EXISTS idx_events_created_at ON events(created_at);
 CREATE INDEX IF NOT EXISTS idx_events_event_type ON events(event_type);
 
--- RLS Policies
-ALTER TABLE admins ENABLE ROW LEVEL SECURITY;
+-- RLS Policies (Simplified - no auth.role() checks)
+ALTER TABLE users ENABLE ROW LEVEL SECURITY;
 ALTER TABLE visitors ENABLE ROW LEVEL SECURITY;
 ALTER TABLE visits ENABLE ROW LEVEL SECURITY;
 ALTER TABLE events ENABLE ROW LEVEL SECURITY;
 ALTER TABLE settings ENABLE ROW LEVEL SECURITY;
 
--- Users: Public can read (for login check), but only admins can write
--- Note: In production, you might want to restrict read access too
+-- Users: Public can read (for login check)
+-- Note: In production, you might want to restrict this
 CREATE POLICY "Public can read users" ON users
   FOR SELECT USING (true);
 
-CREATE POLICY "Admins can manage users" ON users
-  FOR ALL USING (true); -- Simple: allow all for now, can be restricted later
-
--- Visitors: Public can insert, admins can read
+-- Visitors: Public can insert and read
 CREATE POLICY "Public can insert visitors" ON visitors
   FOR INSERT WITH CHECK (true);
 
-CREATE POLICY "Admins can read visitors" ON visitors
-  FOR SELECT USING (auth.role() = 'authenticated');
+CREATE POLICY "Public can read visitors" ON visitors
+  FOR SELECT USING (true);
 
--- Visits: Public can insert, admins can read
+-- Visits: Public can insert and read
 CREATE POLICY "Public can insert visits" ON visits
   FOR INSERT WITH CHECK (true);
 
-CREATE POLICY "Admins can read visits" ON visits
-  FOR SELECT USING (auth.role() = 'authenticated');
+CREATE POLICY "Public can read visits" ON visits
+  FOR SELECT USING (true);
 
--- Events: Public can insert, admins can read
+-- Events: Public can insert and read
 CREATE POLICY "Public can insert events" ON events
   FOR INSERT WITH CHECK (true);
 
-CREATE POLICY "Admins can read events" ON events
-  FOR SELECT USING (auth.role() = 'authenticated');
+CREATE POLICY "Public can read events" ON events
+  FOR SELECT USING (true);
 
--- Settings: Only admins can read/write
-CREATE POLICY "Admins can manage settings" ON settings
-  FOR ALL USING (auth.role() = 'authenticated');
+-- Settings: Public can read (for admin panel)
+CREATE POLICY "Public can read settings" ON settings
+  FOR SELECT USING (true);
 
 -- Insert default settings
 INSERT INTO settings (key, value, description) VALUES
