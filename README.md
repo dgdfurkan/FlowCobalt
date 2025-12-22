@@ -17,6 +17,11 @@ FlowCobalt, küçük ve orta ölçekli ekiplerin operasyonel süreçlerindeki ma
 - [Portföy Oluşturma](#portföy-oluşturma)
 - [14 Günlük Yol Haritası](#14-günlük-yol-haritası)
 
+## Proje Dokümantasyonu
+
+- **[PROJECT_SETUP.md](./PROJECT_SETUP.md)** - Proje kurulum adımları ve teknik gereksinimler
+- **[BRAND_NAME_RESEARCH.md](./BRAND_NAME_RESEARCH.md)** - Marka ismi araştırması ve domain önerileri
+
 ---
 
 ## Konumlandırma
