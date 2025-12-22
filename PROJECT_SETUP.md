@@ -294,7 +294,40 @@ Aşağıdaki davranış hedeflenmeli:
 
 ---
 
-### 11) Çıktı Beklentileri
+### 11) 🔒 UI/UX Kritik Öncelik — Zorunlu Hatırlatma
+
+**UI ve UX bu projenin "1 numaralı kalite kriteridir".**
+
+Bu projede "çalışıyor" olması yeterli değildir. Kullanıcı deneyimi ve arayüz kalitesi, teknik doğruluk kadar önemlidir.
+
+#### Cursor için Zorunlu Kurallar
+
+**Her görevde UI/UX etkisi mutlaka değerlendirilir.**
+- Bir görev "backend" gibi görünse bile (auth, tracking, admin ayarları), bunun arayüze yansıması (hata ekranları, loading durumları, erişim akışı, bilgilendirme metinleri) düşünülmeden ilerlenmez.
+
+**Responsive tasarım zorunludur: Web + Tablet + Mobile**
+- Tek bir ekran boyutuna göre tasarım yapılmayacak.
+- Farklı çözünürlüklerde (özellikle 1366×768, mobil dar ekranlar, tablet ara boyutlar, ultra-wide) UI kırılmaları kontrol edilmeden iş "tamamlandı" sayılmaz.
+
+**UX akışı net değilse önce soru sor.**
+- Navigasyon, admin giriş akışı, error state, empty state, success feedback, bildirim ayarları gibi akışlar belirsizse varsayım yapma; kullanıcıdan netleştir.
+
+**Her UI değişikliğinde "UI/UX kontrol listesi" zorunlu.**
+Plan aşamasında şu kontrol listesi mutlaka yer alacak:
+
+- [ ] **Mobile:** taşma yok, dokunma alanları yeterli
+- [ ] **Tablet:** grid/kolon dengeli
+- [ ] **1366×768:** kritik içerikler/CTA'lar görünür
+- [ ] **Desktop:** boşluklar ve max-width okunabilir
+- [ ] **Ultra-wide:** satır uzunluğu kontrolden çıkmıyor
+- [ ] **Loading/Error/Empty state:** kullanıcıyı yönlendiriyor
+
+**Kullanıcı deneyimini bozabilecek riskler koddan önce söylenir.**
+- "Bu değişiklik layout'u etkileyebilir…", "Şu breakpoint'te taşma olabilir…" gibi riskler daha kod yazılmadan kullanıcıya bildirilir.
+
+---
+
+### 12) Çıktı Beklentileri
 
 Bu prompt uygulandığında şu çıktılar üretilecek:
 
@@ -307,7 +340,7 @@ Bu prompt uygulandığında şu çıktılar üretilecek:
 
 ---
 
-### 12) Kabul Kriterleri (Başarı Tanımı)
+### 13) Kabul Kriterleri (Başarı Tanımı)
 
 - [ ] Örnek site incelenmiş ve referans klasörde ayrıntılı veri olarak saklanmış
 - [ ] Public site Supabase yokken de "kırılmadan" çalışıyor
