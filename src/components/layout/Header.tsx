@@ -31,7 +31,7 @@ export default function Header() {
           {/* Logo */}
           <Link href="/" className="flex items-center space-x-2">
             <Image
-              src={`${process.env.NEXT_PUBLIC_BASE_PATH || ''}/images/logo/logo2.png`}
+              src={`${process.env.NEXT_PUBLIC_BASE_PATH || ''}/images/logo/logo3.png`}
               alt="FlowCobalt Logo"
               width={40}
               height={40}

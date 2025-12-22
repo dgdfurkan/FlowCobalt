@@ -12,7 +12,7 @@ export default function Footer() {
           <div className="lg:col-span-1">
             <Link href="/" className="flex items-center space-x-2 mb-4">
               <Image
-                src={`${process.env.NEXT_PUBLIC_BASE_PATH || ''}/images/logo/logo2.png`}
+                src={`${process.env.NEXT_PUBLIC_BASE_PATH || ''}/images/logo/logo3.png`}
                 alt="FlowCobalt Logo"
                 width={32}
                 height={32}

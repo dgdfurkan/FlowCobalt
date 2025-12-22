@@ -11,10 +11,7 @@ if (typeof window !== 'undefined') {
   gsap.registerPlugin(ScrollTrigger)
 }
 
-// Show first 3 case studies on homepage
-const featuredCaseStudies = caseStudies.slice(0, 3)
-
-export default function CaseStudies() {
+export default function CaseStudiesList() {
   const sectionRef = useRef<HTMLElement>(null)
   const cardsRef = useRef<HTMLDivElement>(null)
 
@@ -27,7 +24,7 @@ export default function CaseStudies() {
           opacity: 0,
           y: 50,
           duration: 0.8,
-          stagger: 0.2,
+          stagger: 0.15,
           scrollTrigger: {
             trigger: sectionRef.current,
             start: 'top 80%',
@@ -49,12 +46,12 @@ export default function CaseStudies() {
             Success Stories
           </h2>
           <p className="text-lg text-text-secondary max-w-2xl mx-auto">
-            See how we&apos;ve helped teams automate their workflows
+            See how we&apos;ve helped teams automate their workflows and achieve remarkable results
           </p>
         </div>
         
-        <div ref={cardsRef} className="grid grid-cols-1 md:grid-cols-3 gap-6 md:gap-8 mb-8">
-          {featuredCaseStudies.map((study) => (
+        <div ref={cardsRef} className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 md:gap-8">
+          {caseStudies.map((study) => (
             <Card key={study.id} href={`/case-studies/${study.slug}`}>
               <CardHeader>
                 <CardTitle>{study.title}</CardTitle>
@@ -69,21 +66,22 @@ export default function CaseStudies() {
                 <CardDescription className="mb-4">
                   {study.excerpt}
                 </CardDescription>
+                <div className="flex flex-wrap gap-2 mb-4">
+                  {study.tags.slice(0, 3).map((tag) => (
+                    <span
+                      key={tag}
+                      className="px-2 py-1 text-xs font-medium bg-background-secondary text-text-secondary rounded"
+                    >
+                      {tag}
+                    </span>
+                  ))}
+                </div>
                 <CardDescription className="text-brand-purple font-medium">
-                  Learn more →
+                  Read more →
                 </CardDescription>
               </CardContent>
             </Card>
           ))}
-        </div>
-        
-        <div className="text-center">
-          <Link
-            href="/case-studies"
-            className="inline-flex items-center text-brand-purple hover:text-brand-purple-light font-semibold transition-colors"
-          >
-            View all case studies →
-          </Link>
         </div>
       </div>
     </section>

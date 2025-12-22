@@ -12,7 +12,7 @@ serve(async (req) => {
   }
 
   try {
-    const { visitorId, visitId, isNewVisit, ipAddress, country, city } = await req.json()
+    const { visitorId, visitId, isNewVisit, ipAddress, country, city, region } = await req.json()
 
     // Initialize Supabase client
     const supabaseUrl = Deno.env.get('SUPABASE_URL')!
@@ -72,11 +72,15 @@ serve(async (req) => {
     })
 
     let message = ''
+    const location = region && region !== 'Unknown' 
+      ? `${country}, ${region}, ${city}` 
+      : `${country}, ${city}`
+    
     if (isNewVisit) {
-      message = `🆕 Yeni ziyaretçi: ${ipAddress} — ${country}/${city} — ${dateTime}`
+      message = `🆕 New Visitor\n📍 IP: ${ipAddress}\n🌍 Location: ${location}\n🕐 Time: ${dateTime}`
     } else {
       const visitCount = visitor?.visit_count || 1
-      message = `🔁 Tekrar ziyaret: ${ipAddress} — ${country}/${city} — ${visitCount}. ziyaret — ${dateTime}`
+      message = `🔁 Returning Visitor\n📍 IP: ${ipAddress}\n🌍 Location: ${location}\n📊 Visit #${visitCount}\n🕐 Time: ${dateTime}`
     }
 
     // Send to all chat IDs

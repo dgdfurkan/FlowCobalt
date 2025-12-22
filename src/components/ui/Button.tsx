@@ -36,13 +36,7 @@ export default function Button({
     return (
       <Link 
         href={href} 
-        className={classes}
-        onMouseEnter={(e) => {
-          e.currentTarget.style.transform = 'scale(1.05)'
-        }}
-        onMouseLeave={(e) => {
-          e.currentTarget.style.transform = 'scale(1)'
-        }}
+        className={`${classes} hover:scale-105`}
         style={{ transition: 'transform 0.2s ease' }}
       >
         {children}
@@ -52,13 +46,7 @@ export default function Button({
   
   return (
     <button 
-      className={classes} 
-      onMouseEnter={(e) => {
-        e.currentTarget.style.transform = 'scale(1.05)'
-      }}
-      onMouseLeave={(e) => {
-        e.currentTarget.style.transform = 'scale(1)'
-      }}
+      className={`${classes} hover:scale-105`}
       style={{ transition: 'transform 0.2s ease' }}
       {...props}
     >

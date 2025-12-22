@@ -2,6 +2,7 @@
 
 import { useEffect, useState } from 'react'
 import { useRouter } from 'next/navigation'
+import Link from 'next/link'
 import { supabase, isSupabaseAvailable } from '@/lib/supabase'
 import Button from '@/components/ui/Button'
 
@@ -157,6 +158,27 @@ export default function AdminDashboard() {
               {stats.totalVisits}
             </p>
           </div>
+        </div>
+
+        {/* Quick Links */}
+        <div className="grid grid-cols-1 md:grid-cols-2 gap-6 mb-8">
+          <Link href="/admin/visitors" className="bg-white rounded-xl shadow-soft p-6 hover:shadow-medium transition-shadow">
+            <h2 className="text-xl font-bold text-text-primary mb-2">
+              View All Visitors
+            </h2>
+            <p className="text-text-secondary">
+              See detailed visitor information and visit history
+            </p>
+          </Link>
+          
+          <Link href="/admin/contact-submissions" className="bg-white rounded-xl shadow-soft p-6 hover:shadow-medium transition-shadow">
+            <h2 className="text-xl font-bold text-text-primary mb-2">
+              Contact Submissions
+            </h2>
+            <p className="text-text-secondary">
+              View messages from the contact form
+            </p>
+          </Link>
         </div>
 
         {/* Settings Section */}

@@ -26,9 +26,28 @@ serve(async (req) => {
     const supabaseKey = Deno.env.get('SUPABASE_SERVICE_ROLE_KEY')!
     const supabase = createClient(supabaseUrl, supabaseKey)
 
-    // Get geolocation (simplified - in production use a proper geolocation service)
-    const country = req.headers.get('cf-ipcountry') || 'Unknown'
-    const city = req.headers.get('cf-ipcity') || 'Unknown'
+    // Get geolocation using ip-api.com (free tier, no API key needed)
+    let country = 'Unknown'
+    let city = 'Unknown'
+    let region = 'Unknown'
+    
+    try {
+      // Use ip-api.com for geolocation (free, no API key required)
+      const geoResponse = await fetch(`http://ip-api.com/json/${ipAddress}?fields=status,country,regionName,city,timezone`)
+      if (geoResponse.ok) {
+        const geoData = await geoResponse.json()
+        if (geoData.status === 'success') {
+          country = geoData.country || 'Unknown'
+          city = geoData.city || 'Unknown'
+          region = geoData.regionName || 'Unknown'
+        }
+      }
+    } catch (error) {
+      console.error('Geolocation error:', error)
+      // Fallback to Cloudflare headers if available
+      country = req.headers.get('cf-ipcountry') || 'Unknown'
+      city = req.headers.get('cf-ipcity') || 'Unknown'
+    }
 
     // Check if visitor exists
     const { data: existingVisitor } = await supabase
@@ -52,6 +71,7 @@ serve(async (req) => {
           visit_count: visitCount,
           country,
           city,
+          region,
         })
         .eq('id', visitorId)
 
@@ -65,6 +85,7 @@ serve(async (req) => {
           ip_address: ipAddress,
           country,
           city,
+          region,
           first_seen_at: new Date().toISOString(),
           last_seen_at: new Date().toISOString(),
           visit_count: 1,
@@ -85,6 +106,7 @@ serve(async (req) => {
         ip_address: ipAddress,
         country,
         city,
+        region,
         user_agent: userAgent,
         referer: referer || null,
         page_path: pagePath,
@@ -117,6 +139,7 @@ serve(async (req) => {
           ipAddress,
           country,
           city,
+          region,
         }),
       }).catch(console.error)
     }

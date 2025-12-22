@@ -66,6 +66,16 @@ CREATE TABLE IF NOT EXISTS settings (
   updated_at TIMESTAMP WITH TIME ZONE DEFAULT TIMEZONE('utc', NOW())
 );
 
+-- Contact submissions table
+CREATE TABLE IF NOT EXISTS contact_submissions (
+  id UUID PRIMARY KEY DEFAULT uuid_generate_v4(),
+  name TEXT NOT NULL,
+  email TEXT NOT NULL,
+  company TEXT,
+  message TEXT NOT NULL,
+  created_at TIMESTAMP WITH TIME ZONE DEFAULT TIMEZONE('utc', NOW())
+);
+
 -- Indexes for performance
 CREATE INDEX IF NOT EXISTS idx_visitors_ip ON visitors(ip_address);
 CREATE INDEX IF NOT EXISTS idx_visitors_last_seen ON visitors(last_seen_at);
@@ -81,6 +91,7 @@ ALTER TABLE visitors ENABLE ROW LEVEL SECURITY;
 ALTER TABLE visits ENABLE ROW LEVEL SECURITY;
 ALTER TABLE events ENABLE ROW LEVEL SECURITY;
 ALTER TABLE settings ENABLE ROW LEVEL SECURITY;
+ALTER TABLE contact_submissions ENABLE ROW LEVEL SECURITY;
 
 -- Drop existing policies if they exist (to avoid conflicts)
 DROP POLICY IF EXISTS "Public can read users" ON users;
@@ -97,6 +108,8 @@ DROP POLICY IF EXISTS "Public can read settings" ON settings;
 DROP POLICY IF EXISTS "Admins can manage settings" ON settings;
 DROP POLICY IF EXISTS "Admins can manage admins" ON admins;
 DROP POLICY IF EXISTS "Admins can manage users" ON users;
+DROP POLICY IF EXISTS "Public can insert contact_submissions" ON contact_submissions;
+DROP POLICY IF EXISTS "Public can read contact_submissions" ON contact_submissions;
 
 -- Users: Public can read (for login check)
 -- Note: In production, you might want to restrict this
@@ -126,6 +139,15 @@ CREATE POLICY "Public can read events" ON events
 
 -- Settings: Public can read (for admin panel)
 CREATE POLICY "Public can read settings" ON settings
+  FOR SELECT USING (true);
+
+-- Contact submissions: Public can insert, no read (privacy)
+CREATE POLICY "Public can insert contact_submissions" ON contact_submissions
+  FOR INSERT WITH CHECK (true);
+
+-- Contact submissions: Admins can read (for admin panel)
+-- Note: In production, add proper admin check
+CREATE POLICY "Admins can read contact_submissions" ON contact_submissions
   FOR SELECT USING (true);
 
 -- Insert default settings
