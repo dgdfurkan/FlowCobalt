@@ -167,6 +167,7 @@ serve(async (req) => {
           headers: {
             'Content-Type': 'application/json',
             'Authorization': `Bearer ${supabaseKey}`,
+            'apikey': supabaseKey,
           },
           body: JSON.stringify(telegramPayload),
         })
