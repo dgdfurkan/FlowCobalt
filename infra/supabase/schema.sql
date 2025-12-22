@@ -82,6 +82,22 @@ ALTER TABLE visits ENABLE ROW LEVEL SECURITY;
 ALTER TABLE events ENABLE ROW LEVEL SECURITY;
 ALTER TABLE settings ENABLE ROW LEVEL SECURITY;
 
+-- Drop existing policies if they exist (to avoid conflicts)
+DROP POLICY IF EXISTS "Public can read users" ON users;
+DROP POLICY IF EXISTS "Public can insert visitors" ON visitors;
+DROP POLICY IF EXISTS "Public can read visitors" ON visitors;
+DROP POLICY IF EXISTS "Admins can read visitors" ON visitors;
+DROP POLICY IF EXISTS "Public can insert visits" ON visits;
+DROP POLICY IF EXISTS "Public can read visits" ON visits;
+DROP POLICY IF EXISTS "Admins can read visits" ON visits;
+DROP POLICY IF EXISTS "Public can insert events" ON events;
+DROP POLICY IF EXISTS "Public can read events" ON events;
+DROP POLICY IF EXISTS "Admins can read events" ON events;
+DROP POLICY IF EXISTS "Public can read settings" ON settings;
+DROP POLICY IF EXISTS "Admins can manage settings" ON settings;
+DROP POLICY IF EXISTS "Admins can manage admins" ON admins;
+DROP POLICY IF EXISTS "Admins can manage users" ON users;
+
 -- Users: Public can read (for login check)
 -- Note: In production, you might want to restrict this
 CREATE POLICY "Public can read users" ON users
@@ -114,9 +130,16 @@ CREATE POLICY "Public can read settings" ON settings
 
 -- Insert default settings
 INSERT INTO settings (key, value, description) VALUES
-  ('telegram_enabled', 'false', 'Enable/disable Telegram notifications'),
-  ('telegram_bot_token', '""', 'Telegram bot token (encrypted)'),
-  ('telegram_chat_ids', '[]', 'List of Telegram chat IDs to send notifications'),
-  ('muted_ips', '[]', 'List of IP addresses to mute notifications')
-ON CONFLICT (key) DO NOTHING;
+  ('telegram_enabled', 'true'::jsonb, 'Enable/disable Telegram notifications'),
+  ('telegram_bot_token', '"8490339218:AAGkE0Oh06enmuXFmoxHGhLZj6d5E8xiGck"'::jsonb, 'Telegram bot token'),
+  ('telegram_chat_ids', '["785750734"]'::jsonb, 'List of Telegram chat IDs to send notifications'),
+  ('muted_ips', '[]'::jsonb, 'List of IP addresses to mute notifications')
+ON CONFLICT (key) DO UPDATE SET
+  value = EXCLUDED.value,
+  updated_at = TIMEZONE('utc', NOW());
 
+-- Insert default admin users
+INSERT INTO users (username, password) VALUES
+  ('Furkan', '123'),
+  ('Erdem', '123')
+ON CONFLICT (username) DO NOTHING;
