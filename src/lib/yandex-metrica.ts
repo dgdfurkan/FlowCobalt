@@ -99,6 +99,9 @@ function loadYandexMetricaScript(): Promise<void> {
             trackLinks: true,
             accurateTrackBounce: true,
             webvisor: true,
+            trackHash: true,
+            ut: 'noindex',
+            ecommerce: 'dataLayer',
           })
           isInitialized = true
         } catch (error) {
@@ -135,6 +138,9 @@ function initializeYandexMetrica(): void {
         trackLinks: true,
         accurateTrackBounce: true,
         webvisor: true,
+        trackHash: true,
+        ut: 'noindex',
+        ecommerce: 'dataLayer',
       })
       isInitialized = true
       
