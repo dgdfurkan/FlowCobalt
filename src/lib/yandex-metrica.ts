@@ -45,7 +45,6 @@ function loadYandexMetricaScript(): Promise<void> {
     }
 
     if (!YANDEX_METRICA_ID) {
-      console.warn('Yandex Metrica ID not configured')
       reject(new Error('Yandex Metrica ID not configured'))
       return
     }
@@ -116,7 +115,6 @@ function initializeYandexMetrica(): void {
       })
 
       isInitialized = true
-      console.log('Yandex Metrica initialized with counter ID:', counterId)
       
       // Track current page immediately after initialization
       if (typeof window !== 'undefined' && window.location) {
@@ -133,7 +131,6 @@ function initializeYandexMetrica(): void {
             webvisor: true,
           })
           isInitialized = true
-          console.log('Yandex Metrica initialized with counter ID:', counterId)
           
           // Track current page immediately after initialization
           if (typeof window !== 'undefined' && window.location) {
@@ -143,7 +140,7 @@ function initializeYandexMetrica(): void {
       }, 100)
     }
   } catch (error) {
-    console.error('Error initializing Yandex Metrica:', error)
+    // Silent fail - don't log errors in production
   }
 }
 
@@ -155,7 +152,6 @@ export function initYandexMetrica(): void {
 
   // Check cookie consent
   if (!hasCookieConsent()) {
-    console.log('Yandex Metrica: Cookie consent not given')
     return
   }
 
@@ -164,8 +160,8 @@ export function initYandexMetrica(): void {
     .then(() => {
       initializeYandexMetrica()
     })
-    .catch((error) => {
-      console.error('Failed to initialize Yandex Metrica:', error)
+    .catch(() => {
+      // Silent fail - don't log errors in production
     })
 }
 
@@ -174,7 +170,6 @@ export function initYandexMetrica(): void {
  */
 export function trackPageView(url: string): void {
   if (!YANDEX_METRICA_ID) {
-    console.warn('Yandex Metrica: Cannot track page view - ID not configured')
     return
   }
 
@@ -190,12 +185,9 @@ export function trackPageView(url: string): void {
     const counterId = parseInt(YANDEX_METRICA_ID, 10)
     if (typeof window.ym === 'function') {
       window.ym(counterId, 'hit', url)
-      console.log('Yandex Metrica: Tracked page view:', url)
-    } else {
-      console.warn('Yandex Metrica: ym function not available')
     }
   } catch (error) {
-    console.error('Error tracking page view:', error)
+    // Silent fail - don't log errors in production
   }
 }
 
@@ -212,7 +204,7 @@ export function trackEvent(category: string, action: string, label?: string): vo
       label,
     })
   } catch (error) {
-    console.error('Error tracking event:', error)
+    // Silent fail - don't log errors in production
   }
 }
 
