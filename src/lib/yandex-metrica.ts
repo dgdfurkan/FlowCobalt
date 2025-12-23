@@ -52,18 +52,20 @@ function loadYandexMetricaScript(): Promise<void> {
     }
 
     // Initialize Yandex Metrica function first
-    ;(function (m: any, e: any, t: string, r: string, i: string, k?: string, a?: any) {
+    ;(function (m: any, e: any, t: string, r: any, i: string, k?: string, a?: any) {
       m[i] =
         m[i] ||
         function () {
           ;(m[i].a = m[i].a || []).push(arguments)
         }
       m[i].l = 1 * new Date().getTime()
-      ;(a = e.createElement(t)),
-        (r = e.getElementsByTagName(t)[0]),
-        (a.async = 1),
-        (a.src = 'https://mc.yandex.ru/metrika/tag.js'),
+      a = e.createElement(t)
+      r = e.getElementsByTagName(t)[0]
+      a.async = 1
+      a.src = 'https://mc.yandex.ru/metrika/tag.js'
+      if (r && r.parentNode) {
         (r.parentNode as HTMLElement).insertBefore(a, r)
+      }
     })(window, document, 'script', '', 'ym')
 
     // Create noscript fallback
