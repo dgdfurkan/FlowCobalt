@@ -2,6 +2,8 @@ import type { Metadata } from "next";
 import Header from "@/components/layout/Header";
 import Footer from "@/components/layout/Footer";
 import ScrollTracker from "@/components/tracking/ScrollTracker";
+import CookieBanner from "@/components/ui/CookieBanner";
+import YandexMetricaLoader from "@/components/tracking/YandexMetricaLoader";
 import "../styles/globals.css";
 
 export const metadata: Metadata = {
@@ -18,9 +20,11 @@ export default function RootLayout({
     <html lang="en">
       <body className="antialiased">
         <ScrollTracker />
+        <YandexMetricaLoader />
         <Header />
         <main className="pt-20 md:pt-24">{children}</main>
         <Footer />
+        <CookieBanner />
       </body>
     </html>
   );
