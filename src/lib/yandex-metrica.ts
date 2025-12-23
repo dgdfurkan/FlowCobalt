@@ -8,8 +8,7 @@ declare global {
     ym?: (
       counterId: number,
       method: string,
-      target: string,
-      params?: Record<string, any>
+      ...args: any[]
     ) => void
   }
 }
