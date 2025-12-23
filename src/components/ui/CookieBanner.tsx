@@ -48,7 +48,7 @@ export default function CookieBanner() {
               </h3>
               <p className="text-sm text-text-secondary leading-relaxed">
                 We use cookies and analytics tools to improve your experience on our website. 
-                By clicking "Accept", you consent to our use of cookies and analytics. 
+                By clicking &quot;Accept&quot;, you consent to our use of cookies and analytics. 
                 You can learn more in our{' '}
                 <Link
                   href="/privacy"
