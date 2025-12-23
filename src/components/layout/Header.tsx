@@ -131,8 +131,8 @@ export default function Header() {
 
         {/* Mobile Menu */}
         {isMobileMenuOpen && (
-          <div className="md:hidden py-4 border-t border-gray-200">
-            <div className="flex flex-col space-y-4">
+          <div className="md:hidden py-4 border-t border-gray-200 mx-4 mb-4 rounded-xl border border-gray-800/20 bg-white/50 backdrop-blur-sm">
+            <div className="flex flex-col space-y-4 px-4">
               <Link
                 href="/"
                 className="text-base font-medium text-text-primary hover:text-brand-purple transition-colors"
