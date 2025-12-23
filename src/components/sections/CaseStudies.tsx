@@ -25,11 +25,14 @@ export default function CaseStudies() {
       if (cardsRef.current) {
         const cards = cardsRef.current.children
         
-        gsap.from(cards, {
-          opacity: 0,
-          y: 50,
+        // Set initial state
+        gsap.set(cards, { opacity: 0, y: 50 })
+        
+        gsap.to(cards, {
+          opacity: 1,
+          y: 0,
           duration: 0.8,
-          stagger: 0.2,
+          stagger: 0.15,
           scrollTrigger: {
             trigger: sectionRef.current,
             start: 'top 80%',
@@ -55,7 +58,7 @@ export default function CaseStudies() {
           </p>
         </div>
         
-        <div ref={cardsRef} className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 md:gap-8 mb-8">
+        <div ref={cardsRef} className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 md:gap-8 mb-8 min-h-[400px]">
           {/* Case Studies */}
           {featuredCaseStudies.map((study) => (
             <Card key={study.id} href={`/case-studies/${study.slug}`}>
