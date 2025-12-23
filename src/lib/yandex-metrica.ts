@@ -116,7 +116,12 @@ function initializeYandexMetrica(): void {
       })
 
       isInitialized = true
-      console.log('Yandex Metrica initialized')
+      console.log('Yandex Metrica initialized with counter ID:', counterId)
+      
+      // Track current page immediately after initialization
+      if (typeof window !== 'undefined' && window.location) {
+        trackPageView(window.location.pathname + window.location.search)
+      }
     } else {
       // Script not loaded yet, wait a bit
       setTimeout(() => {
@@ -128,7 +133,12 @@ function initializeYandexMetrica(): void {
             webvisor: true,
           })
           isInitialized = true
-          console.log('Yandex Metrica initialized')
+          console.log('Yandex Metrica initialized with counter ID:', counterId)
+          
+          // Track current page immediately after initialization
+          if (typeof window !== 'undefined' && window.location) {
+            trackPageView(window.location.pathname + window.location.search)
+          }
         }
       }, 100)
     }
@@ -163,11 +173,27 @@ export function initYandexMetrica(): void {
  * Track page view
  */
 export function trackPageView(url: string): void {
-  if (!isInitialized || !YANDEX_METRICA_ID) return
+  if (!YANDEX_METRICA_ID) {
+    console.warn('Yandex Metrica: Cannot track page view - ID not configured')
+    return
+  }
+
+  // If not initialized yet, wait a bit and try again
+  if (!isInitialized) {
+    setTimeout(() => {
+      trackPageView(url)
+    }, 200)
+    return
+  }
 
   try {
     const counterId = parseInt(YANDEX_METRICA_ID, 10)
-    window.ym?.(counterId, 'hit', url)
+    if (typeof window.ym === 'function') {
+      window.ym(counterId, 'hit', url)
+      console.log('Yandex Metrica: Tracked page view:', url)
+    } else {
+      console.warn('Yandex Metrica: ym function not available')
+    }
   } catch (error) {
     console.error('Error tracking page view:', error)
   }
