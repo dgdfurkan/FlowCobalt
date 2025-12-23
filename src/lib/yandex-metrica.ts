@@ -32,7 +32,7 @@ function hasCookieConsent(): boolean {
  */
 function loadYandexMetricaScript(): Promise<void> {
   return new Promise((resolve, reject) => {
-    if (isScriptLoaded || typeof window === 'undefined') {
+    if (isScriptLoaded || typeof window === 'undefined' || typeof document === 'undefined') {
       resolve()
       return
     }
@@ -68,15 +68,23 @@ function loadYandexMetricaScript(): Promise<void> {
       }
     })(window, document, 'script', '', 'ym')
 
-    // Create noscript fallback
-    const noscript = document.createElement('noscript')
-    const img = document.createElement('img')
-    img.src = `https://mc.yandex.ru/watch/${counterId}`
-    img.style.position = 'absolute'
-    img.style.left = '-9999px'
-    img.alt = ''
-    noscript.appendChild(img)
-    document.body.appendChild(noscript)
+    // Create noscript fallback (wait for body to be available)
+    const addNoscript = () => {
+      if (document.body) {
+        const noscript = document.createElement('noscript')
+        const img = document.createElement('img')
+        img.src = `https://mc.yandex.ru/watch/${counterId}`
+        img.style.position = 'absolute'
+        img.style.left = '-9999px'
+        img.alt = ''
+        noscript.appendChild(img)
+        document.body.appendChild(noscript)
+      } else {
+        // Wait for body to be available (important for mobile)
+        setTimeout(addNoscript, 50)
+      }
+    }
+    addNoscript()
 
     // Wait for script to load and initialize
     const checkScript = setInterval(() => {
