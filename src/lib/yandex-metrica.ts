@@ -52,7 +52,7 @@ function loadYandexMetricaScript(): Promise<void> {
     }
 
     // Initialize Yandex Metrica function first
-    ;(function (m: any, e: any, t: string, r: string, i: string, k: string, a: any) {
+    ;(function (m: any, e: any, t: string, r: string, i: string, k?: string, a?: any) {
       m[i] =
         m[i] ||
         function () {
