@@ -1,5 +1,6 @@
 import { notFound } from 'next/navigation'
 import Link from 'next/link'
+import Image from 'next/image'
 import { getCustomerStoryBySlug, customerStories } from '@/data/customer-stories'
 import Button from '@/components/ui/Button'
 import { Metadata } from 'next'
@@ -100,12 +101,14 @@ export default function CustomerStoryDetailPage({ params }: PageProps) {
                 {/* Thumbnail fallback for better initial load */}
                 {thumbnailUrl && (
                   <div className="absolute inset-0 pointer-events-none">
-                    <img
+                    <Image
                       src={thumbnailUrl}
                       alt={`${story.title} thumbnail`}
-                      className="w-full h-full object-cover opacity-0"
+                      fill
+                      className="object-cover opacity-0"
                       loading="lazy"
                       aria-hidden="true"
+                      unoptimized
                     />
                   </div>
                 )}
