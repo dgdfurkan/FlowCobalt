@@ -49,7 +49,9 @@ function loadYandexMetricaScript(): Promise<void> {
       return
     }
 
-    // Initialize Yandex Metrica function first
+    const counterId = parseInt(YANDEX_METRICA_ID, 10)
+
+    // Initialize Yandex Metrica function first (Yandex's official code)
     ;(function (m: any, e: any, t: string, r: any, i: string, k?: string, a?: any) {
       m[i] =
         m[i] ||
@@ -60,7 +62,7 @@ function loadYandexMetricaScript(): Promise<void> {
       a = e.createElement(t)
       r = e.getElementsByTagName(t)[0]
       a.async = 1
-      a.src = 'https://mc.yandex.ru/metrika/tag.js'
+      a.src = `https://mc.yandex.ru/metrika/tag.js?id=${counterId}`
       if (r && r.parentNode) {
         (r.parentNode as HTMLElement).insertBefore(a, r)
       }
@@ -69,18 +71,32 @@ function loadYandexMetricaScript(): Promise<void> {
     // Create noscript fallback
     const noscript = document.createElement('noscript')
     const img = document.createElement('img')
-    img.src = `https://mc.yandex.ru/watch/${YANDEX_METRICA_ID}`
+    img.src = `https://mc.yandex.ru/watch/${counterId}`
     img.style.position = 'absolute'
     img.style.left = '-9999px'
     img.alt = ''
     noscript.appendChild(img)
     document.body.appendChild(noscript)
 
-    // Wait for script to load
+    // Wait for script to load and initialize
     const checkScript = setInterval(() => {
       if (typeof window.ym === 'function') {
         clearInterval(checkScript)
         isScriptLoaded = true
+        
+        // Initialize immediately after script loads
+        try {
+          window.ym(counterId, 'init', {
+            clickmap: true,
+            trackLinks: true,
+            accurateTrackBounce: true,
+            webvisor: true,
+          })
+          isInitialized = true
+        } catch (error) {
+          // Continue even if init fails
+        }
+        
         resolve()
       }
     }, 50)
@@ -102,10 +118,9 @@ function initializeYandexMetrica(): void {
   if (isInitialized || !YANDEX_METRICA_ID) return
 
   try {
-    // Initialize Yandex Metrica counter
     const counterId = parseInt(YANDEX_METRICA_ID, 10)
     
-    // Wait for script to be fully loaded
+    // If script is already loaded, initialize immediately
     if (typeof window.ym === 'function') {
       window.ym(counterId, 'init', {
         clickmap: true,
@@ -113,31 +128,14 @@ function initializeYandexMetrica(): void {
         accurateTrackBounce: true,
         webvisor: true,
       })
-
       isInitialized = true
       
       // Track current page immediately after initialization
       if (typeof window !== 'undefined' && window.location) {
-        trackPageView(window.location.pathname + window.location.search)
+        setTimeout(() => {
+          trackPageView(window.location.pathname + window.location.search)
+        }, 100)
       }
-    } else {
-      // Script not loaded yet, wait a bit
-      setTimeout(() => {
-        if (typeof window.ym === 'function') {
-          window.ym(counterId, 'init', {
-            clickmap: true,
-            trackLinks: true,
-            accurateTrackBounce: true,
-            webvisor: true,
-          })
-          isInitialized = true
-          
-          // Track current page immediately after initialization
-          if (typeof window !== 'undefined' && window.location) {
-            trackPageView(window.location.pathname + window.location.search)
-          }
-        }
-      }, 100)
     }
   } catch (error) {
     // Silent fail - don't log errors in production
@@ -158,7 +156,13 @@ export function initYandexMetrica(): void {
   // Load script and initialize
   loadYandexMetricaScript()
     .then(() => {
-      initializeYandexMetrica()
+      // Script is loaded and initialized in loadYandexMetricaScript
+      // Just ensure current page is tracked
+      if (typeof window !== 'undefined' && window.location && isInitialized) {
+        setTimeout(() => {
+          trackPageView(window.location.pathname + window.location.search)
+        }, 200)
+      }
     })
     .catch(() => {
       // Silent fail - don't log errors in production
