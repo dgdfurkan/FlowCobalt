@@ -20,7 +20,7 @@ export default function Header() {
     <header className="fixed top-0 left-0 right-0 z-50 transition-all duration-300">
       <div className="container-custom pt-4">
         <nav
-          className={`rounded-2xl transition-all duration-300 ${
+          className={`rounded-2xl transition-all duration-300 border border-gray-800/20 md:border-0 ${
             isScrolled
               ? 'bg-white shadow-medium'
               : 'bg-white/95 backdrop-blur-md shadow-soft'
