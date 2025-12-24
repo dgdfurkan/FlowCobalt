@@ -156,24 +156,26 @@ function parseDescription(description: string): ParsedDescription {
         // Save previous section
         if (currentSection === 'Features' && currentItems.length > 0) {
           result.features = currentItems.map(item => {
-            const parts = item.split(':').map(p => p.trim())
+            const cleaned = item.replace(/\*\*/g, '').replace(/^-\s*/, '').trim()
+            const parts = cleaned.split(':').map(p => p.trim())
             return {
-              title: parts[0].replace(/\*\*/g, ''),
-              description: parts.slice(1).join(':') || parts[0].replace(/\*\*/g, ''),
+              title: parts[0] || cleaned,
+              description: parts.slice(1).join(':').trim() || parts[0] || cleaned,
             }
-          })
+          }).filter(f => f.title && f.title.length > 0)
         } else if (currentSection === 'Benefits' && currentItems.length > 0) {
           result.benefits = currentItems.map(item => {
-            const parts = item.split(':').map(p => p.trim())
+            const cleaned = item.replace(/\*\*/g, '').replace(/^-\s*/, '').trim()
+            const parts = cleaned.split(':').map(p => p.trim())
             return {
-              title: parts[0].replace(/\*\*/g, ''),
-              description: parts.slice(1).join(':') || parts[0].replace(/\*\*/g, ''),
+              title: parts[0] || cleaned,
+              description: parts.slice(1).join(':').trim() || parts[0] || cleaned,
             }
-          })
+          }).filter(b => b.title && b.title.length > 0)
         } else if (currentSection && currentItems.length > 0) {
           result.specialSections.push({
             title: currentSection,
-            items: currentItems,
+            items: currentItems.map(item => item.replace(/\*\*/g, '').replace(/^-\s*/, '').trim()),
           })
         }
 
@@ -189,9 +191,14 @@ function parseDescription(description: string): ParsedDescription {
           currentSection = sectionTitle
         }
       }
-      // List item (starts with -)
+      // List item (starts with -) or just a line (for features/benefits)
       else if (trimmed.startsWith('- ')) {
-        currentItems.push(trimmed.slice(2))
+        const item = trimmed.slice(2).trim()
+        if (item) currentItems.push(item)
+      }
+      // Feature/Benefit line (no dash, just text)
+      else if (currentSection && !trimmed.startsWith('**') && trimmed.length > 0) {
+        currentItems.push(trimmed)
       }
       // Regular paragraph - first one is intro
       else if (!introFound && !trimmed.startsWith('**') && !trimmed.startsWith('-')) {
@@ -203,24 +210,26 @@ function parseDescription(description: string): ParsedDescription {
     // Save last section
     if (currentSection === 'Features' && currentItems.length > 0) {
       result.features = currentItems.map(item => {
-        const parts = item.split(':').map(p => p.trim())
+        const cleaned = item.replace(/\*\*/g, '').replace(/^-\s*/, '').trim()
+        const parts = cleaned.split(':').map(p => p.trim())
         return {
-          title: parts[0].replace(/\*\*/g, ''),
-          description: parts.slice(1).join(':') || parts[0].replace(/\*\*/g, ''),
+          title: parts[0] || cleaned,
+          description: parts.slice(1).join(':').trim() || parts[0] || cleaned,
         }
-      })
+      }).filter(f => f.title && f.title.length > 0)
     } else if (currentSection === 'Benefits' && currentItems.length > 0) {
       result.benefits = currentItems.map(item => {
-        const parts = item.split(':').map(p => p.trim())
+        const cleaned = item.replace(/\*\*/g, '').replace(/^-\s*/, '').trim()
+        const parts = cleaned.split(':').map(p => p.trim())
         return {
-          title: parts[0].replace(/\*\*/g, ''),
-          description: parts.slice(1).join(':') || parts[0].replace(/\*\*/g, ''),
+          title: parts[0] || cleaned,
+          description: parts.slice(1).join(':').trim() || parts[0] || cleaned,
         }
-      })
+      }).filter(b => b.title && b.title.length > 0)
     } else if (currentSection && currentItems.length > 0) {
       result.specialSections.push({
         title: currentSection,
-        items: currentItems,
+        items: currentItems.map(item => item.replace(/\*\*/g, '').replace(/^-\s*/, '').trim()),
       })
     }
   } catch (error) {
@@ -670,6 +679,59 @@ export default function ProductDetailContent({ product }: ProductDetailContentPr
                   </p>
                 </div>
               ))}
+            </div>
+          </div>
+        </section>
+      )}
+
+      {/* Benefits Section - Relevance AI Style */}
+      {parsedDescription.benefits.length > 0 && (
+        <section className="section-padding bg-background-secondary">
+          <div className="container-custom">
+            <div className="max-w-4xl mx-auto">
+              <div className="text-center mb-12">
+                <h2 className="text-3xl md:text-4xl font-bold text-text-primary mb-4">
+                  Why Choose This Solution?
+                </h2>
+                <p className="text-lg text-text-secondary">
+                  Discover the benefits that make this product essential for your business
+                </p>
+              </div>
+
+              <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+                {parsedDescription.benefits.map((benefit, idx) => (
+                  <div 
+                    key={idx}
+                    className="bg-white rounded-xl p-6 shadow-soft hover:shadow-medium transition-shadow"
+                  >
+                    <div className="flex items-start gap-4">
+                      <div className="w-10 h-10 bg-brand-purple/10 rounded-lg flex items-center justify-center flex-shrink-0">
+                        <svg
+                          className="w-5 h-5 text-brand-purple"
+                          fill="none"
+                          stroke="currentColor"
+                          viewBox="0 0 24 24"
+                        >
+                          <path
+                            strokeLinecap="round"
+                            strokeLinejoin="round"
+                            strokeWidth={2}
+                            d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z"
+                          />
+                        </svg>
+                      </div>
+                      <div>
+                        <h3 className="text-lg font-bold text-text-primary mb-2">
+                          {benefit.title}
+                        </h3>
+                        <p className="text-text-secondary text-sm">
+                          {benefit.description}
+                        </p>
+                      </div>
+                    </div>
+                  </div>
+                ))}
+              </div>
             </div>
           </div>
         </section>
