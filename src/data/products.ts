@@ -13,24 +13,24 @@ export const products: Product[] = [
   {
     id: '1',
     slug: 'panela',
-    title: 'Panela - E-Ticaret Yönetim ve Araştırma Platformu',
-    description: `Panela, e-ticaret girişimcileri için tasarlanmış, yapay zeka destekli bir iş yönetim ve araştırma platformudur. Sistem, ürün keşfinden pazarlama stratejilerine kadar e-ticaret süreçlerini otomatikleştirir ve yapay zeka ile destekler.
+    title: 'Panela - E-Commerce Management & Research Platform',
+    description: `Panela is an AI-powered business management and research platform designed for e-commerce entrepreneurs. The system automates e-commerce processes from product discovery to marketing strategies, enhanced with artificial intelligence.
 
-**Yapay Zeka Özellikleri:**
-- **Akıllı Reklam Analiz Asistanı (Creative Lab):** Google Gemini yapay zeka modeli ile reklam metinlerinizi analiz eder, hedef kitlenizi optimize eder ve pazarlama stratejileri sunar
-- **Otomatik Quiz Oluşturucu (Academy):** Eğitim içeriklerinizden otomatik olarak quiz soruları üretir (boşluk doldurma, eşleştirme, çoktan seçmeli)
+**AI Features:**
+- **Smart Ad Analysis Assistant (Creative Lab):** Analyzes your ad copy using Google's Gemini AI model, optimizes your target audience, and provides marketing strategies
+- **Automatic Quiz Generator (Academy):** Automatically generates quiz questions from your educational content (fill-in-the-blank, matching, multiple choice)
 
-**Otomasyon Özellikleri:**
-- **Otomatik Meta Reklam Tarayıcı (Research):** Facebook ve Instagram'da aktif reklam veren şirketleri otomatik bulur ve ürünleri veritabanınıza ekler
-- **Akıllı Ürün Puanlama Sistemi (Winner Hunter):** Bulduğunuz ürünleri 0-100 arası otomatik puanlar (sorun çözme, kar marjı, trend analizi, sosyal medya etkileşimi)
-- **Otomatik Veri Düzenleme:** Veritabanınızdaki eski formatlı linkleri yeni formata otomatik taşır
+**Automation Features:**
+- **Automatic Meta Ad Scanner (Research):** Automatically finds companies running active ads on Facebook and Instagram, and adds products to your database
+- **Smart Product Scoring System (Winner Hunter):** Automatically scores products from 0-100 (problem-solving, profit margin, trend analysis, social media engagement)
+- **Automatic Data Organization:** Automatically migrates old-format links in your database to the new format
 
-**Avantajlar:**
-- Manuel araştırma yerine otomatik sistemler ile zaman tasarrufu
-- Yapay zeka destekli pazarlama ve ürün stratejileri
-- Güvenli veri saklama (Supabase)
-- Yüzlerce ürün ve reklamı tek platformda yönetme`,
-    excerpt: 'E-ticaret girişimcileri için yapay zeka destekli ürün keşfi, reklam analizi ve otomatik araştırma platformu. Excel yerine modern bir çözüm.',
+**Benefits:**
+- Time savings with automated systems instead of manual research
+- AI-powered marketing and product strategies
+- Secure data storage (Supabase)
+- Manage hundreds of products and ads on a single platform`,
+    excerpt: 'AI-powered product discovery, ad analysis, and automated research platform for e-commerce entrepreneurs. A modern solution replacing Excel.',
     videos: [
       'https://res.cloudinary.com/dppf64uyp/video/upload/v1766576155/Ekran_Kayd%C4%B1_2025-12-24_14.33.28_nw3zgk.mov',
     ],
@@ -40,21 +40,21 @@ export const products: Product[] = [
   {
     id: '2',
     slug: 'barcode-app',
-    title: 'Barkod Uygulaması - Kurumsal Bayi Yönetim Sistemi',
-    description: `Kurumsal firmaların bayileri için tasarlanmış, ürün barkodlarına kolay ve hızlı erişim sağlayan yönetim sistemidir. Bayiler, ürünlerin barkod bilgilerine anında erişebilir ve işlemlerini hızlandırabilir.
+    title: 'Barcode App - Enterprise Dealer Management System',
+    description: `A management system designed for corporate company dealers, providing easy and fast access to product barcodes. Dealers can instantly access product barcode information and accelerate their operations.
 
-**Özellikler:**
-- Hızlı barkod arama ve erişim
-- Ürün bilgilerine anında erişim
-- Kurumsal bayi yönetimi
-- Kolay kullanıcı arayüzü
+**Features:**
+- Fast barcode search and access
+- Instant access to product information
+- Enterprise dealer management
+- User-friendly interface
 
-**Faydalar:**
-- Barkod bilgilerine hızlı erişim
-- İşlem sürelerinde azalma
-- Daha verimli bayi yönetimi
-- Kullanıcı dostu arayüz`,
-    excerpt: 'Kurumsal firmaların bayileri için ürün barkodlarına kolay ve hızlı erişim sağlayan yönetim sistemi.',
+**Benefits:**
+- Quick access to barcode information
+- Reduced processing times
+- More efficient dealer management
+- User-friendly interface`,
+    excerpt: 'Management system providing easy and fast access to product barcodes for corporate company dealers.',
     videos: [
       'https://res.cloudinary.com/dppf64uyp/video/upload/v1764716003/updates/wxb01kgcd2ldkxocpr6a.mov',
     ],
