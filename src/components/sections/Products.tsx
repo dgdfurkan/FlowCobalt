@@ -132,23 +132,12 @@ export default function Products() {
     <section ref={sectionRef} className="section-padding bg-background-secondary">
       <div className="container-custom">
         <div className="text-center mb-12">
-          <div className="mb-4">
-            <span className="inline-flex items-center gap-2 px-4 py-2 bg-background-secondary rounded-full text-sm font-medium text-text-secondary">
-              <svg
-                className="w-4 h-4"
-                fill="none"
-                stroke="currentColor"
-                viewBox="0 0 24 24"
-              >
-                <path
-                  strokeLinecap="round"
-                  strokeLinejoin="round"
-                  strokeWidth={2}
-                  d="M19 11H5m14 0a2 2 0 012 2v6a2 2 0 01-2 2H5a2 2 0 01-2-2v-6a2 2 0 012-2m14 0V9a2 2 0 00-2-2M5 11V9a2 2 0 012-2m0 0V5a2 2 0 012-2h6a2 2 0 012 2v2M7 7h10"
-                />
-              </svg>
-              Products
-            </span>
+          <div className="mb-4 flex justify-center">
+            <div className="pill-wrapper">
+              <div className="pill section-pill center">
+                Products
+              </div>
+            </div>
           </div>
           <h2 className="text-3xl md:text-4xl font-bold text-text-primary mb-4">
             Our <span className="text-brand-purple">Products</span>
