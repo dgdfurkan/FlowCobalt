@@ -257,15 +257,24 @@ function FormattedDescription({ description }: { description: string }) {
         <ul key={`list-${elements.length}`} className="list-disc list-inside mb-6 space-y-2 text-text-secondary">
           {items.map((item, idx) => {
             if (!item || typeof item !== 'string') return null
-            const parts = item.split(/(\*\*.*?\*\*)/g)
+            const cleaned = item.replace(/\*\*/g, '').trim()
+            if (!cleaned) return null
+            
+            // Check if item has colon (title: description format)
+            const colonIndex = cleaned.indexOf(':')
+            if (colonIndex > 0) {
+              const title = cleaned.substring(0, colonIndex).trim()
+              const description = cleaned.substring(colonIndex + 1).trim()
+              return (
+                <li key={idx} className="text-base leading-relaxed">
+                  <strong className="font-semibold text-text-primary">{title}:</strong> {description}
+                </li>
+              )
+            }
+            
             return (
               <li key={idx} className="text-base leading-relaxed">
-                {parts.map((part, partIdx) => {
-                  if (part && part.startsWith('**') && part.endsWith('**')) {
-                    return <strong key={partIdx} className="font-semibold text-text-primary">{part.slice(2, -2)}</strong>
-                  }
-                  return <span key={partIdx}>{part || ''}</span>
-                })}
+                {cleaned}
               </li>
             )
           })}
