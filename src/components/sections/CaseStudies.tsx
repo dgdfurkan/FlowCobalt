@@ -4,6 +4,7 @@ import { useEffect, useRef } from 'react'
 import { gsap } from 'gsap'
 import { ScrollTrigger } from 'gsap/ScrollTrigger'
 import Link from 'next/link'
+import Image from 'next/image'
 import Card, { CardContent, CardHeader, CardTitle, CardDescription } from '@/components/ui/Card'
 import { caseStudies } from '@/data/case-studies'
 import { getFeaturedCustomerStories } from '@/data/customer-stories'
@@ -92,9 +93,23 @@ export default function CaseStudies() {
               {/* Image Wrapper */}
               <div className="relative aspect-[16/10] overflow-hidden">
                 {/* Cover Image */}
-                <div className="absolute inset-0 bg-gradient-to-br from-brand-purple/20 to-brand-blue/20">
-                  <div className="absolute inset-0 bg-gray-900/40 group-hover:bg-gray-900/50 transition-colors duration-300" />
-                </div>
+                {story.coverImage && (
+                  <div className="absolute inset-0">
+                    <Image
+                      src={`${process.env.NEXT_PUBLIC_BASE_PATH || ''}${story.coverImage}`}
+                      alt={story.title}
+                      fill
+                      className="object-cover"
+                      sizes="(max-width: 768px) 100vw, (max-width: 1024px) 50vw, 33vw"
+                    />
+                    <div className="absolute inset-0 bg-gray-900/50 group-hover:bg-gray-900/60 transition-colors duration-300" />
+                  </div>
+                )}
+                {!story.coverImage && (
+                  <div className="absolute inset-0 bg-gradient-to-br from-brand-purple/20 to-brand-blue/20">
+                    <div className="absolute inset-0 bg-gray-900/40 group-hover:bg-gray-900/50 transition-colors duration-300" />
+                  </div>
+                )}
                 
                 {/* Logo Overlay */}
                 <div className="absolute inset-0 flex items-center justify-center p-6 z-10">
