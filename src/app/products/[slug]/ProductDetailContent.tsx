@@ -202,7 +202,7 @@ function parseDescription(description: string): ParsedDescription {
       }
       // Regular paragraph - first one is intro
       else if (!introFound && !trimmed.startsWith('**') && !trimmed.startsWith('-')) {
-        result.intro = trimmed
+        result.intro = trimmed.replace(/\*\*/g, '').trim()
         introFound = true
       }
     })
