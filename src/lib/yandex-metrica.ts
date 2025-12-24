@@ -28,6 +28,27 @@ function hasCookieConsent(): boolean {
 }
 
 /**
+ * Check if tracking should be disabled (for testing/development)
+ */
+function shouldDisableTracking(): boolean {
+  if (typeof window === 'undefined') return false
+  
+  // Check for test mode flag in localStorage
+  const testMode = localStorage.getItem('ym_disable_tracking')
+  if (testMode === 'true') {
+    return true
+  }
+  
+  // Check for development environment
+  if (process.env.NODE_ENV === 'development') {
+    // Only disable if explicitly set
+    return localStorage.getItem('ym_disable_in_dev') === 'true'
+  }
+  
+  return false
+}
+
+/**
  * Load Yandex Metrica script
  */
 function loadYandexMetricaScript(): Promise<void> {
@@ -162,6 +183,11 @@ function initializeYandexMetrica(): void {
 export function initYandexMetrica(): void {
   if (typeof window === 'undefined') return
 
+  // Check if tracking should be disabled
+  if (shouldDisableTracking()) {
+    return
+  }
+
   // Check cookie consent
   if (!hasCookieConsent()) {
     return
@@ -191,6 +217,11 @@ export function trackPageView(url: string): void {
     return
   }
 
+  // Check if tracking should be disabled
+  if (shouldDisableTracking()) {
+    return
+  }
+
   // If not initialized yet, wait a bit and try again
   if (!isInitialized) {
     setTimeout(() => {
@@ -215,6 +246,11 @@ export function trackPageView(url: string): void {
 export function trackEvent(category: string, action: string, label?: string): void {
   if (!isInitialized || !YANDEX_METRICA_ID) return
 
+  // Check if tracking should be disabled
+  if (shouldDisableTracking()) {
+    return
+  }
+
   try {
     const counterId = parseInt(YANDEX_METRICA_ID, 10)
     window.ym?.(counterId, 'reachGoal', action, {
@@ -227,6 +263,23 @@ export function trackEvent(category: string, action: string, label?: string): vo
 }
 
 /**
+ * Enable/disable tracking (for testing)
+ * Call this from browser console: window.disableYandexMetrica() or window.enableYandexMetrica()
+ */
+export function disableTracking(): void {
+  if (typeof window === 'undefined') return
+  localStorage.setItem('ym_disable_tracking', 'true')
+  console.log('Yandex Metrica tracking disabled')
+}
+
+export function enableTracking(): void {
+  if (typeof window === 'undefined') return
+  localStorage.removeItem('ym_disable_tracking')
+  localStorage.removeItem('ym_disable_in_dev')
+  console.log('Yandex Metrica tracking enabled')
+}
+
+/**
  * Listen for cookie consent changes
  */
 export function setupCookieConsentListener(): void {
@@ -235,5 +288,11 @@ export function setupCookieConsentListener(): void {
   window.addEventListener('cookieConsentAccepted', () => {
     initYandexMetrica()
   })
+
+  // Expose functions to window for easy access from console
+  if (typeof window !== 'undefined') {
+    ;(window as any).disableYandexMetrica = disableTracking
+    ;(window as any).enableYandexMetrica = enableTracking
+  }
 }
 
