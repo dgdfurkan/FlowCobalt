@@ -13,8 +13,10 @@ function CloudinaryVideoPlayer({
   className?: string 
 }) {
   const videoRef = useRef<HTMLVideoElement>(null)
+  const containerRef = useRef<HTMLDivElement>(null)
   const [currentVideoIndex, setCurrentVideoIndex] = useState(0)
   const [videos, setVideos] = useState<string[]>([])
+  const [aspectRatio, setAspectRatio] = useState<number | null>(null)
 
   useEffect(() => {
     if (!videoUrl) {
@@ -36,6 +38,17 @@ function CloudinaryVideoPlayer({
     video.src = currentVideo
     video.load()
 
+    const handleLoadedMetadata = () => {
+      // Get video's natural aspect ratio
+      if (video.videoWidth && video.videoHeight) {
+        const ratio = video.videoWidth / video.videoHeight
+        setAspectRatio(ratio)
+      }
+      video.play().catch(err => {
+        console.warn('Autoplay prevented:', err)
+      })
+    }
+
     const handleEnded = () => {
       if (currentVideoIndex < videos.length - 1) {
         setCurrentVideoIndex(prev => prev + 1)
@@ -44,25 +57,26 @@ function CloudinaryVideoPlayer({
       }
     }
 
-    const handleLoadedData = () => {
-      video.play().catch(err => {
-        console.warn('Autoplay prevented:', err)
-      })
-    }
-
     video.addEventListener('ended', handleEnded)
-    video.addEventListener('loadeddata', handleLoadedData)
+    video.addEventListener('loadedmetadata', handleLoadedMetadata)
 
     return () => {
       video.removeEventListener('ended', handleEnded)
-      video.removeEventListener('loadeddata', handleLoadedData)
+      video.removeEventListener('loadedmetadata', handleLoadedMetadata)
     }
   }, [currentVideoIndex, videos])
 
   if (videos.length === 0) return null
 
   return (
-    <div className={`relative w-full h-full flex items-center justify-center bg-gray-900 ${className}`}>
+    <div 
+      ref={containerRef}
+      className={`relative w-full flex items-center justify-center ${className}`}
+      style={{
+        aspectRatio: aspectRatio ? `${aspectRatio}` : '16/9',
+        backgroundColor: 'transparent',
+      }}
+    >
       <video
         ref={videoRef}
         className="w-full h-full object-contain"
@@ -73,8 +87,6 @@ function CloudinaryVideoPlayer({
         preload="auto"
         style={{
           pointerEvents: 'none',
-          maxHeight: '100%',
-          maxWidth: '100%',
         }}
       />
     </div>
@@ -214,7 +226,7 @@ export default function ProductDetailContent({ product }: ProductDetailContentPr
         <section className="section-padding bg-background-secondary">
           <div className="container-custom">
             <div className="max-w-3xl mx-auto">
-              <div className="relative rounded-xl overflow-hidden shadow-soft bg-gray-900" style={{ aspectRatio: '16/9' }}>
+              <div className="relative rounded-xl overflow-hidden shadow-soft">
                 <CloudinaryVideoPlayer videoUrl={product.videos} />
               </div>
             </div>
