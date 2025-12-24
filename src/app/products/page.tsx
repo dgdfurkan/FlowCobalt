@@ -386,6 +386,13 @@ export default function ProductsPage() {
       <section id="products" className="section-padding bg-background">
         <div className="container-custom">
           <div className="text-center mb-12">
+            <div className="mb-6 flex justify-center">
+              <div className="pill-wrapper">
+                <div className="pill section-pill center">
+                  Products
+                </div>
+              </div>
+            </div>
             <h2 className="text-3xl md:text-4xl font-bold text-text-primary mb-4">
               Our <span className="text-brand-purple">Products</span>
             </h2>
