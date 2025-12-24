@@ -24,7 +24,7 @@ export default function Header() {
             isScrolled
               ? 'bg-white shadow-medium'
               : 'bg-white/95 backdrop-blur-md shadow-soft'
-          } md:border-0 border border-gray-800/20 outline outline-1 outline-gray-800/10`}
+          } md:border-0 md:ring-0 border border-gray-800/20 ring-1 ring-gray-800/10 shadow-lg`}
         >
           <div className="container-custom px-6 md:px-8">
             <div className="flex items-center justify-between h-16 md:h-20">
