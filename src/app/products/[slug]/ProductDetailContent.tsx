@@ -32,37 +32,61 @@ function CloudinaryVideoPlayer({
     if (!video || videos.length === 0) return
 
     const currentVideo = videos[currentVideoIndex]
-    if (!currentVideo) return
+    if (!currentVideo || typeof currentVideo !== 'string') return
 
-    // Use Cloudinary URL as-is (Cloudinary handles video optimization)
-    video.src = currentVideo
-    video.load()
+    try {
+      // Use Cloudinary URL as-is (Cloudinary handles video optimization)
+      video.src = currentVideo
+      video.load()
 
-    const handleLoadedMetadata = () => {
-      // Get video's natural aspect ratio
-      if (video.videoWidth && video.videoHeight) {
-        const ratio = video.videoWidth / video.videoHeight
-        setAspectRatio(ratio)
+      const handleLoadedMetadata = () => {
+        try {
+          // Get video's natural aspect ratio
+          if (video.videoWidth && video.videoHeight && video.videoWidth > 0 && video.videoHeight > 0) {
+            const ratio = video.videoWidth / video.videoHeight
+            if (ratio > 0 && isFinite(ratio)) {
+              setAspectRatio(ratio)
+            }
+          }
+          video.play().catch(err => {
+            console.warn('Autoplay prevented:', err)
+          })
+        } catch (error) {
+          console.error('Error handling video metadata:', error)
+        }
       }
-      video.play().catch(err => {
-        console.warn('Autoplay prevented:', err)
-      })
-    }
 
-    const handleEnded = () => {
-      if (currentVideoIndex < videos.length - 1) {
-        setCurrentVideoIndex(prev => prev + 1)
-      } else {
-        setCurrentVideoIndex(0)
+      const handleError = () => {
+        console.error('Video loading error:', currentVideo)
+        // Try next video if available
+        if (currentVideoIndex < videos.length - 1) {
+          setCurrentVideoIndex(prev => prev + 1)
+        }
       }
-    }
 
-    video.addEventListener('ended', handleEnded)
-    video.addEventListener('loadedmetadata', handleLoadedMetadata)
+      const handleEnded = () => {
+        try {
+          if (currentVideoIndex < videos.length - 1) {
+            setCurrentVideoIndex(prev => prev + 1)
+          } else {
+            setCurrentVideoIndex(0)
+          }
+        } catch (error) {
+          console.error('Error handling video end:', error)
+        }
+      }
 
-    return () => {
-      video.removeEventListener('ended', handleEnded)
-      video.removeEventListener('loadedmetadata', handleLoadedMetadata)
+      video.addEventListener('ended', handleEnded)
+      video.addEventListener('loadedmetadata', handleLoadedMetadata)
+      video.addEventListener('error', handleError)
+
+      return () => {
+        video.removeEventListener('ended', handleEnded)
+        video.removeEventListener('loadedmetadata', handleLoadedMetadata)
+        video.removeEventListener('error', handleError)
+      }
+    } catch (error) {
+      console.error('Error setting up video:', error)
     }
   }, [currentVideoIndex, videos])
 
