@@ -67,5 +67,25 @@
   .pill.section-pill.center {
     @apply mx-auto;
   }
+
+  .bento-grid {
+    @apply grid;
+  }
+
+  .bento-card {
+    @apply transition-all duration-300;
+  }
+
+  .bento-card:hover {
+    @apply transform -translate-y-1;
+  }
+
+  .feature-card {
+    @apply transition-all duration-300;
+  }
+
+  .feature-card:hover {
+    @apply transform -translate-y-1;
+  }
 }
 
