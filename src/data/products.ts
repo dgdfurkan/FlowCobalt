@@ -69,6 +69,109 @@ export const products: Product[] = [
     category: 'Enterprise Solutions',
     featured: true,
   },
+  {
+    id: '3',
+    slug: 'courier-shift-planner',
+    title: 'Courier Shift Planning System',
+    description: `An intelligent web application designed for courier companies and businesses to simplify weekly shift planning. Manage your couriers' working hours, days off, and shift balances from a single screen.
+
+**Project Purpose:**
+One of the biggest challenges in courier management is creating fair and balanced shift schedules. This system:
+
+- **Ensures Fair Work Distribution:** Automatically calculates each courier's working hours
+- **Saves Time:** Visual and quick editing instead of manual planning
+- **Prevents Errors:** Instantly shows missing or excess working hours
+- **Brings Transparency:** All team members can easily view the schedule
+
+**Key Features:**
+
+**Visual and Easy Planning:**
+- 7-day weekly view to see all shifts at a glance
+- Drag-and-drop to reorder couriers
+- Assign different colors for each day to make the schedule more readable
+
+**Smart Time Management:**
+- Edit shift times with a single click (start-end)
+- Quick adjustment with increase/decrease buttons
+- Mark days off as "OFF"
+
+**Automatic Calculations:**
+- Automatically calculates each courier's total working hours
+- Shows missing, excess, or balanced status based on target hours
+- Color-coded indicators for instant understanding:
+  - Red: Insufficient working hours
+  - Green: Balanced or excess working hours
+
+**Flexible Courier Management:**
+- Add new couriers, edit existing ones
+- Assign emoji avatars for each courier (visual recognition ease)
+- Temporarily hide or permanently delete couriers
+
+**Day Hiding Feature:**
+- Hide unnecessary days to simplify the screen
+- Restore hidden days with a single click
+- Focus on what matters
+
+**Automation Features:**
+
+**Data Saving and Loading:**
+- Save your entire shift plan in JSON format
+- Load previous plans to continue
+- Work without risk of data loss
+
+**Excel Report Generation:**
+- Download Excel report with a single click
+- Includes detailed working hours for all couriers
+- Ready format for accounting and reporting
+
+**Automatic Status Updates:**
+- Automatically recalculates total durations when hours change
+- Updates missing/excess statuses in real-time
+- No manual calculation required
+
+**Default Values:**
+- Automatic default hours for newly added couriers
+- Set default start/end times from settings
+- Automate repetitive tasks
+
+**Who Can Use It?**
+- Courier companies - Motorcycle courier, bicycle courier teams
+- Restaurants - Delivery team management
+- Logistics companies - Distribution team planning
+- Small businesses - Any team with shift workers
+
+**Why This System?**
+
+**Before:** Manual calculation in Excel, complex tables, high error risk, time loss, data loss risk
+
+**After:** Automatic calculation, visual and colorful interface, automatic error control, planning in minutes, safe save/load
+
+**Quick Start:**
+1. Add Couriers - Create courier profiles with name and emoji
+2. Set Hours - Enter start-end times for each day
+3. Check - Review automatically calculated total hours
+4. Save - Save your plan as JSON or download Excel report
+
+**Features Summary:**
+- 7-day weekly shift view
+- Drag-and-drop courier reordering
+- Automatic working hour calculation
+- Missing/excess hour warnings
+- Day coloring and hiding
+- JSON save/load
+- Excel report generation
+- Emoji avatar support
+- Responsive design (mobile compatible)
+- User-friendly interface
+
+Simplify courier shift planning, save time, manage your team more efficiently!`,
+    excerpt: 'Intelligent shift planning system for courier companies. Visual weekly scheduling with automatic hour calculations and Excel reporting.',
+    videos: [
+      'https://res.cloudinary.com/dppf64uyp/video/upload/v1766582675/Ekran_Kayd%C4%B1_2025-12-24_16.22.40_bdvh6u.mov',
+    ],
+    category: 'Workforce Management',
+    featured: true,
+  },
 ]
 
 // Helper function to get featured products (for homepage)
