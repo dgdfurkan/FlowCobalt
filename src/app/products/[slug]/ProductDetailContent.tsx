@@ -75,6 +75,87 @@ function CloudinaryVideoPlayer({
   )
 }
 
+// Component to format description with proper paragraphs, bold text, and lists
+function FormattedDescription({ description }: { description: string }) {
+  const lines = description.split('\n').filter(line => line.trim())
+  const elements: JSX.Element[] = []
+  let currentList: string[] = []
+  let currentSectionTitle: string | null = null
+
+  const renderList = (items: string[]) => {
+    if (items.length === 0) return null
+    return (
+      <ul key={`list-${elements.length}`} className="list-disc list-inside mb-6 space-y-2 text-text-secondary">
+        {items.map((item, idx) => {
+          // Parse bold text in list items
+          const parts = item.split(/(\*\*.*?\*\*)/g)
+          return (
+            <li key={idx} className="text-base leading-relaxed">
+              {parts.map((part, partIdx) => {
+                if (part.startsWith('**') && part.endsWith('**')) {
+                  return <strong key={partIdx} className="font-semibold text-text-primary">{part.slice(2, -2)}</strong>
+                }
+                return <span key={partIdx}>{part}</span>
+              })}
+            </li>
+          )
+        })}
+      </ul>
+    )
+  }
+
+  lines.forEach((line, idx) => {
+    const trimmed = line.trim()
+    
+    // Section title (starts with **)
+    if (trimmed.startsWith('**') && trimmed.endsWith('**') && !trimmed.includes(':')) {
+      // Render previous list if exists
+      if (currentList.length > 0) {
+        elements.push(renderList(currentList)!)
+        currentList = []
+      }
+      currentSectionTitle = trimmed.slice(2, -2)
+      elements.push(
+        <h3 key={`title-${idx}`} className="text-2xl font-bold text-text-primary mt-8 mb-4">
+          {currentSectionTitle}
+        </h3>
+      )
+    }
+    // List item (starts with -)
+    else if (trimmed.startsWith('- ')) {
+      currentList.push(trimmed.slice(2))
+    }
+    // Regular paragraph
+    else if (trimmed.length > 0) {
+      // Render previous list if exists
+      if (currentList.length > 0) {
+        elements.push(renderList(currentList)!)
+        currentList = []
+      }
+      
+      // Parse bold text in paragraphs
+      const parts = trimmed.split(/(\*\*.*?\*\*)/g)
+      elements.push(
+        <p key={`para-${idx}`} className="text-text-secondary text-lg leading-relaxed mb-6">
+          {parts.map((part, partIdx) => {
+            if (part.startsWith('**') && part.endsWith('**')) {
+              return <strong key={partIdx} className="font-semibold text-text-primary">{part.slice(2, -2)}</strong>
+            }
+            return <span key={partIdx}>{part}</span>
+          })}
+        </p>
+      )
+    }
+  })
+
+  // Render remaining list
+  if (currentList.length > 0) {
+    elements.push(renderList(currentList)!)
+  }
+
+  return <div>{elements}</div>
+}
+
 interface ProductDetailContentProps {
   product: Product
 }
@@ -115,8 +196,8 @@ export default function ProductDetailContent({ product }: ProductDetailContentPr
             <h1 className="text-4xl md:text-5xl font-bold text-text-primary mb-6">
               {product.title}
             </h1>
-            <p className="text-xl text-text-secondary">
-              {product.description}
+            <p className="text-xl text-text-secondary leading-relaxed">
+              {product.excerpt}
             </p>
           </div>
         </div>
@@ -140,9 +221,7 @@ export default function ProductDetailContent({ product }: ProductDetailContentPr
         <div className="container-custom">
           <div className="max-w-3xl mx-auto">
             <div className="prose prose-lg max-w-none">
-              <p className="text-text-secondary text-lg leading-relaxed">
-                {product.description}
-              </p>
+              <FormattedDescription description={product.description} />
             </div>
           </div>
         </div>
