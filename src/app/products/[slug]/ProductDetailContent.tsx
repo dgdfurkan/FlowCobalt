@@ -235,6 +235,18 @@ export default function ProductDetailContent({ product }: ProductDetailContentPr
     }
   }, [tracking, product?.slug])
 
+  if (!product) {
+    return (
+      <section className="section-padding bg-background">
+        <div className="container-custom">
+          <div className="max-w-3xl mx-auto text-center">
+            <p className="text-text-secondary">Product not found.</p>
+          </div>
+        </div>
+      </section>
+    )
+  }
+
   return (
     <>
       {/* Hero Section */}
