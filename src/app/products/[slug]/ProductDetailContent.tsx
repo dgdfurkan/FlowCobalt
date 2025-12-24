@@ -294,15 +294,18 @@ function FormattedDescription({ description }: { description: string }) {
           if (listElement) elements.push(listElement)
           currentList = []
         }
-        currentSectionTitle = trimmed.slice(2, -2)
-        elements.push(
-          <h3 key={`title-${idx}`} className="text-2xl font-bold text-text-primary mt-8 mb-4">
-            {currentSectionTitle}
-          </h3>
-        )
+        currentSectionTitle = trimmed.slice(2, -2).trim()
+        if (currentSectionTitle) {
+          elements.push(
+            <h3 key={`title-${idx}`} className="text-2xl font-bold text-text-primary mt-8 mb-4">
+              {currentSectionTitle}
+            </h3>
+          )
+        }
       }
       else if (trimmed.startsWith('- ')) {
-        currentList.push(trimmed.slice(2))
+        const item = trimmed.slice(2).replace(/\*\*/g, '').trim()
+        if (item) currentList.push(item)
       }
       else {
         if (currentList.length > 0) {
@@ -311,17 +314,14 @@ function FormattedDescription({ description }: { description: string }) {
           currentList = []
         }
         
-        const parts = trimmed.split(/(\*\*.*?\*\*)/g)
-        elements.push(
-          <p key={`para-${idx}`} className="text-text-secondary text-lg leading-relaxed mb-6">
-            {parts.map((part, partIdx) => {
-              if (part && part.startsWith('**') && part.endsWith('**')) {
-                return <strong key={partIdx} className="font-semibold text-text-primary">{part.slice(2, -2)}</strong>
-              }
-              return <span key={partIdx}>{part || ''}</span>
-            })}
-          </p>
-        )
+        const cleaned = trimmed.replace(/\*\*/g, '').trim()
+        if (cleaned) {
+          elements.push(
+            <p key={`para-${idx}`} className="text-text-secondary text-lg leading-relaxed mb-6">
+              {cleaned}
+            </p>
+          )
+        }
       }
     })
 
