@@ -64,10 +64,10 @@ function CloudinaryVideoPlayer({
   if (videos.length === 0) return null
 
   return (
-    <div className={`relative w-full h-full overflow-hidden rounded-xl ${className}`}>
+    <div className={`relative w-full h-full flex items-center justify-center bg-gray-100 ${className}`}>
       <video
         ref={videoRef}
-        className="w-full h-full object-cover"
+        className="w-full h-full object-contain"
         autoPlay
         loop={videos.length === 1}
         muted
@@ -75,6 +75,8 @@ function CloudinaryVideoPlayer({
         preload="auto"
         style={{
           pointerEvents: 'none',
+          maxHeight: '100%',
+          maxWidth: '100%',
         }}
       />
     </div>

@@ -69,10 +69,10 @@ function CloudinaryVideoPlayer({
   if (videos.length === 0) return null
 
   return (
-    <div className={`relative w-full h-full overflow-hidden rounded-xl ${className}`}>
+    <div className={`relative w-full h-full flex items-center justify-center bg-gray-100 ${className}`}>
       <video
         ref={videoRef}
-        className="w-full h-full object-cover"
+        className="w-full h-full object-contain"
         autoPlay
         loop={videos.length === 1} // Only loop if single video
         muted
@@ -80,6 +80,8 @@ function CloudinaryVideoPlayer({
         preload="auto"
         style={{
           pointerEvents: 'none', // Disable video controls interaction
+          maxHeight: '100%',
+          maxWidth: '100%',
         }}
       />
     </div>
@@ -163,7 +165,7 @@ export default function Products() {
               className="group relative overflow-hidden rounded-xl bg-white shadow-soft hover:shadow-medium transition-all duration-300"
             >
               {/* Video/GIF Wrapper */}
-              <div className="relative aspect-[16/10] overflow-hidden bg-gray-100">
+              <div className="relative aspect-[16/10] overflow-hidden bg-gray-100 flex items-center justify-center">
                 {product.videos && product.videos.length > 0 ? (
                   <CloudinaryVideoPlayer 
                     videoUrl={product.videos} 

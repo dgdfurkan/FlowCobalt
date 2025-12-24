@@ -58,10 +58,10 @@ function CloudinaryVideoPlayer({
   if (videos.length === 0) return null
 
   return (
-    <div className={`relative w-full h-full overflow-hidden rounded-xl ${className}`}>
+    <div className={`relative w-full h-full flex items-center justify-center bg-gray-900 ${className}`}>
       <video
         ref={videoRef}
-        className="w-full h-full object-cover"
+        className="w-full h-full object-contain"
         autoPlay
         loop={videos.length === 1}
         muted
@@ -69,6 +69,8 @@ function CloudinaryVideoPlayer({
         preload="auto"
         style={{
           pointerEvents: 'none',
+          maxHeight: '100%',
+          maxWidth: '100%',
         }}
       />
     </div>
@@ -207,8 +209,8 @@ export default function ProductDetailContent({ product }: ProductDetailContentPr
       {product.videos && product.videos.length > 0 && (
         <section className="section-padding bg-background-secondary">
           <div className="container-custom">
-            <div className="max-w-5xl mx-auto">
-              <div className="relative aspect-video rounded-xl overflow-hidden shadow-soft bg-gray-900">
+            <div className="max-w-3xl mx-auto">
+              <div className="relative rounded-xl overflow-hidden shadow-soft bg-gray-900" style={{ aspectRatio: '16/9' }}>
                 <CloudinaryVideoPlayer videoUrl={product.videos} />
               </div>
             </div>
