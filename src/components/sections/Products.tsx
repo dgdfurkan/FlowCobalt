@@ -15,7 +15,7 @@ function CloudinaryVideoPlayer({
   videoUrl, 
   className = '' 
 }: { 
-  videoUrl: string
+  videoUrl: string | string[]
   className?: string 
 }) {
   const videoRef = useRef<HTMLVideoElement>(null)
