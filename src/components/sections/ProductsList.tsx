@@ -23,8 +23,12 @@ function CloudinaryVideoPlayer({
   const [videos, setVideos] = useState<string[]>([])
 
   useEffect(() => {
+    if (!videoUrl) {
+      setVideos([])
+      return
+    }
     const videoArray = Array.isArray(videoUrl) ? videoUrl : [videoUrl]
-    setVideos(videoArray)
+    setVideos(videoArray.filter(Boolean)) // Filter out any empty/null values
   }, [videoUrl])
 
   useEffect(() => {
