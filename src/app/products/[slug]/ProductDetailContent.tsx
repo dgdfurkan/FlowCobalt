@@ -746,16 +746,6 @@ export default function ProductDetailContent({ product }: ProductDetailContentPr
         </section>
       )}
 
-      {/* Full Description Section */}
-      <section className="section-padding bg-background-secondary">
-        <div className="container-custom">
-          <div className="max-w-3xl mx-auto">
-            <div className="prose prose-lg max-w-none">
-              <FormattedDescription description={product.description} />
-            </div>
-          </div>
-        </div>
-      </section>
     </>
   )
 }
