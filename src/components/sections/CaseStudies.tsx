@@ -116,7 +116,7 @@ export default function CaseStudies() {
                 {story.coverImage && (
                   <div className="absolute inset-0">
                     <Image
-                      src={`${process.env.NEXT_PUBLIC_BASE_PATH || ''}${story.coverImage}`}
+                      src={story.coverImage}
                       alt={story.title}
                       fill
                       className="object-cover"
