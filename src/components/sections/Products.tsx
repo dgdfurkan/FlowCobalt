@@ -95,7 +95,7 @@ function CloudinaryVideoPlayer({
 export default function Products() {
   const sectionRef = useRef<HTMLElement>(null)
   const cardsRef = useRef<HTMLDivElement>(null)
-  const featuredProducts = getFeaturedProducts(3)
+  const featuredProducts = getFeaturedProducts(6)
 
   useEffect(() => {
     const ctx = gsap.context(() => {
