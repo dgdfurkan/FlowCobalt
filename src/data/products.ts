@@ -101,6 +101,75 @@ Data Security: Safe JSON save/load system prevents data loss and enables easy ba
     category: 'Workforce Management',
     featured: true,
   },
+  {
+    id: '4',
+    slug: 'kibele',
+    title: 'Kibele - AI Creative Partner & Ecosystem',
+    description: `Kibele is a digital ecosystem designed to organize the chaos of early-stage creative thinking and elevate the creative process — not just a tool, but an intelligent partner that triggers your creativity and supports you from first spark to execution.
+
+**Why We Built It:**
+- Lone Creator Problem: Creative individuals need a dedicated sounding board to develop ideas — Kibele fills that role autonomously
+- Scattered Inspiration: Visual references, sketches, and AI support unified under one roof to dramatically speed up the creative workflow
+- Community-Driven: Opens ideas to sharing, fostering a culture of collective and collaborative creativity
+
+**Core Features:**
+- Inspiration Rooms: Collaborative digital workspaces customized for each project or interest area, keeping context always close at hand
+- Kibele AI Partner: An intelligent assistant that converses like a trusted friend, provides encouragement, and generates creative ideas on demand
+- Visual Memory Bank: Integrated research system with instant access to global artworks and design examples — no more tab-hopping
+- Shared Sketchpad: Interactive canvas for simultaneous drawing, note-taking, and mind-mapping with teammates in real-time
+- Idea Archive: Personal library that organizes all developed ideas and conversations in a structured, searchable format
+
+**Benefits:**
+- Zero Blank-Page Fear: AI partner sparks the first idea the moment you need it — no more staring at an empty canvas
+- Real-Time Team Sync: Everyone stays aligned on the same visual plane, eliminating endless alignment meetings
+- Hours Saved Weekly: Stop switching between Pinterest, Behance, and browser tabs — everything lives in one place
+- Motivation on Demand: Supportive AI language keeps you in flow and reduces creative stress
+
+**Before & After:**
+- Blank page fear blocks every creative start | AI partner sparks ideas the moment you open the app
+- Inspiration scattered across Pinterest, Behance, and browser tabs | All references organized in one Visual Memory Bank
+- Team alignment takes hours of back-and-forth messages | Everyone synced on a shared canvas in real-time
+- Ideas lost in chats, sticky notes, and random files | Everything archived and instantly searchable in Idea Archive`,
+    excerpt: 'AI-powered creative ecosystem that eliminates blank-page fear. Inspiration rooms, AI partner, and real-time collaboration — all in one place.',
+    videos: [
+      'https://res.cloudinary.com/dppf64uyp/video/upload/v1774625893/dbdfccfd-b5a7-4929-873e-c82d793e2de9_ubiqps.mp4',
+    ],
+    category: 'AI & Creative Tools',
+    featured: true,
+  },
+  {
+    id: '5',
+    slug: 'busracraft',
+    title: 'BüşraCraft - Digital Recipe Book for Knitters',
+    description: `BüşraCraft is a digital recipe journal that brings all your knitting and handcraft recipes together in one place — making them easy to organize, find, and share. Tagline: "Stitch by stitch, digitally yours." Every step, every photo, every pattern stored as reliably as a cherished handwritten notebook, but searchable, shareable, and always in your pocket.
+
+**Core Features:**
+- Personal Library: Add, edit, and delete recipes; organize with smart categories; enrich entries with step-by-step photos
+- Discover Feed: Browse community-shared recipes, apply filters, like and comment, and save favorites to personal collections
+- Lists & Progress Tracking: Group recipes into custom lists such as "This Week's Projects" and track completion status
+- Smart Search: Full-text search across your entire recipe library in milliseconds
+- Accounts & Roles: Members can publish recipes; visitors can freely browse without creating an account
+- One-Touch Sharing: Export any recipe as an elegant visual card to share via message or social media
+- PWA Experience: Opens in the browser and installs to home screen for a full native-app feel
+
+**Benefits:**
+- Never Lose a Recipe Again: Every pattern centralized, searchable, and accessible anytime — even offline
+- Crystal-Clear Instructions: Structured photo-guided steps eliminate confusion and missing details
+- Instant Sharing: Share any recipe as a beautiful card or direct link in one tap
+- Community Discovery: Find new patterns and techniques through a curated community feed
+- Always With You: Mobile-first PWA works on any device with no app store download required
+
+**Before & After:**
+- Recipes scattered across notebooks, photos, and WhatsApp messages | All organized in one searchable digital library
+- Steps missing or out of order with photos buried in the camera roll | Step-by-step with embedded photos, crystal clear
+- Sharing means typing the whole recipe out again | One-tap export as a visual card or shareable link
+- "Who shared that pattern?" — lost somewhere in message threads | Community feed with collections and proper attribution
+- Carrying a physical notebook everywhere you go | Entire library in your pocket, synced across all devices`,
+    excerpt: 'Digital companion for knitters to collect, organize, and share handcraft recipes. Your entire stitch library — always in your pocket, always searchable.',
+    videos: [],
+    category: 'Personal & Lifestyle Apps',
+    featured: true,
+  },
 ]
 
 // Helper function to get featured products (for homepage)

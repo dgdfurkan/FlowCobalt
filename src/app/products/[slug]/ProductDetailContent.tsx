@@ -746,6 +746,101 @@ export default function ProductDetailContent({ product }: ProductDetailContentPr
         </section>
       )}
 
+      {/* Special Sections: Before/After table + Why/context sections */}
+      {parsedDescription.specialSections.map((section, sectionIdx) => {
+        const titleLower = section.title.toLowerCase()
+        const isBeforeAfter = titleLower.includes('before') || titleLower.includes('after') || titleLower.includes(' vs ')
+
+        if (isBeforeAfter) {
+          const pairs = section.items.map(item => {
+            const parts = item.split('|').map(p => p.trim())
+            return { before: parts[0] || item, after: parts[1] || '' }
+          })
+
+          return (
+            <section key={sectionIdx} className="section-padding bg-background">
+              <div className="container-custom">
+                <div className="text-center mb-12">
+                  <h2 className="text-3xl md:text-4xl font-bold text-text-primary mb-4">
+                    Before <span className="text-brand-purple">vs</span> After
+                  </h2>
+                  <p className="text-lg text-text-secondary">
+                    See how <strong>{product.title.split(' - ')[0]}</strong> transforms your day-to-day workflow
+                  </p>
+                </div>
+
+                <div className="max-w-4xl mx-auto">
+                  {/* Column headers */}
+                  <div className="grid grid-cols-2 gap-4 mb-4">
+                    <div className="bg-gray-100 rounded-xl px-6 py-3 text-center">
+                      <span className="font-bold text-gray-500 uppercase tracking-wide text-sm">Before</span>
+                    </div>
+                    <div className="bg-brand-purple/10 rounded-xl px-6 py-3 text-center">
+                      <span className="font-bold text-brand-purple uppercase tracking-wide text-sm">After</span>
+                    </div>
+                  </div>
+
+                  {/* Comparison rows */}
+                  <div className="space-y-3">
+                    {pairs.map((pair, idx) => (
+                      <div key={idx} className="grid grid-cols-2 gap-4">
+                        <div className="bg-white border border-gray-200 rounded-xl p-4 flex items-start gap-3 shadow-soft">
+                          <div className="w-5 h-5 rounded-full bg-red-100 flex items-center justify-center flex-shrink-0 mt-0.5">
+                            <svg className="w-3 h-3 text-red-500" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                              <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2.5} d="M6 18L18 6M6 6l12 12" />
+                            </svg>
+                          </div>
+                          <span className="text-text-secondary text-sm leading-relaxed">{pair.before}</span>
+                        </div>
+                        <div className="bg-white border border-brand-purple/20 rounded-xl p-4 flex items-start gap-3 shadow-soft">
+                          <div className="w-5 h-5 rounded-full bg-green-100 flex items-center justify-center flex-shrink-0 mt-0.5">
+                            <svg className="w-3 h-3 text-green-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                              <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2.5} d="M5 13l4 4L19 7" />
+                            </svg>
+                          </div>
+                          <span className="text-text-primary text-sm font-medium leading-relaxed">{pair.after}</span>
+                        </div>
+                      </div>
+                    ))}
+                  </div>
+                </div>
+              </div>
+            </section>
+          )
+        }
+
+        // Generic special section (e.g. "Why We Built It")
+        return (
+          <section key={sectionIdx} className="section-padding bg-background-secondary">
+            <div className="container-custom">
+              <div className="text-center mb-12">
+                <h2 className="text-3xl md:text-4xl font-bold text-text-primary mb-4">
+                  {section.title}
+                </h2>
+              </div>
+              <div className="max-w-5xl mx-auto grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+                {section.items.map((item, idx) => {
+                  const colonIdx = item.indexOf(':')
+                  const title = colonIdx > 0 ? item.substring(0, colonIdx).trim() : item
+                  const desc = colonIdx > 0 ? item.substring(colonIdx + 1).trim() : ''
+                  return (
+                    <div key={idx} className="bg-white rounded-xl p-6 shadow-soft hover:shadow-medium transition-shadow">
+                      <div className="w-10 h-10 bg-brand-purple/10 rounded-lg flex items-center justify-center mb-4">
+                        <svg className="w-5 h-5 text-brand-purple" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                          <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M13 10V3L4 14h7v7l9-11h-7z" />
+                        </svg>
+                      </div>
+                      <h3 className="text-lg font-bold text-text-primary mb-2">{title}</h3>
+                      {desc && <p className="text-text-secondary text-sm leading-relaxed">{desc}</p>}
+                    </div>
+                  )
+                })}
+              </div>
+            </div>
+          </section>
+        )
+      })}
+
     </>
   )
 }
