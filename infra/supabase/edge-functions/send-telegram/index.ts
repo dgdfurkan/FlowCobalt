@@ -6,304 +6,204 @@ const corsHeaders = {
   'Access-Control-Allow-Headers': 'authorization, x-client-info, apikey, content-type',
 }
 
-async function handleAdminAccessNotification(body: any, corsHeaders: Record<string, string>) {
-  const { accessType, ipAddress, country, city, region, pagePath, attemptedUsername } = body
-  
-  // Initialize Supabase client
-  const supabaseUrl = Deno.env.get('SUPABASE_URL')!
-  const supabaseKey = Deno.env.get('SUPABASE_SERVICE_ROLE_KEY')!
-  const supabase = createClient(supabaseUrl, supabaseKey)
+// ============================================================
+// Helpers
+// ============================================================
 
-  // Get Telegram settings
-  const { data: telegramEnabled } = await supabase
-    .from('settings')
-    .select('value')
-    .eq('key', 'telegram_enabled')
-    .single()
+function formatVisitorLabel(visitorNumber: number | null): string {
+  if (!visitorNumber) return 'V-????'
+  return `V-${String(visitorNumber).padStart(4, '0')}`
+}
 
-  const isEnabled = telegramEnabled?.value === true || telegramEnabled?.value === 'true' || telegramEnabled?.value === '"true"'
-  
-  if (!telegramEnabled || !isEnabled) {
-    return new Response(
-      JSON.stringify({ success: false, message: 'Telegram notifications disabled' }),
-      { headers: { ...corsHeaders, 'Content-Type': 'application/json' }, status: 200 }
+function formatLocation(country: string, city: string): string {
+  const parts = [city, country].filter((p) => p && p !== 'Unknown')
+  return parts.length > 0 ? parts.join(', ') : 'Bilinmeyen'
+}
+
+function formatPage(pagePath: string): string {
+  if (!pagePath || pagePath === '/') return '/'
+  return pagePath.length > 40 ? pagePath.slice(0, 40) + '…' : pagePath
+}
+
+function buildMessage(payload: {
+  isNew: boolean
+  matchConfidence: string
+  isTrusted: boolean
+  displayName: string | null
+  visitorNumber: number | null
+  country: string
+  city: string
+  pagePath: string
+  browser: string
+  os: string
+  deviceType: string
+  visitCount: number
+  referer: string | null
+}): string {
+  const {
+    isNew,
+    matchConfidence,
+    isTrusted,
+    displayName,
+    visitorNumber,
+    country,
+    city,
+    pagePath,
+    browser,
+    os,
+    deviceType,
+    visitCount,
+    referer,
+  } = payload
+
+  const location = formatLocation(country, city)
+  const page = formatPage(pagePath)
+  const deviceStr = `${deviceType} • ${browser} / ${os}`
+  const label = formatVisitorLabel(visitorNumber)
+
+  // Trusted visitor
+  if (isTrusted && displayName) {
+    return (
+      `✅ *${displayName} girdi*\n` +
+      `📍 ${location}\n` +
+      `📄 ${page}\n` +
+      `📱 ${deviceStr}`
     )
   }
 
-  // Get bot token and chat IDs
-  const { data: botTokenData } = await supabase
-    .from('settings')
-    .select('value')
-    .eq('key', 'telegram_bot_token')
-    .single()
-
-  const { data: chatIdsData } = await supabase
-    .from('settings')
-    .select('value')
-    .eq('key', 'telegram_chat_ids')
-    .single()
-
-  if (!botTokenData || !chatIdsData) {
-    throw new Error('Telegram configuration not found')
+  // Probable same person via WiFi (different device, same network)
+  if (!isNew && matchConfidence === 'network') {
+    return (
+      `🔄 *Muhtemel ${label}*\n` +
+      `📍 ${location}\n` +
+      `📄 ${page}\n` +
+      `⚠️ Benzer ağ, farklı cihaz\n` +
+      `🔁 ${visitCount}. ziyaret`
+    )
   }
 
-  const botToken = typeof botTokenData.value === 'string' 
-    ? botTokenData.value.replace(/^"|"$/g, '')
-    : botTokenData.value
-  
-  const chatIds = Array.isArray(chatIdsData.value) 
-    ? chatIdsData.value 
-    : (typeof chatIdsData.value === 'string' ? JSON.parse(chatIdsData.value) : [])
-
-  if (!botToken || chatIds.length === 0) {
-    throw new Error('Telegram bot token or chat IDs not configured')
+  // Returning visitor
+  if (!isNew) {
+    return (
+      `👋 *${label} döndü*\n` +
+      `📍 ${location}\n` +
+      `📄 ${page}\n` +
+      `🔁 ${visitCount}. ziyaret\n` +
+      `📱 ${deviceStr}`
+    )
   }
 
-  // Format admin access message
-  const dateTime = new Date().toLocaleString('en-US', {
-    timeZone: 'UTC',
-    dateStyle: 'short',
-    timeStyle: 'short',
-  })
-
-  const location = region && region !== 'Unknown' 
-    ? `${country}, ${region}, ${city}` 
-    : `${country}, ${city}`
-
-  let message = ''
-  if (accessType === 'login_page') {
-    message = `⚠️ Admin Login Page Access\n📍 IP: ${ipAddress}\n🌍 Location: ${location}\n📄 Page: ${pagePath}\n🕐 Time: ${dateTime}`
-  } else if (accessType === 'admin_panel') {
-    message = `🚨 Admin Panel Access\n📍 IP: ${ipAddress}\n🌍 Location: ${location}\n📄 Page: ${pagePath}\n🕐 Time: ${dateTime}`
-  } else if (accessType === 'failed_login') {
-    message = `❌ Failed Login Attempt\n📍 IP: ${ipAddress}\n🌍 Location: ${location}\n👤 Username: ${attemptedUsername || 'Unknown'}\n📄 Page: ${pagePath}\n🕐 Time: ${dateTime}`
-  } else {
-    message = `⚠️ Admin Access Alert\n📍 IP: ${ipAddress}\n🌍 Location: ${location}\n📄 Type: ${accessType}\n🕐 Time: ${dateTime}`
-  }
-
-  // Send to all chat IDs
-  const results = await Promise.allSettled(
-    chatIds.map(async (chatId) => {
-      const chatIdStr = String(chatId).trim()
-      const telegramUrl = `https://api.telegram.org/bot${botToken}/sendMessage`
-      
-      const response = await fetch(telegramUrl, {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({
-          chat_id: chatIdStr,
-          text: message,
-        }),
-      })
-      
-      const responseData = await response.json()
-      if (!response.ok) {
-        throw new Error(`Telegram API error: ${JSON.stringify(responseData)}`)
-      }
-      
-      return responseData
-    })
-  )
-
-  const successCount = results.filter((r) => r.status === 'fulfilled').length
-
-  return new Response(
-    JSON.stringify({
-      success: true,
-      sentTo: successCount,
-      total: chatIds.length,
-    }),
-    {
-      headers: { ...corsHeaders, 'Content-Type': 'application/json' },
-      status: 200,
-    }
+  // Brand new visitor
+  const refLine = referer ? `\n🔗 ${referer.slice(0, 50)}` : ''
+  return (
+    `🆕 *Yeni Ziyaretçi*\n` +
+    `👤 ${label}\n` +
+    `📍 ${location}\n` +
+    `📄 ${page}\n` +
+    `📱 ${deviceStr}` +
+    refLine
   )
 }
 
+// ============================================================
+// Handler
+// ============================================================
+
 serve(async (req) => {
-  console.log('Send-telegram function called')
-  
   if (req.method === 'OPTIONS') {
     return new Response('ok', { headers: corsHeaders })
   }
 
   try {
-    const body = await req.json()
-    console.log('Request body received:', body)
-    
-    // Check if this is an admin access notification
-    if (body.type === 'admin_access') {
-      return await handleAdminAccessNotification(body, corsHeaders)
-    }
-    
-    // Regular visitor notification
-    const { visitorId, visitId, isNewVisit, ipAddress, country, city, region } = body
-    console.log('Parsed params:', { visitorId, visitId, isNewVisit, ipAddress, country, city, region })
+    const sb = createClient(
+      Deno.env.get('SUPABASE_URL')!,
+      Deno.env.get('SUPABASE_SERVICE_ROLE_KEY')!
+    )
 
-    // Initialize Supabase client
-    const supabaseUrl = Deno.env.get('SUPABASE_URL')!
-    const supabaseKey = Deno.env.get('SUPABASE_SERVICE_ROLE_KEY')!
-    const supabase = createClient(supabaseUrl, supabaseKey)
-
-    // Get Telegram settings
-    console.log('Fetching Telegram settings...')
-    const { data: telegramEnabled, error: telegramEnabledError } = await supabase
+    // Load settings
+    const { data: settings } = await sb
       .from('settings')
-      .select('value')
-      .eq('key', 'telegram_enabled')
-      .single()
+      .select('key, value')
+      .in('key', ['telegram_enabled', 'telegram_bot_token', 'telegram_chat_ids'])
 
-    console.log('telegram_enabled query result:', { telegramEnabled, error: telegramEnabledError })
-
-    // Check if enabled (value can be JSONB boolean true or string "true")
-    const isEnabled = telegramEnabled?.value === true || telegramEnabled?.value === 'true' || telegramEnabled?.value === '"true"'
-    console.log('Telegram enabled check:', { rawValue: telegramEnabled?.value, isEnabled })
-    
-    if (!telegramEnabled || !isEnabled) {
-      console.log('Telegram notifications disabled or not configured:', telegramEnabled)
-      return new Response(
-        JSON.stringify({ success: false, message: 'Telegram notifications disabled', debug: telegramEnabled }),
-        { headers: { ...corsHeaders, 'Content-Type': 'application/json' }, status: 200 }
-      )
+    const settingsMap: Record<string, any> = {}
+    for (const row of settings ?? []) {
+      settingsMap[row.key] = row.value
     }
 
-    // Get bot token and chat IDs
-    console.log('Fetching bot token and chat IDs...')
-    const { data: botTokenData, error: botTokenError } = await supabase
-      .from('settings')
-      .select('value')
-      .eq('key', 'telegram_bot_token')
-      .single()
-
-    const { data: chatIdsData, error: chatIdsError } = await supabase
-      .from('settings')
-      .select('value')
-      .eq('key', 'telegram_chat_ids')
-      .single()
-
-    console.log('Bot token query result:', { botTokenData, error: botTokenError })
-    console.log('Chat IDs query result:', { chatIdsData, error: chatIdsError })
-
-    if (!botTokenData || !chatIdsData) {
-      console.error('Telegram configuration not found')
-      throw new Error('Telegram configuration not found')
+    if (!settingsMap['telegram_enabled']) {
+      return new Response(JSON.stringify({ skipped: 'disabled' }), {
+        headers: { ...corsHeaders, 'Content-Type': 'application/json' },
+      })
     }
 
-    // Parse JSONB values correctly
-    const botToken = typeof botTokenData.value === 'string' 
-      ? botTokenData.value.replace(/^"|"$/g, '') // Remove quotes if string
-      : botTokenData.value
-    
-    const chatIds = Array.isArray(chatIdsData.value) 
-      ? chatIdsData.value 
-      : (typeof chatIdsData.value === 'string' ? JSON.parse(chatIdsData.value) : [])
-
-    console.log('Parsed bot token:', botToken ? `${botToken.substring(0, 10)}...` : 'MISSING')
-    console.log('Parsed chat IDs:', chatIds)
+    const botToken: string = settingsMap['telegram_bot_token'] ?? ''
+    const chatIds: string[] = settingsMap['telegram_chat_ids'] ?? []
 
     if (!botToken || chatIds.length === 0) {
-      console.error('Bot token or chat IDs missing:', { botToken: !!botToken, chatIdsLength: chatIds.length })
-      throw new Error('Telegram bot token or chat IDs not configured')
+      return new Response(JSON.stringify({ skipped: 'no_config' }), {
+        headers: { ...corsHeaders, 'Content-Type': 'application/json' },
+      })
     }
 
-    // Get visitor info
-    console.log('Fetching visitor info...')
-    const { data: visitor, error: visitorError } = await supabase
-      .from('visitors')
-      .select('visit_count')
-      .eq('id', visitorId)
-      .single()
+    const payload = await req.json()
 
-    console.log('Visitor query result:', { visitor, error: visitorError })
+    const {
+      isNew = true,
+      matchConfidence = 'ip',
+      isTrusted = false,
+      displayName = null,
+      visitorNumber = null,
+      country = 'Unknown',
+      city = 'Unknown',
+      pagePath = '/',
+      browser = 'Unknown',
+      os = 'Unknown',
+      deviceType = 'Desktop',
+      visitCount = 1,
+      referer = null,
+    } = payload
 
-    // Format message
-    const dateTime = new Date().toLocaleString('en-US', {
-      timeZone: 'UTC',
-      dateStyle: 'short',
-      timeStyle: 'short',
+    const message = buildMessage({
+      isNew,
+      matchConfidence,
+      isTrusted,
+      displayName,
+      visitorNumber,
+      country,
+      city,
+      pagePath,
+      browser,
+      os,
+      deviceType,
+      visitCount,
+      referer,
     })
 
-    let message = ''
-    const location = region && region !== 'Unknown' 
-      ? `${country}, ${region}, ${city}` 
-      : `${country}, ${city}`
-    
-    if (isNewVisit) {
-      message = `🆕 New Visitor\n📍 IP: ${ipAddress}\n🌍 Location: ${location}\n🕐 Time: ${dateTime}`
-    } else {
-      const visitCount = visitor?.visit_count || 1
-      message = `🔁 Returning Visitor\n📍 IP: ${ipAddress}\n🌍 Location: ${location}\n📊 Visit #${visitCount}\n🕐 Time: ${dateTime}`
-    }
-
-    console.log('Formatted message:', message)
-
-    // Send to all chat IDs
-    console.log('Sending messages to Telegram API...')
-    const results = await Promise.allSettled(
-      chatIds.map(async (chatId) => {
-        const chatIdStr = String(chatId).trim()
-        console.log(`Sending Telegram message to chat ID: ${chatIdStr}`)
-        
-        const telegramUrl = `https://api.telegram.org/bot${botToken}/sendMessage`
-        console.log(`Telegram API URL: ${telegramUrl}`)
-        
-        const response = await fetch(telegramUrl, {
-          method: 'POST',
-          headers: { 'Content-Type': 'application/json' },
-          body: JSON.stringify({
-            chat_id: chatIdStr,
-            text: message,
-          }),
-        })
-        
-        const responseData = await response.json()
-        console.log(`Telegram API response for ${chatIdStr}:`, responseData)
-        
-        if (!response.ok) {
-          throw new Error(`Telegram API error: ${JSON.stringify(responseData)}`)
-        }
-        
-        return responseData
-      })
+    // Send to all configured chat IDs
+    const sends = chatIds.map((chatId: string) =>
+      fetch(`https://api.telegram.org/bot${botToken}/sendMessage`, {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({
+          chat_id: chatId,
+          text: message,
+          parse_mode: 'Markdown',
+          disable_web_page_preview: true,
+        }),
+      }).catch(() => null)
     )
 
-    const successCount = results.filter((r) => r.status === 'fulfilled').length
-    const failures = results
-      .filter((r) => r.status === 'rejected')
-      .map((r) => {
-        const reason = (r as PromiseRejectedResult).reason
-        console.error('Telegram send failure:', reason)
-        return reason
-      })
-
-    // Log results for debugging
-    console.log(`Telegram notification results: ${successCount}/${chatIds.length} sent successfully`)
-    console.log('All results:', results)
-    if (failures.length > 0) {
-      console.error('Telegram notification failures:', failures)
-    }
+    await Promise.allSettled(sends)
 
     return new Response(
-      JSON.stringify({
-        success: true,
-        sentTo: successCount,
-        total: chatIds.length,
-        failures: failures.length > 0 ? failures : undefined,
-      }),
-      {
-        headers: { ...corsHeaders, 'Content-Type': 'application/json' },
-        status: 200,
-      }
+      JSON.stringify({ success: true }),
+      { headers: { ...corsHeaders, 'Content-Type': 'application/json' }, status: 200 }
     )
-  } catch (error) {
-    console.error('Telegram notification error:', error)
+  } catch (err: any) {
     return new Response(
-      JSON.stringify({ error: error.message }),
-      {
-        headers: { ...corsHeaders, 'Content-Type': 'application/json' },
-        status: 500,
-      }
+      JSON.stringify({ error: err?.message ?? 'Internal error' }),
+      { headers: { ...corsHeaders, 'Content-Type': 'application/json' }, status: 500 }
     )
   }
 })
-

@@ -217,8 +217,8 @@
 
   "products": {
     "pill": "Ürünler",
-    "sectionTitle": "Ürün",
-    "sectionTitleHighlight": "lerimiz",
+    "sectionTitle": "Ürünlerimiz",
+    "sectionTitleHighlight": "",
     "sectionSubtitle": "İş akışınızı dönüştürmek için tasarlanmış yenilikçi çözümlerimizi keşfedin",
     "noPreview": "Önizleme mevcut değil",
     "learnMore": "Daha Fazla",
@@ -229,8 +229,8 @@
     "pageTitleHighlight": "çözümler",
     "pageSubtitle": "İş akışınızı dönüştürmek için tasarlanmış yenilikçi ürünlerimizi keşfedin. AI destekli e-ticaret platformlarından kurumsal bayi yönetim sistemlerine kadar.",
     "exploreButton": "Ürünleri Keşfet",
-    "whatAreTitle": "Ürün",
-    "whatAreTitleHighlight": "lerimiz Nedir",
+    "whatAreTitle": "Ürünlerimiz",
+    "whatAreTitleHighlight": "Nedir",
     "whatAreSubtitle": "Gerçek dünyadaki sorunları çözen yenilikçi çözümler geliştiriyoruz. AI destekli platformlardan kurumsal yönetim sistemlerine kadar ürünlerimiz çalışma şeklinizi dönüştürmek için tasarlandı.",
     "card1Title": "AI Destekli Çözümler",
     "card1Desc": "İş akışlarını otomatize etmek, verileri analiz etmek ve daha akıllı kararlar almak için yapay zekadan yararlanın.",
