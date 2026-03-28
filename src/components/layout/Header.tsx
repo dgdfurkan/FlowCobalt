@@ -56,12 +56,12 @@ export default function Header() {
               </Link>
 
               {/* Desktop Navigation */}
-              <div className="hidden md:flex items-center space-x-8">
+              <div className="hidden md:flex items-center gap-3 lg:gap-5 xl:gap-7">
                 {navLinks.map((link) => (
                   <Link
                     key={link.href}
                     href={link.href}
-                    className="text-sm font-medium text-text-primary hover:text-brand-purple transition-colors"
+                    className="text-sm font-medium text-text-primary hover:text-brand-purple transition-colors whitespace-nowrap"
                   >
                     {link.label}
                   </Link>
@@ -69,12 +69,12 @@ export default function Header() {
               </div>
 
               {/* Desktop: CTA + Language Switcher */}
-              <div className="hidden md:flex items-center space-x-4">
+              <div className="hidden md:flex items-center gap-2 lg:gap-3 flex-shrink-0">
                 {/* Language Switcher */}
                 <div className="flex items-center gap-1 bg-gray-100 rounded-lg p-1">
                   <button
                     onClick={() => switchLocale('en')}
-                    className={`px-3 py-1 rounded-md text-xs font-semibold transition-all duration-200 ${
+                    className={`px-2.5 py-1 rounded-md text-xs font-semibold transition-all duration-200 ${
                       locale === 'en'
                         ? 'bg-white text-brand-purple shadow-sm'
                         : 'text-gray-500 hover:text-gray-700'
@@ -85,7 +85,7 @@ export default function Header() {
                   </button>
                   <button
                     onClick={() => switchLocale('tr')}
-                    className={`px-3 py-1 rounded-md text-xs font-semibold transition-all duration-200 ${
+                    className={`px-2.5 py-1 rounded-md text-xs font-semibold transition-all duration-200 ${
                       locale === 'tr'
                         ? 'bg-white text-brand-purple shadow-sm'
                         : 'text-gray-500 hover:text-gray-700'
@@ -98,13 +98,13 @@ export default function Header() {
 
                 <Link
                   href="/contact"
-                  className="px-4 py-2 text-sm font-medium text-text-primary hover:text-brand-purple transition-colors"
+                  className="hidden lg:block px-3 py-2 text-sm font-medium text-text-primary hover:text-brand-purple transition-colors whitespace-nowrap"
                 >
                   {t('requestDemo')}
                 </Link>
                 <Link
                   href="/contact"
-                  className="px-6 py-2 text-sm font-semibold text-white gradient-brand rounded-lg hover:opacity-90 transition-opacity"
+                  className="px-4 py-2 text-sm font-semibold text-white gradient-brand rounded-lg hover:opacity-90 transition-opacity whitespace-nowrap"
                 >
                   {t('getStarted')}
                 </Link>
