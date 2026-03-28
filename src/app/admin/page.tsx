@@ -182,6 +182,12 @@ export default function AdminDashboard() {
       badgeColor: 'bg-orange-100 text-orange-700',
     },
     {
+      href: '/admin/network-groups',
+      icon: '🌐',
+      title: 'Ağ Grupları',
+      desc: 'Aynı WiFi\'dan gelen ziyaretçileri karşılaştır ve karar ver',
+    },
+    {
       href: '/admin/security',
       icon: '🔒',
       title: 'Güvenlik Logları',

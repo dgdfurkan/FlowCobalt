@@ -258,6 +258,28 @@ CREATE INDEX IF NOT EXISTS idx_admin_logs_type ON admin_access_logs(access_type)
 CREATE INDEX IF NOT EXISTS idx_admin_logs_created ON admin_access_logs(created_at DESC);
 
 -- ============================================================
+-- NETWORK IDENTITY LINKS
+-- Stores admin decisions about whether two network-matched
+-- visitors are the same person or confirmed different people.
+-- visitor_id_a is always the lexicographically smaller UUID.
+-- ============================================================
+
+CREATE TABLE IF NOT EXISTS visitor_network_links (
+  id UUID PRIMARY KEY DEFAULT uuid_generate_v4(),
+  visitor_id_a UUID NOT NULL REFERENCES visitors(id) ON DELETE CASCADE,
+  visitor_id_b UUID NOT NULL REFERENCES visitors(id) ON DELETE CASCADE,
+  link_type TEXT NOT NULL CHECK (link_type IN ('same_person', 'different_person')),
+  subnet TEXT,
+  created_at TIMESTAMPTZ DEFAULT NOW(),
+  updated_at TIMESTAMPTZ DEFAULT NOW(),
+  UNIQUE(visitor_id_a, visitor_id_b)
+);
+
+CREATE INDEX IF NOT EXISTS idx_vnl_a ON visitor_network_links(visitor_id_a);
+CREATE INDEX IF NOT EXISTS idx_vnl_b ON visitor_network_links(visitor_id_b);
+CREATE INDEX IF NOT EXISTS idx_vnl_subnet ON visitor_network_links(subnet);
+
+-- ============================================================
 -- ROW LEVEL SECURITY
 -- ============================================================
 
@@ -327,6 +349,13 @@ CREATE POLICY "Admins can read contact_submissions" ON contact_submissions FOR S
 -- Admin logs
 CREATE POLICY "Public can insert admin_access_logs" ON admin_access_logs FOR INSERT WITH CHECK (true);
 CREATE POLICY "Admins can read admin_access_logs" ON admin_access_logs FOR SELECT USING (true);
+
+-- Network links
+ALTER TABLE visitor_network_links ENABLE ROW LEVEL SECURITY;
+CREATE POLICY "Public can insert visitor_network_links" ON visitor_network_links FOR INSERT WITH CHECK (true);
+CREATE POLICY "Public can read visitor_network_links" ON visitor_network_links FOR SELECT USING (true);
+CREATE POLICY "Public can update visitor_network_links" ON visitor_network_links FOR UPDATE USING (true);
+CREATE POLICY "Public can delete visitor_network_links" ON visitor_network_links FOR DELETE USING (true);
 
 -- ============================================================
 -- DEFAULT DATA

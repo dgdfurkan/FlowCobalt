@@ -148,6 +148,8 @@ function VisitorCard({ visitor }: { visitor: Visitor }) {
     )
   }
 
+  const hasSubnet = !!visitor.last_webrtc_subnet
+
   return (
     <Link href={`/admin/visitors/detail?id=${visitor.id}`}>
       <div
@@ -193,7 +195,14 @@ function VisitorCard({ visitor }: { visitor: Visitor }) {
           <span className="font-semibold text-brand-purple">
             {visitor.visit_count} ziyaret
           </span>
-          <span>{relTime}</span>
+          <div className="flex items-center gap-1.5">
+            {hasSubnet && (
+              <span title={`WiFi: ${visitor.last_webrtc_subnet}.*`} className="text-blue-400">
+                🌐
+              </span>
+            )}
+            <span>{relTime}</span>
+          </div>
         </div>
       </div>
     </Link>
@@ -308,6 +317,12 @@ export default function VisitorsPage() {
             </p>
           </div>
           <div className="flex items-center gap-3">
+            <Link
+              href="/admin/network-groups"
+              className="px-4 py-2 text-sm font-medium bg-blue-50 text-blue-700 border border-blue-200 rounded-lg hover:bg-blue-100 transition-colors"
+            >
+              🌐 Ağ Grupları
+            </Link>
             <Link
               href="/admin/trusted-devices"
               className="px-4 py-2 text-sm font-medium bg-emerald-50 text-emerald-700 border border-emerald-200 rounded-lg hover:bg-emerald-100 transition-colors"
