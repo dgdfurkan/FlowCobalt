@@ -1,32 +1,25 @@
-import type { Metadata } from "next";
-import Header from "@/components/layout/Header";
-import Footer from "@/components/layout/Footer";
-import ScrollTracker from "@/components/tracking/ScrollTracker";
-import CookieBanner from "@/components/ui/CookieBanner";
-import YandexMetricaLoader from "@/components/tracking/YandexMetricaLoader";
-import "../styles/globals.css";
+import type { Metadata } from 'next'
+import ScrollTracker from '@/components/tracking/ScrollTracker'
+import YandexMetricaLoader from '@/components/tracking/YandexMetricaLoader'
+import '../styles/globals.css'
 
 export const metadata: Metadata = {
-  title: "FlowCobalt - Automated Workflows in Days",
-  description: "We build practical AI + n8n automations that reduce errors and free up your team's time.",
-};
+  title: 'FlowCobalt',
+  description: 'Automated workflows in days, not months.',
+}
 
 export default function RootLayout({
   children,
 }: Readonly<{
-  children: React.ReactNode;
+  children: React.ReactNode
 }>) {
   return (
-    <html lang="en">
+    <html suppressHydrationWarning>
       <body className="antialiased">
         <ScrollTracker />
         <YandexMetricaLoader />
-        <Header />
-        <main className="pt-20 md:pt-24">{children}</main>
-        <Footer />
-        <CookieBanner />
+        {children}
       </body>
     </html>
-  );
+  )
 }
-

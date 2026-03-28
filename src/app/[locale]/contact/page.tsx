@@ -1,30 +1,35 @@
-import ContactForm from '@/components/contact/ContactForm'
+import { getTranslations, setRequestLocale } from 'next-intl/server'
 import { Metadata } from 'next'
+import ContactForm from '@/components/contact/ContactForm'
 
-export const metadata: Metadata = {
-  title: 'Contact Us - FlowCobalt',
-  description: 'Get in touch with FlowCobalt to automate your workflows',
+interface PageProps {
+  params: { locale: string }
 }
 
-export default function ContactPage() {
+export async function generateMetadata({ params: { locale } }: PageProps): Promise<Metadata> {
+  const t = await getTranslations({ locale, namespace: 'metadata.contact' })
+  return { title: t('title'), description: t('description') }
+}
+
+export default async function ContactPage({ params: { locale } }: PageProps) {
+  setRequestLocale(locale)
+  const t = await getTranslations({ locale, namespace: 'contact' })
 
   return (
     <>
-      {/* Hero Section */}
       <section className="section-padding bg-background">
         <div className="container-custom">
           <div className="max-w-3xl mx-auto text-center">
             <h1 className="text-4xl md:text-5xl lg:text-6xl font-bold text-text-primary mb-6">
-              Get in <span className="text-gradient-brand">Touch</span>
+              {t('pageTitle')} <span className="text-gradient-brand">{t('pageTitleHighlight')}</span>
             </h1>
             <p className="text-lg md:text-xl text-text-secondary max-w-2xl mx-auto">
-              Ready to automate your workflows? Let&apos;s discuss how we can help your team save time and reduce errors.
+              {t('pageSubtitle')}
             </p>
           </div>
         </div>
       </section>
 
-      {/* Contact Form Section */}
       <section className="section-padding bg-background-secondary">
         <div className="container-custom">
           <div className="max-w-2xl mx-auto">
@@ -35,4 +40,3 @@ export default function ContactPage() {
     </>
   )
 }
-

@@ -1,0 +1,331 @@
+{
+  "metadata": {
+    "default": {
+      "title": "FlowCobalt - Günler İçinde Otomatik İş Akışları",
+      "description": "Hataları azaltan ve ekibinizin zamanını serbest bırakan pratik AI + n8n otomasyonları geliştiriyoruz."
+    },
+    "about": {
+      "title": "Hakkımızda - FlowCobalt",
+      "description": "FlowCobalt ve iş akışlarını otomatize etme misyonumuz hakkında bilgi edinin"
+    },
+    "contact": {
+      "title": "İletişim - FlowCobalt",
+      "description": "İş akışlarınızı otomatize etmek için FlowCobalt ile iletişime geçin"
+    },
+    "services": {
+      "title": "Hizmetler - FlowCobalt",
+      "description": "Ekibinizin zaman kazanmasına ve hataları azaltmasına yardımcı olan otomasyon hizmetleri"
+    },
+    "process": {
+      "title": "Sürecimiz - FlowCobalt",
+      "description": "İş akışlarınızı otomatize etmek için sade ve kanıtlanmış sürecimiz hakkında bilgi edinin"
+    },
+    "products": {
+      "title": "Ürünler - FlowCobalt",
+      "description": "İş akışınızı dönüştürmek için tasarlanmış yenilikçi ürünlerimizi keşfedin"
+    },
+    "caseStudies": {
+      "title": "Başarı Hikayeleri - FlowCobalt",
+      "description": "Başarı hikayelerimizi keşfedin ve ekiplerin iş akışlarını otomatize etmesine nasıl yardımcı olduğumuzu görün"
+    },
+    "customers": {
+      "title": "Müşteri Hikayeleri - FlowCobalt",
+      "description": "Müşterilerimizin AI destekli otomasyon ile işlerini nasıl dönüştürdüklerini keşfedin"
+    },
+    "terms": {
+      "title": "Kullanım Şartları - FlowCobalt",
+      "description": "FlowCobalt Kullanım Şartları - Koşullarımızı ve şartlarımızı okuyun."
+    },
+    "privacy": {
+      "title": "Gizlilik Politikası - FlowCobalt",
+      "description": "FlowCobalt Gizlilik Politikası - Verilerinizi nasıl işlediğimizi öğrenin."
+    }
+  },
+
+  "nav": {
+    "home": "Ana Sayfa",
+    "services": "Hizmetler",
+    "caseStudies": "Başarı Hikayeleri",
+    "process": "Sürecimiz",
+    "about": "Hakkımızda",
+    "contact": "İletişim",
+    "requestDemo": "Demo Talep Et",
+    "getStarted": "Hemen Başla",
+    "toggleMenu": "Menüyü Aç/Kapat"
+  },
+
+  "languageSwitcher": {
+    "label": "Dil"
+  },
+
+  "footer": {
+    "tagline": "Günler içinde otomatik iş akışları.",
+    "services": "Hizmetler",
+    "company": "Şirket",
+    "legal": "Yasal",
+    "automationAudit": "Otomasyon Denetimi",
+    "sprintAutomation": "1 Sprint Otomasyon",
+    "opsRetainer": "Operasyon Paketi",
+    "about": "Hakkımızda",
+    "caseStudies": "Başarı Hikayeleri",
+    "process": "Sürecimiz",
+    "contact": "İletişim",
+    "privacyPolicy": "Gizlilik Politikası",
+    "termsOfService": "Kullanım Şartları",
+    "dataNda": "Veri gizliliği / NDA mevcuttur",
+    "copyright": "Tüm hakları saklıdır.",
+    "builtWith": "Next.js & Supabase ile geliştirildi"
+  },
+
+  "hero": {
+    "titleStart": "Manuel süreçler →",
+    "titleHighlight": "otomatik iş akışları",
+    "titleEnd": "günler içinde, aylar değil.",
+    "subtitle": "Hataları azaltan ve ekibinizin zamanını serbest bırakan pratik AI + n8n otomasyonları geliştiriyoruz.",
+    "cta1": "7 Günlük Ücretsiz Analiz Al",
+    "cta2": "Demo Talep Et"
+  },
+
+  "trustBlocks": {
+    "item1Title": "Hızlı Teslimat",
+    "item1Description": "1–2 Hafta",
+    "item1Subtitle": "Hızlı teslimat garantisi",
+    "item2Title": "Asenkron İletişim",
+    "item2Description": "Tüm saat dilimlerinde çalışır",
+    "item2Subtitle": "Saat dilimi engeli yok",
+    "item3Title": "Dokümantasyon + İzleme",
+    "item3Description": "Dahil",
+    "item3Subtitle": "Dokümantasyon ve izleme dahildir"
+  },
+
+  "process": {
+    "title": "Nasıl Çalışıyoruz",
+    "subtitle": "İş akışlarınızı otomatize etmek için sade ve kanıtlanmış bir süreç",
+    "step1Number": "01",
+    "step1Title": "Keşfet",
+    "step1Description": "Sürecinizi anlıyoruz",
+    "step1Detail1": "İş akışınızı anlamak için ilk görüşme",
+    "step1Detail2": "Süreç haritalama ve dokümantasyon",
+    "step1Detail3": "Sorun noktaları ve otomasyon fırsatlarının belirlenmesi",
+    "step1Detail4": "Başarı metrikleri ve yatırım getirisi beklentilerinin tanımlanması",
+    "step2Number": "02",
+    "step2Title": "Geliştir",
+    "step2Description": "Otomasyonu geliştiriyoruz",
+    "step2Detail1": "Otomasyon mimarisinin tasarımı",
+    "step2Detail2": "n8n veya özel çözümle iş akışının geliştirilmesi",
+    "step2Detail3": "Hata yönetimi ve izleme sisteminin kurulumu",
+    "step2Detail4": "Test ortamında kapsamlı test",
+    "step3Number": "03",
+    "step3Title": "Yayınla",
+    "step3Description": "Canlı ortama taşıyoruz",
+    "step3Detail1": "Otomasyonun canlı ortama taşınması",
+    "step3Detail2": "İlk çalışmaların sorunsuzluk açısından izlenmesi",
+    "step3Detail3": "Ekip eğitimi ve dokümantasyon sağlanması",
+    "step3Detail4": "Erişim ve kimlik bilgilerinin teslimi",
+    "step4Number": "04",
+    "step4Title": "Destek",
+    "step4Description": "Süregelen destek sağlıyoruz",
+    "step4Detail1": "Otomasyon performansının izlenmesi",
+    "step4Detail2": "Sorun ve hataların giderilmesi",
+    "step4Detail3": "Geri bildirime göre iş akışlarının optimize edilmesi",
+    "step4Detail4": "Gelecekteki iyileştirme ve geliştirmelerin planlanması",
+    "ctaTitle": "Başlamaya Hazır mısınız?",
+    "ctaSubtitle": "Otomasyon ihtiyaçlarınızı anlamak için bir keşif görüşmesiyle başlayalım.",
+    "ctaButton": "Hemen Başla",
+    "pageTitle": "Nasıl",
+    "pageTitleHighlight": "Çalışıyoruz",
+    "pageSubtitle": "İş akışlarınızı günler içinde, aylar değil, otomatize etmek için sade ve kanıtlanmış bir süreç."
+  },
+
+  "services": {
+    "pageTitle": "",
+    "pageTitleHighlight": "Hizmetlerimiz",
+    "pageSubtitle": "Hızlı denetimlerden süregelen desteğe kadar ihtiyaçlarınıza uygun esnek otomasyon çözümleri sunuyoruz.",
+    "getStarted": "Başlayalım",
+    "service1Title": "Otomasyon Denetimi",
+    "service1Description": "Otomasyon fırsatlarını belirlemek için mevcut iş akışlarınızın kapsamlı analizi.",
+    "service1Duration": "1 hafta",
+    "service1Price": "2.500 $'dan başlayan fiyatlarla",
+    "service1Feature1": "Süreç haritalama ve analizi",
+    "service1Feature2": "Otomasyon fırsatlarının belirlenmesi",
+    "service1Feature3": "Yatırım getirisi tahmini",
+    "service1Feature4": "Uygulama yol haritası",
+    "service2Title": "1 Sprint Otomasyon",
+    "service2Description": "1-2 hafta içinde teslim edilen eksiksiz otomasyon çözümü. Hızlı, odaklı ve sonuç odaklı.",
+    "service2Duration": "1-2 hafta",
+    "service2Price": "5.000 $'dan başlayan fiyatlarla",
+    "service2Feature1": "Uçtan uca iş akışı otomasyonu",
+    "service2Feature2": "n8n veya özel çözüm",
+    "service2Feature3": "Tam dokümantasyon",
+    "service2Feature4": "Ekip eğitimi dahil",
+    "service3Title": "Operasyon Paketi",
+    "service3Description": "Operasyon ekibiniz için süregelen destek ve kesintisiz otomasyon iyileştirmeleri.",
+    "service3Duration": "Süregelen",
+    "service3Price": "Aylık 3.000 $'dan başlayan fiyatlarla",
+    "service3Feature1": "Aylık otomasyon iyileştirmeleri",
+    "service3Feature2": "Öncelikli destek",
+    "service3Feature3": "Performans izleme",
+    "service3Feature4": "Üç aylık strateji değerlendirmeleri",
+    "ctaTitle": "Hangi Hizmetin Uygun Olduğundan Emin Değil misiniz?",
+    "ctaSubtitle": "İhtiyaçlarınızı konuşalım ve ekibiniz için en iyi otomasyon çözümünü birlikte bulalım.",
+    "ctaButton": "Görüşme Planlayın"
+  },
+
+  "about": {
+    "pageTitle": "FlowCobalt",
+    "pageTitleHighlight": "Hakkında",
+    "pageSubtitle": "Hataları azaltan ve ekibinizin zamanını serbest bırakan pratik AI + n8n otomasyonları geliştiriyoruz.",
+    "missionTitle": "Misyonumuz",
+    "missionText": "Manuel ve tekrarlayan işlerin otomatize edilmesi gerektiğine inanıyoruz. Misyonumuz; ekiplerin zaman alan görevleri ortadan kaldırmasına, hataları azaltmasına ve asıl önemli olana — harika ürünler geliştirmeye ve müşterilere hizmet etmeye — odaklanmasına yardımcı olmaktır.",
+    "visionTitle": "Vizyonumuz",
+    "visionText": "Her ekibin kullanımı kolay, güvenilir ve erişilebilir güçlü otomasyon araçlarına sahip olduğu bir dünya hayal ediyoruz. Karmaşık uygulamalar için aylarca harcanan sürelere son — sadece işe yarayan pratik çözümler.",
+    "valuesTitle": "Değerlerimiz",
+    "value1Title": "Hız",
+    "value1Description": "Otomasyon çözümlerini aylarca değil, günler içinde teslim ediyoruz. Hızlı iterasyon ve erken kazanımlar.",
+    "value2Title": "Sadelik",
+    "value2Description": "Karmaşık sorunlar basit çözümler hak eder. Anlaması ve bakımı kolay otomasyonlar geliştiriyoruz.",
+    "value3Title": "Güvenilirlik",
+    "value3Description": "İş akışlarınız 7/24 hatasız çalışır. Uygun hata yönetimi ve izleme ile sağlam sistemler kuruyoruz.",
+    "value4Title": "Şeffaflık",
+    "value4Description": "Net iletişim, ayrıntılı dokümantasyon ve sürpriz yok. Her zaman ne olduğunu bilirsiniz.",
+    "ctaTitle": "İş Akışlarınızı Otomatize Etmeye Hazır mısınız?",
+    "ctaSubtitle": "Ekibinizin otomasyon ile daha iyi sonuçlar elde etmesine nasıl yardımcı olabileceğimizi konuşalım.",
+    "ctaButton": "Hemen Başla"
+  },
+
+  "contact": {
+    "pageTitle": "Bize",
+    "pageTitleHighlight": "Ulaşın",
+    "pageSubtitle": "İş akışlarınızı otomatize etmeye hazır mısınız? Ekibinizin zaman kazanması ve hataları azaltması için nasıl yardımcı olabileceğimizi konuşalım.",
+    "formName": "Ad Soyad",
+    "formEmail": "E-posta",
+    "formCompany": "Şirket",
+    "formMessage": "Mesaj",
+    "formNamePlaceholder": "Adınız",
+    "formEmailPlaceholder": "e-posta@sirket.com",
+    "formCompanyPlaceholder": "Şirketiniz (isteğe bağlı)",
+    "formMessagePlaceholder": "Otomasyon ihtiyaçlarınızı bizimle paylaşın...",
+    "formNameRequired": "Ad Soyad zorunludur",
+    "formEmailRequired": "E-posta zorunludur",
+    "formEmailInvalid": "Lütfen geçerli bir e-posta adresi girin",
+    "formMessageRequired": "Mesaj zorunludur",
+    "formSending": "Gönderiliyor...",
+    "formSend": "Mesaj Gönder",
+    "formSuccess": "Teşekkürler! Mesajınız başarıyla gönderildi. En kısa sürede size geri döneceğiz.",
+    "formError": "Bir hata oluştu. Lütfen daha sonra tekrar deneyin veya bize doğrudan ulaşın."
+  },
+
+  "products": {
+    "pill": "Ürünler",
+    "sectionTitle": "Ürün",
+    "sectionTitleHighlight": "lerimiz",
+    "sectionSubtitle": "İş akışınızı dönüştürmek için tasarlanmış yenilikçi çözümlerimizi keşfedin",
+    "noPreview": "Önizleme mevcut değil",
+    "learnMore": "Daha Fazla",
+    "viewAll": "Tüm ürünleri görüntüle →",
+    "tryFree": "Ücretsiz Dene",
+    "requestDemo": "Demo Talep Et",
+    "pageTitle": "Saniyeler içinde güçlü",
+    "pageTitleHighlight": "çözümler",
+    "pageSubtitle": "İş akışınızı dönüştürmek için tasarlanmış yenilikçi ürünlerimizi keşfedin. AI destekli e-ticaret platformlarından kurumsal bayi yönetim sistemlerine kadar.",
+    "exploreButton": "Ürünleri Keşfet",
+    "whatAreTitle": "Ürün",
+    "whatAreTitleHighlight": "lerimiz Nedir",
+    "whatAreSubtitle": "Gerçek dünyadaki sorunları çözen yenilikçi çözümler geliştiriyoruz. AI destekli platformlardan kurumsal yönetim sistemlerine kadar ürünlerimiz çalışma şeklinizi dönüştürmek için tasarlandı.",
+    "card1Title": "AI Destekli Çözümler",
+    "card1Desc": "İş akışlarını otomatize etmek, verileri analiz etmek ve daha akıllı kararlar almak için yapay zekadan yararlanın.",
+    "card2Title": "Kurumsal Hazır",
+    "card2Desc": "Kritik operasyonlar için kurumsal düzeyde altyapı, güvenlik ve güvenilirlikle ölçeklenmek üzere geliştirildi.",
+    "card3Title": "Yıldırım Hızında",
+    "card3Desc": "Milisaniyenin altında yanıt süreleri ve kesintisiz kullanıcı deneyimleriyle performans için optimize edildi.",
+    "noCodingTitle": "Kod yazmanıza gerek yok",
+    "noCodingSubtitle": "Çözümlerimizi mevcut iş akışınıza kolayca entegre edin. Ürünlerimiz sadelik gözetilerek tasarlandı; minimum kurulum ve teknik uzmanlık gerektirir.",
+    "noCodingSetup": "Hızlı Kurulum",
+    "noCodingSetupDesc": "Sezgisel kurulum sürecimizle dakikalar içinde başlayın",
+    "noCodingUI": "Kullanıcı Dostu Arayüz",
+    "noCodingUIDesc": "Her teknik seviyeden kullanıcı için tasarlandı",
+    "noCodingDocs": "Kapsamlı Dokümantasyon",
+    "noCodingDocsDesc": "Başarıya giden adım adım kılavuzlar ve eğitimler",
+    "detailWhatIs": "Nedir",
+    "detailBuildToday": "Bugün ne",
+    "detailBuildHighlight": "inşa edeceksiniz",
+    "detailBuildToday2": "?",
+    "detailKeyFeatures": "Temel Özellikler",
+    "detailFeatures": "Özellikler",
+    "detailFeaturesSubtitle": "Kendi çözümünüzü oluşturun. İşletmeniz için geliştirin, eğitin ve özelleştirin.",
+    "detailWhyChoose": "Neden Bu Çözümü Tercih Etmeli?",
+    "detailWhyChooseSubtitle": "Bu ürünü işletmeniz için vazgeçilmez kılan avantajları keşfedin",
+    "detailBeforeAfterTitle": "Önce",
+    "detailBeforeAfterVs": "ve",
+    "detailBeforeAfterAfter": "Sonra",
+    "detailTransformsWorkflow": "günlük iş akışınızı nasıl dönüştürür",
+    "detailBeforeCol": "Önce",
+    "detailAfterCol": "Sonra"
+  },
+
+  "caseStudies": {
+    "pill": "Müşteriler",
+    "sectionTitle": "Başarı Hikayeleri",
+    "sectionSubtitle": "Ekiplerin iş akışlarını otomatize etmesine nasıl yardımcı olduğumuzu görün",
+    "learnMore": "Daha Fazla →",
+    "readStory": "Hikayeyi Oku",
+    "viewAllCaseStudies": "Tüm başarı hikayelerini görüntüle →",
+    "viewCustomerStories": "Müşteri hikayelerini görüntüle →",
+    "pageTitle": "Başarı",
+    "pageTitleHighlight": "Hikayelerimiz",
+    "pageSubtitle": "Şirketlerin iş akışlarını otomatize etmelerine, hataları azaltmalarına ve ekiplerinin zamanını serbest bırakmalarına nasıl yardımcı olduğumuzu keşfedin.",
+    "listTitle": "Başarı Hikayeleri",
+    "listSubtitle": "Ekiplerin iş akışlarını otomatize etmesine ve olağanüstü sonuçlar elde etmesine nasıl yardımcı olduğumuzu görün",
+    "readMore": "Daha Fazla →",
+    "backToCaseStudies": "← Başarı Hikayelerine Dön",
+    "theChallenge": "Zorluk",
+    "ourSolution": "Çözümümüz",
+    "results": "Sonuçlar",
+    "relatedCaseStudies": "İlgili Başarı Hikayeleri",
+    "ctaTitle": "İş Akışlarınızı Otomatize Etmeye Hazır mısınız?",
+    "ctaSubtitle": "Ekibinizin benzer sonuçlar elde etmesine nasıl yardımcı olabileceğimizi konuşalım.",
+    "ctaGetStarted": "Hemen Başla",
+    "ctaViewMore": "Daha Fazla Hikaye Görüntüle"
+  },
+
+  "customers": {
+    "pill": "Müşteriler",
+    "pageTitle": "AI İş Gücü",
+    "pageTitleHighlight": "kuruyorlar",
+    "pageSubtitle": "Müşterilerimizin AI destekli otomasyon ve iş akışlarıyla işlerini nasıl dönüştürdüklerini keşfedin.",
+    "readStory": "Hikayeyi Oku",
+    "backToStories": "← Müşteri Hikayelerine Dön",
+    "about": "Hakkında",
+    "videoTranscript": "Video Metni",
+    "ctaTitle": "AI İş Gücünüzü Kurmaya Hazır mısınız?",
+    "ctaSubtitle": "AI destekli otomasyon ile işinizi dönüştürmemize nasıl yardımcı olabileceğimizi konuşalım.",
+    "ctaGetStarted": "Hemen Başla",
+    "ctaViewMore": "Daha Fazla Hikaye Görüntüle"
+  },
+
+  "cookieBanner": {
+    "title": "Çerez Kullanıyoruz",
+    "description": "Web sitemizde deneyiminizi iyileştirmek için çerez ve analitik araçlar kullanıyoruz. \"Kabul Et\" düğmesine tıklayarak çerez ve analitik kullanımımıza onay vermiş olursunuz. Daha fazla bilgi için",
+    "privacyPolicy": "Gizlilik Politikamızı",
+    "reject": "Reddet",
+    "accept": "Kabul Et"
+  },
+
+  "terms": {
+    "backToHome": "← Ana Sayfaya Dön",
+    "title": "Kullanım Şartları",
+    "lastUpdated": "Son güncelleme:",
+    "contactUs": "İletişim formumuz aracılığıyla bize ulaşın"
+  },
+
+  "privacy": {
+    "backToHome": "← Ana Sayfaya Dön",
+    "title": "Gizlilik Politikası",
+    "lastUpdated": "Son güncelleme:",
+    "contactUs": "İletişim formumuz aracılığıyla bize ulaşın"
+  },
+
+  "common": {
+    "logoAlt": "FlowCobalt Logosu"
+  }
+}

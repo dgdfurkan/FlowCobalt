@@ -1,0 +1,331 @@
+{
+  "metadata": {
+    "default": {
+      "title": "FlowCobalt - Automated Workflows in Days",
+      "description": "We build practical AI + n8n automations that reduce errors and free up your team's time."
+    },
+    "about": {
+      "title": "About Us - FlowCobalt",
+      "description": "Learn about FlowCobalt and our mission to automate workflows"
+    },
+    "contact": {
+      "title": "Contact Us - FlowCobalt",
+      "description": "Get in touch with FlowCobalt to automate your workflows"
+    },
+    "services": {
+      "title": "Services - FlowCobalt",
+      "description": "Automation services to help your team save time and reduce errors"
+    },
+    "process": {
+      "title": "Our Process - FlowCobalt",
+      "description": "Learn about our simple, proven process to automate your workflows"
+    },
+    "products": {
+      "title": "Products - FlowCobalt",
+      "description": "Discover our innovative products designed to transform your workflow"
+    },
+    "caseStudies": {
+      "title": "Case Studies - FlowCobalt",
+      "description": "Explore our success stories and see how we've helped teams automate their workflows"
+    },
+    "customers": {
+      "title": "Customer Stories - FlowCobalt",
+      "description": "Discover how our customers are transforming their businesses with AI-powered automation"
+    },
+    "terms": {
+      "title": "Terms of Service - FlowCobalt",
+      "description": "FlowCobalt Terms of Service - Read our terms and conditions."
+    },
+    "privacy": {
+      "title": "Privacy Policy - FlowCobalt",
+      "description": "FlowCobalt Privacy Policy - Learn how we handle your data."
+    }
+  },
+
+  "nav": {
+    "home": "Home",
+    "services": "Services",
+    "caseStudies": "Case Studies",
+    "process": "Process",
+    "about": "About",
+    "contact": "Contact",
+    "requestDemo": "Request Demo",
+    "getStarted": "Get Started",
+    "toggleMenu": "Toggle menu"
+  },
+
+  "languageSwitcher": {
+    "label": "Language"
+  },
+
+  "footer": {
+    "tagline": "Automated workflows in days, not months.",
+    "services": "Services",
+    "company": "Company",
+    "legal": "Legal",
+    "automationAudit": "Automation Audit",
+    "sprintAutomation": "1 Sprint Automation",
+    "opsRetainer": "Ops Retainer",
+    "about": "About",
+    "caseStudies": "Case Studies",
+    "process": "Process",
+    "contact": "Contact",
+    "privacyPolicy": "Privacy Policy",
+    "termsOfService": "Terms of Service",
+    "dataNda": "Data privacy / NDA available",
+    "copyright": "All rights reserved.",
+    "builtWith": "Built with Next.js & Supabase"
+  },
+
+  "hero": {
+    "titleStart": "Manual ops work →",
+    "titleHighlight": "automated workflows",
+    "titleEnd": "in days, not months.",
+    "subtitle": "We build practical AI + n8n automations that reduce errors and free up your team's time.",
+    "cta1": "Get a 7-day Automation Audit",
+    "cta2": "Request a demo"
+  },
+
+  "trustBlocks": {
+    "item1Title": "Fast delivery",
+    "item1Description": "1–2 weeks",
+    "item1Subtitle": "Fast delivery guarantee",
+    "item2Title": "Async-first communication",
+    "item2Description": "Works across time zones",
+    "item2Subtitle": "No time zone barriers",
+    "item3Title": "Documentation + monitoring",
+    "item3Description": "Included",
+    "item3Subtitle": "Documentation and monitoring included"
+  },
+
+  "process": {
+    "title": "How We Work",
+    "subtitle": "A simple, proven process to automate your workflows",
+    "step1Number": "01",
+    "step1Title": "Discover",
+    "step1Description": "We understand your process",
+    "step1Detail1": "Initial consultation to understand your workflow",
+    "step1Detail2": "Process mapping and documentation",
+    "step1Detail3": "Identify pain points and automation opportunities",
+    "step1Detail4": "Define success metrics and ROI expectations",
+    "step2Number": "02",
+    "step2Title": "Build",
+    "step2Description": "We develop the automation",
+    "step2Detail1": "Design automation architecture",
+    "step2Detail2": "Develop workflow using n8n or custom solution",
+    "step2Detail3": "Implement error handling and monitoring",
+    "step2Detail4": "Test thoroughly in staging environment",
+    "step3Number": "03",
+    "step3Title": "Deploy",
+    "step3Description": "We deploy to production",
+    "step3Detail1": "Deploy automation to production environment",
+    "step3Detail2": "Monitor initial runs for any issues",
+    "step3Detail3": "Provide team training and documentation",
+    "step3Detail4": "Hand over access and credentials",
+    "step4Number": "04",
+    "step4Title": "Support",
+    "step4Description": "We provide ongoing support",
+    "step4Detail1": "Monitor automation performance",
+    "step4Detail2": "Address any issues or errors",
+    "step4Detail3": "Optimize workflows based on feedback",
+    "step4Detail4": "Plan future improvements and enhancements",
+    "ctaTitle": "Ready to Start?",
+    "ctaSubtitle": "Let's begin with a discovery call to understand your automation needs.",
+    "ctaButton": "Get Started",
+    "pageTitle": "How We",
+    "pageTitleHighlight": "Work",
+    "pageSubtitle": "A simple, proven process to automate your workflows in days, not months."
+  },
+
+  "services": {
+    "pageTitle": "Our",
+    "pageTitleHighlight": "Services",
+    "pageSubtitle": "We offer flexible automation solutions to fit your needs, from quick audits to ongoing support.",
+    "getStarted": "Get Started",
+    "service1Title": "Automation Audit",
+    "service1Description": "Comprehensive analysis of your current workflows to identify automation opportunities.",
+    "service1Duration": "1 week",
+    "service1Price": "Starting at $2,500",
+    "service1Feature1": "Process mapping and analysis",
+    "service1Feature2": "Automation opportunity identification",
+    "service1Feature3": "ROI estimation",
+    "service1Feature4": "Implementation roadmap",
+    "service2Title": "1 Sprint Automation",
+    "service2Description": "Complete automation solution delivered in 1-2 weeks. Fast, focused, and results-driven.",
+    "service2Duration": "1-2 weeks",
+    "service2Price": "Starting at $5,000",
+    "service2Feature1": "End-to-end workflow automation",
+    "service2Feature2": "n8n or custom solution",
+    "service2Feature3": "Full documentation",
+    "service2Feature4": "Team training included",
+    "service3Title": "Ops Retainer",
+    "service3Description": "Ongoing support and continuous automation improvements for your operations team.",
+    "service3Duration": "Ongoing",
+    "service3Price": "Starting at $3,000/month",
+    "service3Feature1": "Monthly automation improvements",
+    "service3Feature2": "Priority support",
+    "service3Feature3": "Performance monitoring",
+    "service3Feature4": "Quarterly strategy reviews",
+    "ctaTitle": "Not Sure Which Service Fits?",
+    "ctaSubtitle": "Let's discuss your needs and find the best automation solution for your team.",
+    "ctaButton": "Schedule a Consultation"
+  },
+
+  "about": {
+    "pageTitle": "About",
+    "pageTitleHighlight": "FlowCobalt",
+    "pageSubtitle": "We build practical AI + n8n automations that reduce errors and free up your team's time.",
+    "missionTitle": "Our Mission",
+    "missionText": "We believe that manual, repetitive work should be automated. Our mission is to help teams eliminate time-consuming tasks, reduce errors, and focus on what matters most—building great products and serving customers.",
+    "visionTitle": "Our Vision",
+    "visionText": "We envision a world where every team has access to powerful automation tools that are easy to use, reliable, and affordable. No more spending months on complex implementations—just practical solutions that work.",
+    "valuesTitle": "Our Values",
+    "value1Title": "Speed",
+    "value1Description": "We deliver automation solutions in days, not months. Fast iteration and quick wins.",
+    "value2Title": "Simplicity",
+    "value2Description": "Complex problems deserve simple solutions. We build automations that are easy to understand and maintain.",
+    "value3Title": "Reliability",
+    "value3Description": "Your workflows run 24/7 without errors. We build robust systems with proper error handling and monitoring.",
+    "value4Title": "Transparency",
+    "value4Description": "Clear communication, detailed documentation, and no surprises. You always know what's happening.",
+    "ctaTitle": "Ready to Automate Your Workflows?",
+    "ctaSubtitle": "Let's discuss how we can help your team achieve better results with automation.",
+    "ctaButton": "Get Started"
+  },
+
+  "contact": {
+    "pageTitle": "Get in",
+    "pageTitleHighlight": "Touch",
+    "pageSubtitle": "Ready to automate your workflows? Let's discuss how we can help your team save time and reduce errors.",
+    "formName": "Name",
+    "formEmail": "Email",
+    "formCompany": "Company",
+    "formMessage": "Message",
+    "formNamePlaceholder": "Your name",
+    "formEmailPlaceholder": "your.email@company.com",
+    "formCompanyPlaceholder": "Your company (optional)",
+    "formMessagePlaceholder": "Tell us about your automation needs...",
+    "formNameRequired": "Name is required",
+    "formEmailRequired": "Email is required",
+    "formEmailInvalid": "Please enter a valid email address",
+    "formMessageRequired": "Message is required",
+    "formSending": "Sending...",
+    "formSend": "Send Message",
+    "formSuccess": "Thank you! Your message has been sent successfully. We'll get back to you soon.",
+    "formError": "Something went wrong. Please try again later or contact us directly."
+  },
+
+  "products": {
+    "pill": "Products",
+    "sectionTitle": "Our",
+    "sectionTitleHighlight": "Products",
+    "sectionSubtitle": "Discover our innovative solutions designed to transform your workflow",
+    "noPreview": "No preview available",
+    "learnMore": "Learn more",
+    "viewAll": "View all products →",
+    "tryFree": "Try for free",
+    "requestDemo": "Request Demo",
+    "pageTitle": "Build powerful solutions in",
+    "pageTitleHighlight": "seconds",
+    "pageSubtitle": "Discover our innovative products designed to transform your workflow. From AI-powered e-commerce platforms to enterprise dealer management systems.",
+    "exploreButton": "Explore Products",
+    "whatAreTitle": "What are our",
+    "whatAreTitleHighlight": "Products",
+    "whatAreSubtitle": "We build innovative solutions that solve real-world problems. From AI-powered platforms to enterprise management systems, our products are designed to transform how you work.",
+    "card1Title": "AI-Powered Solutions",
+    "card1Desc": "Leverage artificial intelligence to automate workflows, analyze data, and make smarter decisions.",
+    "card2Title": "Enterprise Ready",
+    "card2Desc": "Built to scale with enterprise-grade infrastructure, security, and reliability for mission-critical operations.",
+    "card3Title": "Lightning Fast",
+    "card3Desc": "Optimized for performance with sub-second response times and seamless user experiences.",
+    "noCodingTitle": "No coding required",
+    "noCodingSubtitle": "Easily integrate our solutions into your existing workflow. Our products are designed with simplicity in mind, requiring minimal setup and technical expertise.",
+    "noCodingSetup": "Quick Setup",
+    "noCodingSetupDesc": "Get started in minutes with our intuitive setup process",
+    "noCodingUI": "User-Friendly Interface",
+    "noCodingUIDesc": "Designed for users of all technical levels",
+    "noCodingDocs": "Comprehensive Documentation",
+    "noCodingDocsDesc": "Step-by-step guides and tutorials to help you succeed",
+    "detailWhatIs": "What is",
+    "detailBuildToday": "What will you",
+    "detailBuildHighlight": "build",
+    "detailBuildToday2": "today?",
+    "detailKeyFeatures": "Key Features",
+    "detailFeatures": "Features",
+    "detailFeaturesSubtitle": "Create your own solution. Build, train, and customize for your business.",
+    "detailWhyChoose": "Why Choose This Solution?",
+    "detailWhyChooseSubtitle": "Discover the benefits that make this product essential for your business",
+    "detailBeforeAfterTitle": "Before",
+    "detailBeforeAfterVs": "vs",
+    "detailBeforeAfterAfter": "After",
+    "detailTransformsWorkflow": "transforms your day-to-day workflow",
+    "detailBeforeCol": "Before",
+    "detailAfterCol": "After"
+  },
+
+  "caseStudies": {
+    "pill": "Customers",
+    "sectionTitle": "Success Stories",
+    "sectionSubtitle": "See how we've helped teams automate their workflows",
+    "learnMore": "Learn more →",
+    "readStory": "Read story",
+    "viewAllCaseStudies": "View all case studies →",
+    "viewCustomerStories": "View customer stories →",
+    "pageTitle": "Our",
+    "pageTitleHighlight": "Success Stories",
+    "pageSubtitle": "Discover how we've helped companies automate their workflows, reduce errors, and free up their teams' time.",
+    "listTitle": "Success Stories",
+    "listSubtitle": "See how we've helped teams automate their workflows and achieve remarkable results",
+    "readMore": "Read more →",
+    "backToCaseStudies": "← Back to Case Studies",
+    "theChallenge": "The Challenge",
+    "ourSolution": "Our Solution",
+    "results": "Results",
+    "relatedCaseStudies": "Related Case Studies",
+    "ctaTitle": "Ready to Automate Your Workflows?",
+    "ctaSubtitle": "Let's discuss how we can help your team achieve similar results.",
+    "ctaGetStarted": "Get Started",
+    "ctaViewMore": "View More Case Studies"
+  },
+
+  "customers": {
+    "pill": "Customers",
+    "pageTitle": "Building their",
+    "pageTitleHighlight": "AI Workforce",
+    "pageSubtitle": "Discover how our customers are transforming their businesses with AI-powered automation and workflows.",
+    "readStory": "Read story",
+    "backToStories": "← Back to Customer Stories",
+    "about": "About",
+    "videoTranscript": "Video Transcript",
+    "ctaTitle": "Ready to Build Your AI Workforce?",
+    "ctaSubtitle": "Let's discuss how we can help transform your business with AI-powered automation.",
+    "ctaGetStarted": "Get Started",
+    "ctaViewMore": "View More Stories"
+  },
+
+  "cookieBanner": {
+    "title": "We use cookies",
+    "description": "We use cookies and analytics tools to improve your experience on our website. By clicking \"Accept\", you consent to our use of cookies and analytics. You can learn more in our",
+    "privacyPolicy": "Privacy Policy",
+    "reject": "Reject",
+    "accept": "Accept"
+  },
+
+  "terms": {
+    "backToHome": "← Back to Home",
+    "title": "Terms of Service",
+    "lastUpdated": "Last updated:",
+    "contactUs": "Contact us through our contact form"
+  },
+
+  "privacy": {
+    "backToHome": "← Back to Home",
+    "title": "Privacy Policy",
+    "lastUpdated": "Last updated:",
+    "contactUs": "Contact us through our contact form"
+  },
+
+  "common": {
+    "logoAlt": "FlowCobalt Logo"
+  }
+}

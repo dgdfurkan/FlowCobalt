@@ -3,7 +3,8 @@
 import { useEffect, useRef, useState } from 'react'
 import { gsap } from 'gsap'
 import { ScrollTrigger } from 'gsap/ScrollTrigger'
-import Link from 'next/link'
+import { useTranslations } from 'next-intl'
+import { Link } from '@/i18n/navigation'
 import { useTracking } from '@/lib/tracking'
 import { Product } from '@/data/products'
 
@@ -346,6 +347,7 @@ interface ProductDetailContentProps {
 }
 
 export default function ProductDetailContent({ product }: ProductDetailContentProps) {
+  const t = useTranslations('products')
   const tracking = useTracking()
   const heroRef = useRef<HTMLElement>(null)
   const whatIsRef = useRef<HTMLElement>(null)
@@ -485,13 +487,13 @@ export default function ProductDetailContent({ product }: ProductDetailContentPr
                   href="/contact"
                   className="px-6 py-3 bg-brand-purple text-white rounded-lg font-semibold hover:bg-brand-purple-light transition-colors"
                 >
-                  Try for free
+                  {t('tryFree')}
                 </Link>
                 <Link
                   href="/contact"
                   className="px-6 py-3 bg-white/10 backdrop-blur-sm text-white border border-white/20 rounded-lg font-semibold hover:bg-white/20 transition-colors"
                 >
-                  Request Demo
+                  {t('requestDemo')}
                 </Link>
               </div>
             </div>
@@ -501,7 +503,7 @@ export default function ProductDetailContent({ product }: ProductDetailContentPr
               <div className="hero-card">
                 <div className="relative bg-white rounded-2xl p-8 shadow-2xl hover:shadow-purple-500/20 transition-all duration-300">
                   <h3 className="text-2xl font-bold text-gray-900 mb-4">
-                    What will you <span className="text-brand-purple">build</span> today?
+                    {t('detailBuildToday')} <span className="text-brand-purple">{t('detailBuildHighlight')}</span> {t('detailBuildToday2')}
                   </h3>
                   <div className="relative rounded-xl overflow-hidden bg-gray-100">
                     <CloudinaryVideoPlayer videoUrl={product.videos} />
@@ -522,7 +524,7 @@ export default function ProductDetailContent({ product }: ProductDetailContentPr
           <div className="container-custom">
             <div className="max-w-4xl mx-auto text-center mb-16">
               <h2 className="text-3xl md:text-4xl font-bold text-text-primary mb-4">
-                What is <span className="text-brand-purple">{product.title.split(' - ')[0]}</span>?
+                {t('detailWhatIs')} <span className="text-brand-purple">{product.title.split(' - ')[0]}</span>?
               </h2>
               <p className="text-lg text-text-secondary">
                 {parsedDescription.intro}
@@ -572,7 +574,7 @@ export default function ProductDetailContent({ product }: ProductDetailContentPr
             <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 items-center">
               <div>
                 <h2 className="text-3xl md:text-4xl font-bold text-text-primary mb-6">
-                  Key Features
+                  {t('detailKeyFeatures')}
                 </h2>
                 <p className="text-lg text-text-secondary mb-8">
                   {parsedDescription.intro || 'Discover the powerful features that make this product stand out.'}
@@ -650,10 +652,10 @@ export default function ProductDetailContent({ product }: ProductDetailContentPr
           <div className="container-custom">
             <div className="text-center mb-12">
               <h2 className="text-3xl md:text-4xl font-bold text-text-primary mb-4">
-                Features
+                {t('detailFeatures')}
               </h2>
               <p className="text-lg text-text-secondary max-w-2xl mx-auto">
-                Create your own solution. Build, train, and customize for your business.
+                {t('detailFeaturesSubtitle')}
               </p>
             </div>
 
@@ -700,10 +702,10 @@ export default function ProductDetailContent({ product }: ProductDetailContentPr
             <div className="max-w-4xl mx-auto">
               <div className="text-center mb-12">
                 <h2 className="text-3xl md:text-4xl font-bold text-text-primary mb-4">
-                  Why Choose This Solution?
+                  {t('detailWhyChoose')}
                 </h2>
                 <p className="text-lg text-text-secondary">
-                  Discover the benefits that make this product essential for your business
+                  {t('detailWhyChooseSubtitle')}
                 </p>
               </div>
 
@@ -762,10 +764,10 @@ export default function ProductDetailContent({ product }: ProductDetailContentPr
               <div className="container-custom">
                 <div className="text-center mb-12">
                   <h2 className="text-3xl md:text-4xl font-bold text-text-primary mb-4">
-                    Before <span className="text-brand-purple">vs</span> After
+                    {t('detailBeforeAfterTitle')} <span className="text-brand-purple">{t('detailBeforeAfterVs')}</span> {t('detailBeforeAfterAfter')}
                   </h2>
                   <p className="text-lg text-text-secondary">
-                    See how <strong>{product.title.split(' - ')[0]}</strong> transforms your day-to-day workflow
+                    See how <strong>{product.title.split(' - ')[0]}</strong> {t('detailTransformsWorkflow')}
                   </p>
                 </div>
 
@@ -773,10 +775,10 @@ export default function ProductDetailContent({ product }: ProductDetailContentPr
                   {/* Column headers */}
                   <div className="grid grid-cols-2 gap-4 mb-4">
                     <div className="bg-gray-100 rounded-xl px-6 py-3 text-center">
-                      <span className="font-bold text-gray-500 uppercase tracking-wide text-sm">Before</span>
+                      <span className="font-bold text-gray-500 uppercase tracking-wide text-sm">{t('detailBeforeCol')}</span>
                     </div>
                     <div className="bg-brand-purple/10 rounded-xl px-6 py-3 text-center">
-                      <span className="font-bold text-brand-purple uppercase tracking-wide text-sm">After</span>
+                      <span className="font-bold text-brand-purple uppercase tracking-wide text-sm">{t('detailAfterCol')}</span>
                     </div>
                   </div>
 

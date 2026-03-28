@@ -1,44 +1,49 @@
+import { getTranslations, setRequestLocale } from 'next-intl/server'
+import { Metadata } from 'next'
 import Services from '@/components/sections/Services'
 import Button from '@/components/ui/Button'
-import { Metadata } from 'next'
 
-export const metadata: Metadata = {
-  title: 'Services - FlowCobalt',
-  description: 'Automation services to help your team save time and reduce errors',
+interface PageProps {
+  params: { locale: string }
 }
 
-export default function ServicesPage() {
+export async function generateMetadata({ params: { locale } }: PageProps): Promise<Metadata> {
+  const t = await getTranslations({ locale, namespace: 'metadata.services' })
+  return { title: t('title'), description: t('description') }
+}
+
+export default async function ServicesPage({ params: { locale } }: PageProps) {
+  setRequestLocale(locale)
+  const t = await getTranslations({ locale, namespace: 'services' })
+
   return (
     <>
-      {/* Hero Section */}
       <section className="section-padding bg-background">
         <div className="container-custom">
           <div className="max-w-3xl mx-auto text-center">
             <h1 className="text-4xl md:text-5xl lg:text-6xl font-bold text-text-primary mb-6">
-              Our <span className="text-gradient-brand">Services</span>
+              {t('pageTitle')} <span className="text-gradient-brand">{t('pageTitleHighlight')}</span>
             </h1>
             <p className="text-lg md:text-xl text-text-secondary max-w-2xl mx-auto mb-8">
-              We offer flexible automation solutions to fit your needs, from quick audits to ongoing support.
+              {t('pageSubtitle')}
             </p>
           </div>
         </div>
       </section>
 
-      {/* Services Grid */}
       <Services />
 
-      {/* CTA Section */}
       <section className="section-padding bg-background">
         <div className="container-custom">
           <div className="max-w-3xl mx-auto text-center">
             <h2 className="text-3xl md:text-4xl font-bold text-text-primary mb-4">
-              Not Sure Which Service Fits?
+              {t('ctaTitle')}
             </h2>
             <p className="text-lg text-text-secondary mb-8 max-w-2xl mx-auto">
-              Let&apos;s discuss your needs and find the best automation solution for your team.
+              {t('ctaSubtitle')}
             </p>
             <Button href="/contact" variant="primary" size="lg">
-              Schedule a Consultation
+              {t('ctaButton')}
             </Button>
           </div>
         </div>
@@ -46,4 +51,3 @@ export default function ServicesPage() {
     </>
   )
 }
-
