@@ -1,15 +1,39 @@
 import { supabase, isSupabaseAvailable } from './supabase'
 
 // ============================================================
-// Storage Keys
+// Storage Keys — 4-layer: localStorage + cookie + sessionStorage
 // ============================================================
-const DEVICE_ID_KEY = 'fc_device_id'
-const LAST_VISIT_KEY = 'fc_last_visit'
-const VISITOR_ID_KEY = 'fc_visitor_id'
-const VISIT_ID_KEY = 'fc_visit_id'
+const LS_DEVICE_ID = 'fc_did'
+const LS_VISITOR_ID = 'fc_vid'
+const LS_VISIT_ID = 'fc_vsid'
+const CK_DEVICE_ID = 'fc_did'
+const CK_VISITOR_ID = 'fc_vid'
+const SS_LAST_VISIT = 'fc_lv'
+const SS_VISITOR_ID = 'fc_visitor_id'
+const SS_VISIT_ID = 'fc_visit_id'
 
 // ============================================================
-// Utilities
+// Cookie helpers
+// ============================================================
+
+function setCookie(name: string, value: string, days = 730) {
+  try {
+    const exp = new Date(Date.now() + days * 86_400_000).toUTCString()
+    document.cookie = `${name}=${encodeURIComponent(value)}; expires=${exp}; path=/; SameSite=Lax`
+  } catch {}
+}
+
+function getCookie(name: string): string | null {
+  try {
+    const m = document.cookie.match(new RegExp(`(?:^|;\\s*)${name}=([^;]*)`))
+    return m ? decodeURIComponent(m[1]) : null
+  } catch {
+    return null
+  }
+}
+
+// ============================================================
+// UUID
 // ============================================================
 
 function generateUUID(): string {
@@ -23,22 +47,102 @@ function generateUUID(): string {
   }
 }
 
+// ============================================================
+// 4-layer Device ID  (localStorage → cookie → create → sync both)
+// ============================================================
+
 function getOrCreateDeviceId(): string {
+  let id: string | null = null
+
+  // 1. localStorage
+  try { id = localStorage.getItem(LS_DEVICE_ID) } catch {}
+  if (id) {
+    setCookie(CK_DEVICE_ID, id) // keep cookie in sync
+    return id
+  }
+
+  // 2. cookie (survives localStorage clear)
+  id = getCookie(CK_DEVICE_ID)
+  if (id) {
+    try { localStorage.setItem(LS_DEVICE_ID, id) } catch {}
+    return id
+  }
+
+  // 3. create new — persist in both
+  const newId = generateUUID()
+  try { localStorage.setItem(LS_DEVICE_ID, newId) } catch {}
+  setCookie(CK_DEVICE_ID, newId)
+  return newId
+}
+
+// ============================================================
+// 4-layer Visitor ID  (localStorage → cookie → sessionStorage)
+// ============================================================
+
+function getStoredVisitorId(): string | null {
+  let id: string | null = null
+  try { id = localStorage.getItem(LS_VISITOR_ID) } catch {}
+  if (id) return id
+  id = getCookie(CK_VISITOR_ID)
+  if (id) return id
+  try { id = sessionStorage.getItem(SS_VISITOR_ID) } catch {}
+  return id
+}
+
+function saveVisitorId(id: string) {
+  try { localStorage.setItem(LS_VISITOR_ID, id) } catch {}
+  setCookie(CK_VISITOR_ID, id)
+  try { sessionStorage.setItem(SS_VISITOR_ID, id) } catch {}
+}
+
+function getStoredVisitId(): string | null {
+  let id: string | null = null
+  try { id = localStorage.getItem(LS_VISIT_ID) } catch {}
+  if (id) return id
+  try { id = sessionStorage.getItem(SS_VISIT_ID) } catch {}
+  return id
+}
+
+function saveVisitId(id: string) {
+  try { localStorage.setItem(LS_VISIT_ID, id) } catch {}
+  try { sessionStorage.setItem(SS_VISIT_ID, id) } catch {}
+}
+
+// ============================================================
+// Fingerprint signals
+// ============================================================
+
+function getCanvasHash(): string {
   try {
-    const existing = localStorage.getItem(DEVICE_ID_KEY)
-    if (existing) return existing
-    const newId = generateUUID()
-    localStorage.setItem(DEVICE_ID_KEY, newId)
-    return newId
+    const c = document.createElement('canvas')
+    c.width = 280
+    c.height = 60
+    const ctx = c.getContext('2d')
+    if (!ctx) return ''
+
+    ctx.fillStyle = '#e91e63'
+    ctx.fillRect(0, 0, 280, 60)
+    ctx.fillStyle = '#fff'
+    ctx.font = 'bold 14px Arial, Helvetica, sans-serif'
+    ctx.fillText('fc_fp_v2_\u2665', 12, 38)
+    ctx.fillStyle = 'rgba(0,200,100,0.7)'
+    ctx.font = 'italic 11px Verdana, sans-serif'
+    ctx.fillText('flowcobalt.com', 120, 52)
+    ctx.fillStyle = 'rgba(0,100,255,0.5)'
+    ctx.beginPath()
+    ctx.arc(250, 30, 18, 0, Math.PI * 2)
+    ctx.fill()
+
+    return c.toDataURL()
   } catch {
-    return generateUUID()
+    return ''
   }
 }
 
 async function sha256short(str: string): Promise<string> {
   try {
-    const buffer = new TextEncoder().encode(str)
-    const hash = await crypto.subtle.digest('SHA-256', buffer)
+    const buf = new TextEncoder().encode(str)
+    const hash = await crypto.subtle.digest('SHA-256', buf)
     return Array.from(new Uint8Array(hash))
       .map((b) => b.toString(16).padStart(2, '0'))
       .join('')
@@ -48,35 +152,7 @@ async function sha256short(str: string): Promise<string> {
     for (let i = 0; i < str.length; i++) {
       h = Math.imul(31, h) + str.charCodeAt(i)
     }
-    return Math.abs(h).toString(16)
-  }
-}
-
-// ============================================================
-// Fingerprint Signals
-// ============================================================
-
-function getCanvasHash(): string {
-  try {
-    const canvas = document.createElement('canvas')
-    canvas.width = 240
-    canvas.height = 60
-    const ctx = canvas.getContext('2d')
-    if (!ctx) return ''
-
-    ctx.fillStyle = '#e91e63'
-    ctx.fillRect(0, 0, 240, 60)
-    ctx.fillStyle = '#fff'
-    ctx.font = 'bold 14px Arial, sans-serif'
-    ctx.fillText('fc_fp_2025', 12, 35)
-    ctx.fillStyle = 'rgba(0,150,255,0.7)'
-    ctx.beginPath()
-    ctx.arc(200, 30, 20, 0, Math.PI * 2)
-    ctx.fill()
-
-    return canvas.toDataURL()
-  } catch {
-    return ''
+    return Math.abs(h).toString(16).padStart(8, '0')
   }
 }
 
@@ -97,28 +173,25 @@ async function getWebRTCLocalIP(): Promise<{ ip: string | null; subnet: string |
         resolve({ ip, subnet })
       }
 
-      const timeout = setTimeout(() => finish(null, null), 2500)
+      const t = setTimeout(() => finish(null, null), 2500)
 
       pc.createDataChannel('')
       pc.createOffer()
         .then((o) => pc.setLocalDescription(o))
-        .catch(() => { clearTimeout(timeout); finish(null, null) })
+        .catch(() => { clearTimeout(t); finish(null, null) })
 
-      pc.onicecandidate = (event) => {
-        if (!event?.candidate?.candidate) return
-        const match = event.candidate.candidate.match(
-          /(?:^|[\s;])(\d{1,3}(?:\.\d{1,3}){3})(?=\s|$)/
-        )
-        if (!match) return
-        const ip = match[1]
+      pc.onicecandidate = (ev) => {
+        if (!ev?.candidate?.candidate) return
+        const m = ev.candidate.candidate.match(/(?:^|\s)(\d{1,3}(?:\.\d{1,3}){3})(?:\s|$)/)
+        if (!m) return
+        const ip = m[1]
         const isPrivate =
           ip.startsWith('192.168.') ||
           ip.startsWith('10.') ||
           /^172\.(1[6-9]|2\d|3[01])\./.test(ip)
         if (isPrivate) {
-          clearTimeout(timeout)
-          const parts = ip.split('.')
-          finish(ip, parts.slice(0, 3).join('.'))
+          clearTimeout(t)
+          finish(ip, ip.split('.').slice(0, 3).join('.'))
         }
       }
     } catch {
@@ -129,6 +202,7 @@ async function getWebRTCLocalIP(): Promise<{ ip: string | null; subnet: string |
 
 interface FingerprintData {
   deviceId: string
+  visitorIdHint: string | null  // ← THE KEY: stored visitor ID from previous session
   fingerprintHash: string
   canvasHash: string
   screenResolution: string
@@ -144,6 +218,7 @@ interface FingerprintData {
 
 async function collectFingerprint(): Promise<FingerprintData> {
   const deviceId = getOrCreateDeviceId()
+  const visitorIdHint = getStoredVisitorId() // may be null on first ever visit
 
   const rawCanvas = typeof window !== 'undefined' ? getCanvasHash() : ''
   const canvasHash = await sha256short(rawCanvas)
@@ -152,24 +227,28 @@ async function collectFingerprint(): Promise<FingerprintData> {
     typeof window !== 'undefined'
       ? `${window.screen.width}x${window.screen.height}`
       : ''
-  const colorDepth =
-    typeof window !== 'undefined' ? String(window.screen.colorDepth ?? 24) : '24'
+  const colorDepth = String(
+    typeof window !== 'undefined' ? (window.screen.colorDepth ?? 24) : 24
+  )
   const timezone = Intl.DateTimeFormat().resolvedOptions().timeZone ?? ''
   const language = (typeof navigator !== 'undefined' && navigator.language) || ''
   const cpuCores =
     (typeof navigator !== 'undefined' && (navigator as any).hardwareConcurrency) || 0
   const deviceMemory =
-    (typeof navigator !== 'undefined' && (navigator as any).deviceMemory) ?? null
+    typeof navigator !== 'undefined'
+      ? ((navigator as any).deviceMemory ?? null)
+      : null
 
   let connectionType: string | null = null
   try {
     const conn =
-      (navigator as any).connection ||
-      (navigator as any).mozConnection ||
+      (navigator as any).connection ??
+      (navigator as any).mozConnection ??
       (navigator as any).webkitConnection
     connectionType = conn?.type ?? conn?.effectiveType ?? null
   } catch {}
 
+  // WebRTC — wrapped in a race; mobile might be slow
   let webrtcLocalIp: string | null = null
   let webrtcSubnet: string | null = null
   try {
@@ -178,19 +257,13 @@ async function collectFingerprint(): Promise<FingerprintData> {
     webrtcSubnet = rtc.subnet
   } catch {}
 
-  // Stable fingerprint: excludes network/IP, uses hardware + browser signals
-  const fingerprintSource = [
-    canvasHash,
-    screenResolution,
-    colorDepth,
-    timezone,
-    language,
-    String(cpuCores),
-  ].join('|')
-  const fingerprintHash = await sha256short(fingerprintSource)
+  // Fingerprint only uses STABLE signals (not IP, not WebRTC, not deviceId)
+  const source = [canvasHash, screenResolution, colorDepth, timezone, language, String(cpuCores)].join('|')
+  const fingerprintHash = await sha256short(source)
 
   return {
     deviceId,
+    visitorIdHint,
     fingerprintHash,
     canvasHash,
     screenResolution,
@@ -219,7 +292,7 @@ interface TrackingEvent {
 }
 
 // ============================================================
-// Tracking Service
+// TrackingService singleton
 // ============================================================
 
 class TrackingService {
@@ -240,24 +313,24 @@ class TrackingService {
     if (typeof window === 'undefined') return
 
     try {
-      const lastVisitStr = sessionStorage.getItem(LAST_VISIT_KEY)
+      const lastVisitStr = sessionStorage.getItem(SS_LAST_VISIT)
       const now = Date.now()
       const isNewSession = !lastVisitStr || now - parseInt(lastVisitStr) > 30_000
 
       if (isNewSession) {
-        const fingerprint = await collectFingerprint()
-        await this.startSession(fingerprint)
-        sessionStorage.setItem(LAST_VISIT_KEY, String(now))
+        const fp = await collectFingerprint()
+        await this.startSession(fp)
+        sessionStorage.setItem(SS_LAST_VISIT, String(now))
       } else {
-        // Restore session IDs from storage
-        this.visitorId = sessionStorage.getItem(VISITOR_ID_KEY)
-        this.visitId = sessionStorage.getItem(VISIT_ID_KEY)
+        // Restore IDs from multi-layer storage
+        this.visitorId = getStoredVisitorId()
+        this.visitId = getStoredVisitId()
       }
 
       this.initScrollTracking()
       this.isInitialized = true
     } catch {
-      // Tracking must never break the app
+      // Never crash the app
     }
   }
 
@@ -279,6 +352,7 @@ class TrackingService {
           userAgent: navigator.userAgent,
           referer: document.referrer || null,
           deviceId: fp.deviceId,
+          visitorIdHint: fp.visitorIdHint,   // ← first-priority lookup
           fingerprintHash: fp.fingerprintHash,
           canvasHash: fp.canvasHash,
           screenResolution: fp.screenResolution,
@@ -295,11 +369,20 @@ class TrackingService {
 
       if (res.ok) {
         const data = await res.json()
+
         this.visitorId = data.visitorId ?? null
         this.visitId = data.visitId ?? null
 
-        if (this.visitorId) sessionStorage.setItem(VISITOR_ID_KEY, this.visitorId)
-        if (this.visitId) sessionStorage.setItem(VISIT_ID_KEY, this.visitId)
+        // Persist in ALL storage layers
+        if (this.visitorId) saveVisitorId(this.visitorId)
+        if (this.visitId) saveVisitId(this.visitId)
+
+        // Also update deviceId association in storage (edge function may have
+        // found the visitor by a different signal — ensure deviceId is now synced)
+        if (fp.deviceId) {
+          try { localStorage.setItem(LS_DEVICE_ID, fp.deviceId) } catch {}
+          setCookie(CK_DEVICE_ID, fp.deviceId)
+        }
       }
     } catch {}
   }
@@ -325,7 +408,7 @@ class TrackingService {
             this.trackEvent({
               eventType: 'scroll',
               eventName: `scroll_${m}`,
-              metadata: { milestone: m, depth: this.maxScrollDepth },
+              metadata: { milestone: m, maxDepth: this.maxScrollDepth },
             })
           }
         }
@@ -380,7 +463,9 @@ class TrackingService {
         visitor_id: this.visitorId,
         event_type: event.eventType,
         event_name: event.eventName ?? null,
-        page_path: event.pagePath ?? (typeof window !== 'undefined' ? window.location.pathname : null),
+        page_path:
+          event.pagePath ??
+          (typeof window !== 'undefined' ? window.location.pathname : null),
         element_id: event.elementId ?? null,
         element_class: event.elementClass ?? null,
         metadata: event.metadata ?? {},
@@ -391,20 +476,14 @@ class TrackingService {
   trackPageView(pagePath?: string) {
     this.trackEvent({
       eventType: 'pageview',
-      pagePath: pagePath ?? (typeof window !== 'undefined' ? window.location.pathname : undefined),
+      pagePath:
+        pagePath ??
+        (typeof window !== 'undefined' ? window.location.pathname : undefined),
     })
   }
 
   trackClick(elementId: string, elementClass?: string, eventName?: string) {
     this.trackEvent({ eventType: 'click', eventName, elementId, elementClass })
-  }
-
-  public trackScrollMilestone(milestone: number) {
-    this.trackEvent({
-      eventType: 'scroll',
-      eventName: `scroll_${milestone}`,
-      metadata: { milestone },
-    })
   }
 
   cleanup() {
@@ -417,7 +496,7 @@ class TrackingService {
 }
 
 // ============================================================
-// Singleton
+// Singleton export
 // ============================================================
 
 let instance: TrackingService | null = null

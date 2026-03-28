@@ -14,6 +14,7 @@ interface RequestBody {
   pagePath: string
   userAgent: string
   referer?: string | null
+  visitorIdHint?: string | null  // stored visitor UUID from client (localStorage + cookie)
   // Fingerprint signals
   deviceId?: string
   fingerprintHash?: string
@@ -112,13 +113,25 @@ async function getGeoData(
 
 async function resolveVisitor(
   sb: ReturnType<typeof createClient>,
+  visitorIdHint: string | null | undefined,
   deviceId: string | undefined,
   fingerprintHash: string | undefined,
   webrtcSubnet: string | undefined,
   ipAddress: string
 ): Promise<{ visitor: any; confidence: string; isNew: boolean }> {
 
-  // 1. Device ID (localStorage — most reliable, cross-session)
+  // 0. Visitor ID hint (client stored this UUID from a previous session — most reliable)
+  //    Works even when IP changes AND deviceId is lost (incognito, localStorage cleared)
+  if (visitorIdHint) {
+    const { data } = await sb
+      .from('visitors')
+      .select('*')
+      .eq('id', visitorIdHint)
+      .maybeSingle()
+    if (data) return { visitor: data, confidence: 'device', isNew: false }
+  }
+
+  // 1. Device ID (localStorage — persists across browser restarts)
   if (deviceId) {
     const { data } = await sb
       .from('visitors')
@@ -196,6 +209,7 @@ serve(async (req) => {
       pagePath,
       userAgent = '',
       referer = null,
+      visitorIdHint = null,
       deviceId,
       fingerprintHash,
       canvasHash,
@@ -228,6 +242,7 @@ serve(async (req) => {
     // ===================================================
     const { visitor, confidence, isNew } = await resolveVisitor(
       sb,
+      visitorIdHint,
       deviceId,
       fingerprintHash,
       webrtcSubnet,
@@ -289,7 +304,9 @@ serve(async (req) => {
         match_confidence: confidence,
       }
 
+      // Always save deviceId if we didn't have one (bootstraps identity for returning IP visitors)
       if (deviceId && !visitor.device_id) updateData.device_id = deviceId
+      // Save fingerprint if missing — also update if we got a better confidence match
       if (fingerprintHash && !visitor.fingerprint_hash) updateData.fingerprint_hash = fingerprintHash
       if (screenResolution) updateData.last_screen_resolution = screenResolution
       if (connectionType) updateData.last_connection_type = connectionType
