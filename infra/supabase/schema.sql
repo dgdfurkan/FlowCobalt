@@ -293,25 +293,45 @@ ALTER TABLE settings ENABLE ROW LEVEL SECURITY;
 ALTER TABLE contact_submissions ENABLE ROW LEVEL SECURITY;
 ALTER TABLE admin_access_logs ENABLE ROW LEVEL SECURITY;
 
--- Drop all existing policies
+-- Drop all existing policies (safe re-run)
 DROP POLICY IF EXISTS "Public can read users" ON users;
+
 DROP POLICY IF EXISTS "Public can insert visitors" ON visitors;
 DROP POLICY IF EXISTS "Public can read visitors" ON visitors;
 DROP POLICY IF EXISTS "Public can update visitors" ON visitors;
-DROP POLICY IF EXISTS "Public can insert visits" ON visits;
-DROP POLICY IF EXISTS "Public can read visits" ON visits;
-DROP POLICY IF EXISTS "Public can insert events" ON events;
-DROP POLICY IF EXISTS "Public can read events" ON events;
-DROP POLICY IF EXISTS "Public can read settings" ON settings;
-DROP POLICY IF EXISTS "Public can insert contact_submissions" ON contact_submissions;
-DROP POLICY IF EXISTS "Admins can read contact_submissions" ON contact_submissions;
-DROP POLICY IF EXISTS "Public can insert admin_access_logs" ON admin_access_logs;
-DROP POLICY IF EXISTS "Admins can read admin_access_logs" ON admin_access_logs;
+DROP POLICY IF EXISTS "Public can delete visitors" ON visitors;
+
 DROP POLICY IF EXISTS "Public can insert visitor_ips" ON visitor_ips;
 DROP POLICY IF EXISTS "Public can read visitor_ips" ON visitor_ips;
 DROP POLICY IF EXISTS "Public can update visitor_ips" ON visitor_ips;
+DROP POLICY IF EXISTS "Public can delete visitor_ips" ON visitor_ips;
+
 DROP POLICY IF EXISTS "Public can insert visitor_fingerprints" ON visitor_fingerprints;
 DROP POLICY IF EXISTS "Public can read visitor_fingerprints" ON visitor_fingerprints;
+
+DROP POLICY IF EXISTS "Public can insert visits" ON visits;
+DROP POLICY IF EXISTS "Public can read visits" ON visits;
+DROP POLICY IF EXISTS "Public can update visits" ON visits;
+DROP POLICY IF EXISTS "Public can delete visits" ON visits;
+
+DROP POLICY IF EXISTS "Public can insert events" ON events;
+DROP POLICY IF EXISTS "Public can read events" ON events;
+DROP POLICY IF EXISTS "Public can update events" ON events;
+
+DROP POLICY IF EXISTS "Public can read settings" ON settings;
+DROP POLICY IF EXISTS "Public can insert settings" ON settings;
+DROP POLICY IF EXISTS "Public can update settings" ON settings;
+
+DROP POLICY IF EXISTS "Public can insert contact_submissions" ON contact_submissions;
+DROP POLICY IF EXISTS "Admins can read contact_submissions" ON contact_submissions;
+
+DROP POLICY IF EXISTS "Public can insert admin_access_logs" ON admin_access_logs;
+DROP POLICY IF EXISTS "Admins can read admin_access_logs" ON admin_access_logs;
+
+DROP POLICY IF EXISTS "Public can insert visitor_network_links" ON visitor_network_links;
+DROP POLICY IF EXISTS "Public can read visitor_network_links" ON visitor_network_links;
+DROP POLICY IF EXISTS "Public can update visitor_network_links" ON visitor_network_links;
+DROP POLICY IF EXISTS "Public can delete visitor_network_links" ON visitor_network_links;
 
 -- Users
 CREATE POLICY "Public can read users" ON users FOR SELECT USING (true);
