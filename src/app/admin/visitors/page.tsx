@@ -27,6 +27,7 @@ interface Visitor {
   last_page_path: string | null
   last_connection_type: string | null
   last_screen_resolution: string | null
+  last_webrtc_subnet: string | null
   visit_count: number
   first_seen_at: string
   last_seen_at: string

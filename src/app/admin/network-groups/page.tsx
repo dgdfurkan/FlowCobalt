@@ -613,9 +613,10 @@ export default function NetworkGroupsPage() {
         <div className="mt-8 bg-blue-50 border border-blue-100 rounded-xl p-4">
           <p className="text-xs text-blue-700 leading-relaxed">
             <strong>Nasıl çalışır?</strong> WebRTC protokolü ile tarayıcıdan yerel IP adresi
-            okunur (örn. 192.168.1.x). Aynı subnet'ten gelen ziyaretçiler bu panelde grup olarak
-            gösterilir. Bir okul, ofis veya ev ağı gibi düşünebilirsin. Kararların veritabanına
-            kaydedilir ve değiştirilebilir. WebRTC bazı tarayıcılarda devre dışı olabilir.
+            okunur (örn. 192.168.1.x). Aynı subnet&apos;ten gelen ziyaretçiler bu panelde grup
+            olarak gösterilir. Bir okul, ofis veya ev ağı gibi düşünebilirsin. Kararların
+            veritabanına kaydedilir ve değiştirilebilir. WebRTC bazı tarayıcılarda devre dışı
+            olabilir.
           </p>
         </div>
       </div>
