@@ -50,6 +50,7 @@ function CloudinaryVideoPlayer({ videoUrl, className = '' }: { videoUrl: string 
 
 export default function ProductsList() {
   const t = useTranslations('products')
+  const tItems = useTranslations('productItems')
   const sectionRef = useRef<HTMLElement>(null)
   const cardsRef = useRef<HTMLDivElement>(null)
 
@@ -87,8 +88,8 @@ export default function ProductsList() {
                 )}
               </div>
               <div className="p-6">
-                <h3 className="text-lg font-semibold text-text-primary mb-2 group-hover:text-brand-purple transition-colors">{product.title}</h3>
-                <p className="text-sm text-text-secondary mb-4 line-clamp-2">{product.excerpt}</p>
+                <h3 className="text-lg font-semibold text-text-primary mb-2 group-hover:text-brand-purple transition-colors">{tItems(`${product.slug}.title`)}</h3>
+                <p className="text-sm text-text-secondary mb-4 line-clamp-2">{tItems(`${product.slug}.excerpt`)}</p>
                 <div className="flex items-center text-brand-purple font-medium text-sm group-hover:text-brand-purple-light transition-colors">
                   <span>{t('learnMore')}</span>
                   <svg className="w-4 h-4 ml-2 transform group-hover:translate-x-1 transition-transform" fill="none" stroke="currentColor" viewBox="0 0 24 24">

@@ -31,54 +31,50 @@ export default async function PrivacyPage({ params: { locale } }: PageProps) {
 
           <div className="bg-white rounded-xl shadow-soft p-8 md:p-12 space-y-8">
             <section>
-              <h2 className="text-2xl font-bold text-text-primary mb-4">1. Information We Collect</h2>
-              <p className="text-text-secondary leading-relaxed mb-4">We collect information you provide directly to us, such as when you fill out our contact form:</p>
+              <h2 className="text-2xl font-bold text-text-primary mb-4">{t('s1Title')}</h2>
+              <p className="text-text-secondary leading-relaxed mb-4">{t('s1Intro')}</p>
               <ul className="list-disc list-inside text-text-secondary space-y-2 ml-4">
-                <li>Name and contact information</li>
-                <li>Email address</li>
-                <li>Company name</li>
-                <li>Messages and inquiries</li>
+                <li>{t('s1i1')}</li>
+                <li>{t('s1i2')}</li>
+                <li>{t('s1i3')}</li>
+                <li>{t('s1i4')}</li>
               </ul>
             </section>
 
             <section>
-              <h2 className="text-2xl font-bold text-text-primary mb-4">2. How We Use Your Information</h2>
-              <p className="text-text-secondary leading-relaxed mb-4">We use the information we collect to:</p>
+              <h2 className="text-2xl font-bold text-text-primary mb-4">{t('s2Title')}</h2>
+              <p className="text-text-secondary leading-relaxed mb-4">{t('s2Intro')}</p>
               <ul className="list-disc list-inside text-text-secondary space-y-2 ml-4">
-                <li>Respond to your inquiries and provide customer support</li>
-                <li>Send you information about our services</li>
-                <li>Improve our website and services</li>
-                <li>Comply with legal obligations</li>
+                <li>{t('s2i1')}</li>
+                <li>{t('s2i2')}</li>
+                <li>{t('s2i3')}</li>
+                <li>{t('s2i4')}</li>
               </ul>
             </section>
 
             <section>
-              <h2 className="text-2xl font-bold text-text-primary mb-4">3. Cookies and Analytics</h2>
-              <p className="text-text-secondary leading-relaxed">
-                We use cookies and similar tracking technologies to track activity on our website. We use Yandex Metrica for analytics to understand how visitors interact with our site. You can control cookie preferences through your browser settings.
-              </p>
+              <h2 className="text-2xl font-bold text-text-primary mb-4">{t('s3Title')}</h2>
+              <p className="text-text-secondary leading-relaxed">{t('s3Text')}</p>
             </section>
 
             <section>
-              <h2 className="text-2xl font-bold text-text-primary mb-4">4. Data Security</h2>
-              <p className="text-text-secondary leading-relaxed">
-                We implement appropriate technical and organizational measures to protect your personal data against unauthorized access, alteration, disclosure, or destruction.
-              </p>
+              <h2 className="text-2xl font-bold text-text-primary mb-4">{t('s4Title')}</h2>
+              <p className="text-text-secondary leading-relaxed">{t('s4Text')}</p>
             </section>
 
             <section>
-              <h2 className="text-2xl font-bold text-text-primary mb-4">5. Your Rights</h2>
-              <p className="text-text-secondary leading-relaxed mb-4">You have the right to:</p>
+              <h2 className="text-2xl font-bold text-text-primary mb-4">{t('s5Title')}</h2>
+              <p className="text-text-secondary leading-relaxed mb-4">{t('s5Intro')}</p>
               <ul className="list-disc list-inside text-text-secondary space-y-2 ml-4">
-                <li>Access your personal data</li>
-                <li>Correct inaccurate data</li>
-                <li>Request deletion of your data</li>
-                <li>Object to processing of your data</li>
+                <li>{t('s5i1')}</li>
+                <li>{t('s5i2')}</li>
+                <li>{t('s5i3')}</li>
+                <li>{t('s5i4')}</li>
               </ul>
             </section>
 
             <section>
-              <h2 className="text-2xl font-bold text-text-primary mb-4">6. Contact Us</h2>
+              <h2 className="text-2xl font-bold text-text-primary mb-4">{t('s6Title')}</h2>
               <div className="bg-background-secondary rounded-lg p-4">
                 <p className="text-text-primary">
                   <strong>Email:</strong>{' '}

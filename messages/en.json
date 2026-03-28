@@ -315,17 +315,211 @@
     "backToHome": "← Back to Home",
     "title": "Terms of Service",
     "lastUpdated": "Last updated:",
-    "contactUs": "Contact us through our contact form"
+    "contactUs": "Contact us through our contact form",
+    "s1Title": "1. Agreement to Terms",
+    "s1Text": "By accessing or using FlowCobalt's website and services, you agree to be bound by these Terms of Service. If you disagree with any part of these terms, you may not access our services.",
+    "s2Title": "2. Description of Service",
+    "s2Intro": "FlowCobalt provides automation and workflow services, including but not limited to:",
+    "s2i1": "Automation audit and consulting services",
+    "s2i2": "Custom workflow development",
+    "s2i3": "AI-powered automation solutions",
+    "s2i4": "Process optimization services",
+    "s3Title": "3. Use of Service",
+    "s3aTitle": "3.1 Acceptable Use",
+    "s3aIntro": "You agree to use our services only for lawful purposes and in accordance with these Terms. You agree not to:",
+    "s3ai1": "Violate any applicable laws or regulations",
+    "s3ai2": "Infringe upon the rights of others",
+    "s3ai3": "Transmit any harmful or malicious code",
+    "s3ai4": "Attempt to gain unauthorized access to our systems",
+    "s3ai5": "Use our services for any illegal or unauthorized purpose",
+    "s4Title": "4. Intellectual Property",
+    "s4Text": "All content, features, and functionality of our website and services are the exclusive property of FlowCobalt and are protected by international copyright, trademark, and other intellectual property laws.",
+    "s5Title": "5. Service Availability",
+    "s5Text": "We strive to provide continuous and reliable service, but we do not guarantee that our services will be available at all times. We reserve the right to modify, suspend, or discontinue any part of our services at any time without prior notice.",
+    "s6Title": "6. Limitation of Liability",
+    "s6Text": "To the maximum extent permitted by law, FlowCobalt shall not be liable for any indirect, incidental, special, consequential, or punitive damages.",
+    "s7Title": "7. Contact Information",
+    "s7FooterText": "By using FlowCobalt's services, you acknowledge that you have read, understood, and agree to be bound by these Terms of Service."
   },
 
   "privacy": {
     "backToHome": "← Back to Home",
     "title": "Privacy Policy",
     "lastUpdated": "Last updated:",
-    "contactUs": "Contact us through our contact form"
+    "contactUs": "Contact us through our contact form",
+    "s1Title": "1. Information We Collect",
+    "s1Intro": "We collect information you provide directly to us, such as when you fill out our contact form:",
+    "s1i1": "Name and contact information",
+    "s1i2": "Email address",
+    "s1i3": "Company name",
+    "s1i4": "Messages and inquiries",
+    "s2Title": "2. How We Use Your Information",
+    "s2Intro": "We use the information we collect to:",
+    "s2i1": "Respond to your inquiries and provide customer support",
+    "s2i2": "Send you information about our services",
+    "s2i3": "Improve our website and services",
+    "s2i4": "Comply with legal obligations",
+    "s3Title": "3. Cookies and Analytics",
+    "s3Text": "We use cookies and similar tracking technologies to track activity on our website. We use Yandex Metrica for analytics to understand how visitors interact with our site. You can control cookie preferences through your browser settings.",
+    "s4Title": "4. Data Security",
+    "s4Text": "We implement appropriate technical and organizational measures to protect your personal data against unauthorized access, alteration, disclosure, or destruction.",
+    "s5Title": "5. Your Rights",
+    "s5Intro": "You have the right to:",
+    "s5i1": "Access your personal data",
+    "s5i2": "Correct inaccurate data",
+    "s5i3": "Request deletion of your data",
+    "s5i4": "Object to processing of your data",
+    "s6Title": "6. Contact Us"
   },
 
   "common": {
     "logoAlt": "FlowCobalt Logo"
+  },
+
+  "productItems": {
+    "kibele": {
+      "title": "Kibele - AI Creative Partner & Ecosystem",
+      "excerpt": "AI-powered creative ecosystem that eliminates blank-page fear. Inspiration rooms, AI partner, and real-time collaboration — all in one place.",
+      "category": "AI & Creative Tools",
+      "intro": "Kibele is a digital ecosystem designed to organize the chaos of early-stage creative thinking and elevate the creative process — not just a tool, but an intelligent partner that triggers your creativity and supports you from first spark to execution.",
+      "features": [
+        { "title": "Inspiration Rooms", "description": "Collaborative digital workspaces customized for each project or interest area, keeping context always close at hand" },
+        { "title": "Kibele AI Partner", "description": "An intelligent assistant that converses like a trusted friend, provides encouragement, and generates creative ideas on demand" },
+        { "title": "Visual Memory Bank", "description": "Integrated research system with instant access to global artworks and design examples — no more tab-hopping" },
+        { "title": "Shared Sketchpad", "description": "Interactive canvas for simultaneous drawing, note-taking, and mind-mapping with teammates in real-time" },
+        { "title": "Idea Archive", "description": "Personal library that organizes all developed ideas and conversations in a structured, searchable format" }
+      ],
+      "benefits": [
+        { "title": "Zero Blank-Page Fear", "description": "AI partner sparks the first idea the moment you need it — no more staring at an empty canvas" },
+        { "title": "Real-Time Team Sync", "description": "Everyone stays aligned on the same visual plane, eliminating endless alignment meetings" },
+        { "title": "Hours Saved Weekly", "description": "Stop switching between Pinterest, Behance, and browser tabs — everything lives in one place" },
+        { "title": "Motivation on Demand", "description": "Supportive AI language keeps you in flow and reduces creative stress" }
+      ],
+      "beforeAfter": [
+        { "before": "Blank page fear blocks every creative start", "after": "AI partner sparks ideas the moment you open the app" },
+        { "before": "Inspiration scattered across Pinterest, Behance, and browser tabs", "after": "All references organized in one Visual Memory Bank" },
+        { "before": "Team alignment takes hours of back-and-forth messages", "after": "Everyone synced on a shared canvas in real-time" },
+        { "before": "Ideas lost in chats, sticky notes, and random files", "after": "Everything archived and instantly searchable in Idea Archive" }
+      ],
+      "specialSections": [
+        {
+          "title": "Why We Built It",
+          "items": [
+            { "title": "Lone Creator Problem", "desc": "Creative individuals need a dedicated sounding board to develop ideas — Kibele fills that role autonomously" },
+            { "title": "Scattered Inspiration", "desc": "Visual references, sketches, and AI support unified under one roof to dramatically speed up the creative workflow" },
+            { "title": "Community-Driven", "desc": "Opens ideas to sharing, fostering a culture of collective and collaborative creativity" }
+          ]
+        }
+      ]
+    },
+    "busracrafts": {
+      "title": "BusraCrafts - Digital Recipe Book for Knitters",
+      "excerpt": "Digital companion for knitters to collect, organize, and share handcraft recipes. Your entire stitch library — always in your pocket, always searchable.",
+      "category": "Personal & Lifestyle Apps",
+      "intro": "BusraCrafts is a digital recipe journal that brings all your knitting and handcraft recipes together in one place — making them easy to organize, find, and share. Stitch by stitch, digitally yours.",
+      "features": [
+        { "title": "Personal Library", "description": "Add, edit, and delete recipes; organize with smart categories; enrich entries with step-by-step photos" },
+        { "title": "Discover Feed", "description": "Browse community-shared recipes, apply filters, like and comment, and save favorites to personal collections" },
+        { "title": "Lists & Progress Tracking", "description": "Group recipes into custom lists such as 'This Week's Projects' and track completion status" },
+        { "title": "Smart Search", "description": "Full-text search across your entire recipe library in milliseconds" },
+        { "title": "Accounts & Roles", "description": "Members can publish recipes; visitors can freely browse without creating an account" },
+        { "title": "One-Touch Sharing", "description": "Export any recipe as an elegant visual card to share via message or social media" },
+        { "title": "PWA Experience", "description": "Opens in the browser and installs to home screen for a full native-app feel" }
+      ],
+      "benefits": [
+        { "title": "Never Lose a Recipe Again", "description": "Every pattern centralized, searchable, and accessible anytime — even offline" },
+        { "title": "Crystal-Clear Instructions", "description": "Structured photo-guided steps eliminate confusion and missing details" },
+        { "title": "Instant Sharing", "description": "Share any recipe as a beautiful card or direct link in one tap" },
+        { "title": "Community Discovery", "description": "Find new patterns and techniques through a curated community feed" },
+        { "title": "Always With You", "description": "Mobile-first PWA works on any device with no app store download required" }
+      ],
+      "beforeAfter": [
+        { "before": "Recipes scattered across notebooks, photos, and WhatsApp messages", "after": "All organized in one searchable digital library" },
+        { "before": "Steps missing or out of order with photos buried in the camera roll", "after": "Step-by-step with embedded photos, crystal clear" },
+        { "before": "Sharing means typing the whole recipe out again", "after": "One-tap export as a visual card or shareable link" },
+        { "before": "Who shared that pattern? — lost somewhere in message threads", "after": "Community feed with collections and proper attribution" },
+        { "before": "Carrying a physical notebook everywhere you go", "after": "Entire library in your pocket, synced across all devices" }
+      ],
+      "specialSections": []
+    },
+    "panela": {
+      "title": "Panela - E-Commerce Management & Research Platform",
+      "excerpt": "AI-powered product discovery, ad analysis, and automated research platform for e-commerce entrepreneurs. A modern solution replacing Excel.",
+      "category": "E-Commerce Management",
+      "intro": "Panela is an AI-powered business management and research platform designed for e-commerce entrepreneurs. The system automates e-commerce processes from product discovery to marketing strategies, enhanced with artificial intelligence.",
+      "features": [
+        { "title": "Smart Ad Analysis Assistant", "description": "Analyzes your ad copy using Google's Gemini AI model, optimizes your target audience, and provides marketing strategies" },
+        { "title": "Automatic Quiz Generator", "description": "Automatically generates quiz questions from your educational content — fill-in-the-blank, matching, multiple choice" },
+        { "title": "Automatic Meta Ad Scanner", "description": "Automatically finds companies running active ads on Facebook and Instagram, and adds products to your database" },
+        { "title": "Smart Product Scoring System", "description": "Automatically scores products from 0–100 based on problem-solving, profit margin, trend analysis, and social media engagement" },
+        { "title": "Automatic Data Organization", "description": "Automatically migrates old-format links in your database to the new format" }
+      ],
+      "benefits": [
+        { "title": "Time Savings", "description": "Automated systems replace manual research, saving hours every week" },
+        { "title": "AI-Powered Strategies", "description": "Leverage artificial intelligence for smarter marketing and product decisions" },
+        { "title": "Secure Data Storage", "description": "Enterprise-grade security with Supabase backend" },
+        { "title": "Unified Platform", "description": "Manage hundreds of products and ads from a single dashboard" }
+      ],
+      "beforeAfter": [],
+      "specialSections": []
+    },
+    "barcode-app": {
+      "title": "Barcode App - Enterprise Dealer Management System",
+      "excerpt": "Enterprise dealer management system powering Getir's dealer network. Instant barcode access for corporate dealers.",
+      "category": "Enterprise Solutions",
+      "intro": "A powerful management system designed for corporate dealers, providing instant access to product barcodes and accelerating operations. Built for Getir Dealers — this enterprise solution powers Getir's dealer network, enabling seamless barcode management and product information access.",
+      "features": [
+        { "title": "Lightning-Fast Barcode Search", "description": "Instant access to product barcode information with sub-second response times" },
+        { "title": "Real-Time Product Database", "description": "Always up-to-date product information synchronized across all dealer locations" },
+        { "title": "Enterprise Dealer Management", "description": "Comprehensive management tools for corporate dealer networks" },
+        { "title": "Intuitive User Interface", "description": "User-friendly design that requires minimal training" },
+        { "title": "Mobile-First Design", "description": "Optimized for mobile devices used in warehouse and retail environments" },
+        { "title": "Offline Capability", "description": "Access critical information even when connectivity is limited" }
+      ],
+      "benefits": [
+        { "title": "Operational Efficiency", "description": "Reduce transaction times by up to 70% with instant barcode access" },
+        { "title": "Scalability", "description": "Built to handle enterprise-level dealer networks with thousands of users" },
+        { "title": "Reliability", "description": "Proven performance in high-volume, mission-critical environments" },
+        { "title": "Cost Savings", "description": "Eliminate manual lookup processes and reduce operational overhead" },
+        { "title": "Better Customer Experience", "description": "Faster service delivery improves customer satisfaction" }
+      ],
+      "beforeAfter": [],
+      "specialSections": [
+        {
+          "title": "Built for Getir Dealers",
+          "items": [
+            { "title": "Enterprise-Grade Solution", "desc": "Currently powering Getir's extensive dealer network across multiple regions" },
+            { "title": "Proven at Scale", "desc": "Trusted by one of the world's leading on-demand delivery platforms" },
+            { "title": "Real-World Performance", "desc": "Handles thousands of daily transactions with reliability and speed" }
+          ]
+        }
+      ]
+    },
+    "courier-shift-planner": {
+      "title": "Courier Shift Planning System",
+      "excerpt": "Intelligent shift planning system for courier companies. Visual weekly scheduling with automatic hour calculations and Excel reporting.",
+      "category": "Workforce Management",
+      "intro": "An intelligent web application designed for courier companies and businesses to simplify weekly shift planning. Manage your couriers' working hours, days off, and shift balances from a single screen.",
+      "features": [
+        { "title": "Visual Weekly Planning", "description": "7-day weekly view to see all shifts at a glance with drag-and-drop reordering" },
+        { "title": "Smart Time Management", "description": "Edit shift times with a single click, quick adjustment buttons, and easy day-off marking" },
+        { "title": "Automatic Calculations", "description": "Real-time calculation of total working hours with color-coded status indicators" },
+        { "title": "Flexible Courier Management", "description": "Add, edit, hide, or delete couriers with emoji avatar support" },
+        { "title": "Day Hiding Feature", "description": "Simplify your view by hiding unnecessary days and restoring them instantly" },
+        { "title": "Data Export", "description": "Save plans in JSON format and generate Excel reports with a single click" },
+        { "title": "Real-Time Updates", "description": "Automatic recalculation when hours change, no manual work required" },
+        { "title": "Default Settings", "description": "Configure default hours and times for new couriers automatically" }
+      ],
+      "benefits": [
+        { "title": "Time Savings", "description": "Replace hours of manual Excel planning with minutes of visual editing" },
+        { "title": "Error Prevention", "description": "Automatic validation prevents scheduling mistakes and missing coverage" },
+        { "title": "Fair Distribution", "description": "Ensure balanced work hours across all team members automatically" },
+        { "title": "Professional Reports", "description": "Generate Excel reports ready for accounting and management review" },
+        { "title": "User-Friendly Interface", "description": "Intuitive design requires no training, works on all devices" },
+        { "title": "Data Security", "description": "Safe JSON save/load system prevents data loss and enables easy backup" }
+      ],
+      "beforeAfter": [],
+      "specialSections": []
+    }
   }
 }

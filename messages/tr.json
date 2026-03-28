@@ -315,17 +315,211 @@
     "backToHome": "← Ana Sayfaya Dön",
     "title": "Kullanım Şartları",
     "lastUpdated": "Son güncelleme:",
-    "contactUs": "İletişim formumuz aracılığıyla bize ulaşın"
+    "contactUs": "İletişim formumuz aracılığıyla bize ulaşın",
+    "s1Title": "1. Şartların Kabulü",
+    "s1Text": "FlowCobalt'ın web sitesine ve hizmetlerine erişerek veya bunları kullanarak bu Kullanım Şartlarına bağlı olmayı kabul etmiş olursunuz. Bu şartların herhangi bir bölümüne katılmıyorsanız hizmetlerimize erişemezsiniz.",
+    "s2Title": "2. Hizmet Açıklaması",
+    "s2Intro": "FlowCobalt, aşağıdakiler dahil ancak bunlarla sınırlı olmamak üzere otomasyon ve iş akışı hizmetleri sunmaktadır:",
+    "s2i1": "Otomasyon denetimi ve danışmanlık hizmetleri",
+    "s2i2": "Özel iş akışı geliştirme",
+    "s2i3": "AI destekli otomasyon çözümleri",
+    "s2i4": "Süreç optimizasyon hizmetleri",
+    "s3Title": "3. Hizmetin Kullanımı",
+    "s3aTitle": "3.1 Kabul Edilebilir Kullanım",
+    "s3aIntro": "Hizmetlerimizi yalnızca yasal amaçlarla ve bu Şartlara uygun şekilde kullanmayı kabul ediyorsunuz. Aşağıdakileri yapmamayı kabul ediyorsunuz:",
+    "s3ai1": "Geçerli yasa veya yönetmelikleri ihlal etmek",
+    "s3ai2": "Başkalarının haklarını çiğnemek",
+    "s3ai3": "Zararlı veya kötü amaçlı kod iletmek",
+    "s3ai4": "Sistemlerimize yetkisiz erişim sağlamaya çalışmak",
+    "s3ai5": "Hizmetlerimizi yasa dışı veya yetkisiz amaçlarla kullanmak",
+    "s4Title": "4. Fikri Mülkiyet",
+    "s4Text": "Web sitemizin ve hizmetlerimizin tüm içeriği, özellikleri ve işlevselliği yalnızca FlowCobalt'a aittir ve uluslararası telif hakkı, ticari marka ve diğer fikri mülkiyet yasalarıyla korunmaktadır.",
+    "s5Title": "5. Hizmet Erişilebilirliği",
+    "s5Text": "Kesintisiz ve güvenilir hizmet sunmaya çalışıyoruz, ancak hizmetlerimizin her zaman kullanılabilir olacağını garanti etmiyoruz. Herhangi bir bildirimde bulunmaksızın hizmetlerimizin herhangi bir bölümünü değiştirme, askıya alma veya durdurma hakkını saklı tutuyoruz.",
+    "s6Title": "6. Sorumluluk Sınırlaması",
+    "s6Text": "Yasanın izin verdiği azami ölçüde FlowCobalt, dolaylı, arızi, özel, sonuçsal veya cezai zararlardan sorumlu tutulamaz.",
+    "s7Title": "7. İletişim Bilgileri",
+    "s7FooterText": "FlowCobalt'ın hizmetlerini kullanarak bu Kullanım Şartlarını okuduğunuzu, anladığınızı ve bunlara bağlı olmayı kabul ettiğinizi onaylamış olursunuz."
   },
 
   "privacy": {
     "backToHome": "← Ana Sayfaya Dön",
     "title": "Gizlilik Politikası",
     "lastUpdated": "Son güncelleme:",
-    "contactUs": "İletişim formumuz aracılığıyla bize ulaşın"
+    "contactUs": "İletişim formumuz aracılığıyla bize ulaşın",
+    "s1Title": "1. Topladığımız Bilgiler",
+    "s1Intro": "İletişim formunuzu doldurduğunuzda olduğu gibi, doğrudan bize sağladığınız bilgileri topluyoruz:",
+    "s1i1": "Ad ve iletişim bilgileri",
+    "s1i2": "E-posta adresi",
+    "s1i3": "Şirket adı",
+    "s1i4": "Mesajlar ve sorular",
+    "s2Title": "2. Bilgilerinizi Nasıl Kullanıyoruz",
+    "s2Intro": "Topladığımız bilgileri şu amaçlarla kullanıyoruz:",
+    "s2i1": "Sorularınıza yanıt vermek ve müşteri desteği sağlamak",
+    "s2i2": "Hizmetlerimiz hakkında bilgi göndermek",
+    "s2i3": "Web sitemizi ve hizmetlerimizi iyileştirmek",
+    "s2i4": "Yasal yükümlülüklere uymak",
+    "s3Title": "3. Çerezler ve Analitik",
+    "s3Text": "Web sitemizde etkinlikleri izlemek için çerezler ve benzeri izleme teknolojileri kullanıyoruz. Ziyaretçilerin sitemizle nasıl etkileşim kurduğunu anlamak için Yandex Metrica kullanıyoruz. Çerez tercihlerini tarayıcı ayarlarınızdan kontrol edebilirsiniz.",
+    "s4Title": "4. Veri Güvenliği",
+    "s4Text": "Kişisel verilerinizi yetkisiz erişime, değiştirilmeye, ifşa edilmeye veya imha edilmeye karşı korumak için uygun teknik ve organizasyonel önlemler uyguluyoruz.",
+    "s5Title": "5. Haklarınız",
+    "s5Intro": "Şu haklara sahipsiniz:",
+    "s5i1": "Kişisel verilerinize erişim",
+    "s5i2": "Hatalı verileri düzeltme",
+    "s5i3": "Verilerinizin silinmesini talep etme",
+    "s5i4": "Verilerinizin işlenmesine itiraz etme",
+    "s6Title": "6. İletişim"
   },
 
   "common": {
     "logoAlt": "FlowCobalt Logosu"
+  },
+
+  "productItems": {
+    "kibele": {
+      "title": "Kibele - AI Yaratıcı Ortak & Ekosistemi",
+      "excerpt": "Boş sayfa korkusunu ortadan kaldıran AI destekli yaratıcı ekosistem. İlham odaları, AI ortak ve gerçek zamanlı iş birliği — tek bir platformda.",
+      "category": "AI & Yaratıcı Araçlar",
+      "intro": "Kibele, erken aşama yaratıcı düşüncenin kaosunu düzenlemek ve yaratıcı süreci yükseltmek için tasarlanmış dijital bir ekosistemdir — sadece bir araç değil, yaratıcılığınızı tetikleyen ve ilk kıvılcımdan uygulamaya kadar sizi destekleyen akıllı bir ortaktır.",
+      "features": [
+        { "title": "İlham Odaları", "description": "Her proje veya ilgi alanı için özelleştirilmiş, bağlamı her zaman yakında tutan ortak dijital çalışma alanları" },
+        { "title": "Kibele AI Ortak", "description": "Güvenilir bir arkadaş gibi sohbet eden, cesaret veren ve istek üzerine yaratıcı fikirler üreten akıllı asistan" },
+        { "title": "Görsel Hafıza Bankası", "description": "Global sanat eserleri ve tasarım örneklerine anında erişimli entegre araştırma sistemi — sekme atlamaya son" },
+        { "title": "Paylaşımlı Çizim Tahtası", "description": "Takım arkadaşlarıyla gerçek zamanlı olarak eş zamanlı çizim, not alma ve zihin haritası oluşturmak için interaktif tuval" },
+        { "title": "Fikir Arşivi", "description": "Tüm geliştirilen fikirleri ve konuşmaları yapılandırılmış, aranabilir formatta düzenleyen kişisel kütüphane" }
+      ],
+      "benefits": [
+        { "title": "Sıfır Boş Sayfa Korkusu", "description": "AI ortak, ihtiyaç duyduğunuz anda ilk fikri tetikler — boş tuvale bakmaya son" },
+        { "title": "Gerçek Zamanlı Ekip Uyumu", "description": "Herkes aynı görsel düzlemde hizalanmış kalır, sonsuz uyum toplantılarını ortadan kaldırır" },
+        { "title": "Haftalık Kazanılan Saatler", "description": "Pinterest, Behance ve tarayıcı sekmeleri arasında geçiş yapmayı bırakın — her şey tek bir yerde" },
+        { "title": "İstek Üzerine Motivasyon", "description": "Destekleyici AI dili sizi akışta tutar ve yaratıcı stresi azaltır" }
+      ],
+      "beforeAfter": [
+        { "before": "Boş sayfa korkusu her yaratıcı başlangıcı engeller", "after": "AI ortak, uygulamayı açtığınız anda fikirleri tetikler" },
+        { "before": "İlham Pinterest, Behance ve tarayıcı sekmelerine dağılmış", "after": "Tüm referanslar tek bir Görsel Hafıza Bankası'nda düzenli" },
+        { "before": "Ekip uyumu saatlerce ileri geri mesajlaşmayı gerektiriyor", "after": "Herkes gerçek zamanlı ortak tuval üzerinde senkronize" },
+        { "before": "Fikirler sohbetlerde, yapışkanlı notlarda ve rastgele dosyalarda kaybolmuş", "after": "Her şey arşivlendi ve Fikir Arşivi'nde anında aranabilir" }
+      ],
+      "specialSections": [
+        {
+          "title": "Neden Geliştirdik",
+          "items": [
+            { "title": "Yalnız Yaratıcı Sorunu", "desc": "Yaratıcı bireyler fikirleri geliştirmek için özel bir fikir arkadaşına ihtiyaç duyar — Kibele bu rolü özerk olarak üstlenir" },
+            { "title": "Dağınık İlham", "desc": "Görsel referanslar, eskizler ve AI desteği, yaratıcı iş akışını dramatik şekilde hızlandırmak için tek çatı altında birleştirildi" },
+            { "title": "Topluluk Odaklı", "desc": "Fikirlerin paylaşılmasına kapı açarak kolektif ve iş birlikçi bir yaratıcılık kültürü oluşturur" }
+          ]
+        }
+      ]
+    },
+    "busracrafts": {
+      "title": "BusraCrafts - Örgücüler için Dijital Tarif Defteri",
+      "excerpt": "Örgücülerin el işi tariflerini toplayıp düzenlemesi ve paylaşması için dijital yardımcı. Tüm dikiş kitaplığınız — her zaman cebinizde, her zaman aranabilir.",
+      "category": "Kişisel & Yaşam Tarzı Uygulamaları",
+      "intro": "BusraCrafts, tüm örgü ve el işi tariflerinizi tek bir yerde buluşturan dijital bir tarif defteridir — onları organize etmeyi, bulmayı ve paylaşmayı kolaylaştırır. İlmek ilmek, dijital olarak sizin.",
+      "features": [
+        { "title": "Kişisel Kütüphane", "description": "Tarif ekleyin, düzenleyin ve silin; akıllı kategorilerle düzenleyin; adım adım fotoğraflarla girişleri zenginleştirin" },
+        { "title": "Keşfet Akışı", "description": "Toplulukla paylaşılan tarifleri inceleyin, filtreler uygulayın, beğenin, yorum yapın ve favorileri kişisel koleksiyonlara kaydedin" },
+        { "title": "Listeler & İlerleme Takibi", "description": "Tarifleri 'Bu Haftanın Projeleri' gibi özel listelerde gruplayın ve tamamlanma durumunu takip edin" },
+        { "title": "Akıllı Arama", "description": "Tüm tarif kitaplığınızda milisaniyeler içinde tam metin arama" },
+        { "title": "Hesaplar & Roller", "description": "Üyeler tarif yayınlayabilir; ziyaretçiler hesap oluşturmadan serbestçe göz atabilir" },
+        { "title": "Tek Dokunuşla Paylaşım", "description": "Herhangi bir tarifi mesaj veya sosyal medyada paylaşmak için şık bir görsel kart olarak dışa aktarın" },
+        { "title": "PWA Deneyimi", "description": "Tarayıcıda açılır ve tam yerel uygulama hissi için ana ekrana yüklenir" }
+      ],
+      "benefits": [
+        { "title": "Bir Daha Tarif Kaybetmeyin", "description": "Her desen merkezi, aranabilir ve her zaman erişilebilir — çevrimdışı bile" },
+        { "title": "Kristal Netliğinde Talimatlar", "description": "Yapılandırılmış fotoğraf rehberli adımlar karmaşayı ve eksik detayları ortadan kaldırır" },
+        { "title": "Anında Paylaşım", "description": "Herhangi bir tarifi tek dokunuşla güzel bir kart veya doğrudan bağlantı olarak paylaşın" },
+        { "title": "Topluluk Keşfi", "description": "Özenle seçilmiş topluluk akışından yeni desenler ve teknikler bulun" },
+        { "title": "Her Zaman Yanınızda", "description": "Mobil öncelikli PWA, uygulama mağazası indirmesi gerektirmeden her cihazda çalışır" }
+      ],
+      "beforeAfter": [
+        { "before": "Tarifler defterlere, fotoğraflara ve WhatsApp mesajlarına dağılmış", "after": "Hepsi aranabilir tek dijital kütüphanede düzenli" },
+        { "before": "Adımlar eksik veya sırasız, fotoğraflar kamera rulosunda gömülü", "after": "Gömülü fotoğraflarla adım adım, kristal netliğinde" },
+        { "before": "Paylaşmak tarifi baştan yazmayı gerektiriyor", "after": "Görsel kart veya paylaşılabilir bağlantı olarak tek dokunuşla dışa aktar" },
+        { "before": "O deseni kim paylaştı? — mesaj dizilerinde bir yerlerde kaybolmuş", "after": "Koleksiyonlar ve uygun atıflarla topluluk akışı" },
+        { "before": "Her gittiğiniz yere fiziksel defter taşımak", "after": "Tüm kütüphane cebinizde, tüm cihazlarda senkronize" }
+      ],
+      "specialSections": []
+    },
+    "panela": {
+      "title": "Panela - E-Ticaret Yönetimi & Araştırma Platformu",
+      "excerpt": "E-ticaret girişimcileri için AI destekli ürün keşfi, reklam analizi ve otomatik araştırma platformu. Excel'in yerini alan modern çözüm.",
+      "category": "E-Ticaret Yönetimi",
+      "intro": "Panela, e-ticaret girişimcileri için tasarlanmış AI destekli bir iş yönetimi ve araştırma platformudur. Sistem, ürün keşfinden pazarlama stratejilerine kadar e-ticaret süreçlerini yapay zeka ile güçlendirilmiş şekilde otomatize eder.",
+      "features": [
+        { "title": "Akıllı Reklam Analizi Asistanı", "description": "Google'ın Gemini AI modelini kullanarak reklam metninizi analiz eder, hedef kitlenizi optimize eder ve pazarlama stratejileri sunar" },
+        { "title": "Otomatik Quiz Oluşturucu", "description": "Eğitim içeriklerinizden otomatik olarak quiz soruları oluşturur — boşluk doldurma, eşleştirme, çoktan seçmeli" },
+        { "title": "Otomatik Meta Reklam Tarayıcı", "description": "Facebook ve Instagram'da aktif reklam yayınlayan şirketleri otomatik olarak bulur ve ürünleri veritabanınıza ekler" },
+        { "title": "Akıllı Ürün Puanlama Sistemi", "description": "Ürünleri problem çözme, kar marjı, trend analizi ve sosyal medya etkileşimine göre 0–100 arası otomatik puanlar" },
+        { "title": "Otomatik Veri Organizasyonu", "description": "Veritabanındaki eski formattaki bağlantıları yeni formata otomatik olarak taşır" }
+      ],
+      "benefits": [
+        { "title": "Zaman Tasarrufu", "description": "Otomatik sistemler manuel araştırmanın yerini alır, her hafta saatler kazandırır" },
+        { "title": "AI Destekli Stratejiler", "description": "Daha akıllı pazarlama ve ürün kararları için yapay zekadan yararlanın" },
+        { "title": "Güvenli Veri Depolama", "description": "Supabase altyapısıyla kurumsal düzeyde güvenlik" },
+        { "title": "Birleşik Platform", "description": "Yüzlerce ürün ve reklamı tek panelden yönetin" }
+      ],
+      "beforeAfter": [],
+      "specialSections": []
+    },
+    "barcode-app": {
+      "title": "Barcode App - Kurumsal Bayi Yönetim Sistemi",
+      "excerpt": "Getir'in bayi ağını destekleyen kurumsal bayi yönetim sistemi. Kurumsal bayiler için anında barkod erişimi.",
+      "category": "Kurumsal Çözümler",
+      "intro": "Kurumsal bayilere ürün barkodlarına anında erişim sağlamak ve operasyonları hızlandırmak için tasarlanmış güçlü bir yönetim sistemi. Getir Bayileri için geliştirildi — bu kurumsal çözüm, Getir'in bayi ağını destekleyerek sorunsuz barkod yönetimi ve ürün bilgisi erişimi sağlar.",
+      "features": [
+        { "title": "Yıldırım Hızında Barkod Arama", "description": "Milisaniyenin altında yanıt süreleriyle ürün barkod bilgilerine anında erişim" },
+        { "title": "Gerçek Zamanlı Ürün Veritabanı", "description": "Tüm bayi lokasyonlarında senkronize, her zaman güncel ürün bilgileri" },
+        { "title": "Kurumsal Bayi Yönetimi", "description": "Kurumsal bayi ağları için kapsamlı yönetim araçları" },
+        { "title": "Sezgisel Kullanıcı Arayüzü", "description": "Minimum eğitim gerektiren kullanıcı dostu tasarım" },
+        { "title": "Mobil Öncelikli Tasarım", "description": "Depo ve perakende ortamlarında kullanılan mobil cihazlar için optimize edilmiş" },
+        { "title": "Çevrimdışı Yetenek", "description": "Bağlantı sınırlı olduğunda bile kritik bilgilere erişin" }
+      ],
+      "benefits": [
+        { "title": "Operasyonel Verimlilik", "description": "Anında barkod erişimiyle işlem sürelerini yüzde 70'e kadar azaltın" },
+        { "title": "Ölçeklenebilirlik", "description": "Binlerce kullanıcıyla kurumsal bayi ağlarını kaldıracak şekilde geliştirildi" },
+        { "title": "Güvenilirlik", "description": "Yüksek hacimli, iş açısından kritik ortamlarda kanıtlanmış performans" },
+        { "title": "Maliyet Tasarrufu", "description": "Manuel arama süreçlerini ortadan kaldırın ve operasyonel yükü azaltın" },
+        { "title": "Daha İyi Müşteri Deneyimi", "description": "Daha hızlı hizmet sunumu müşteri memnuniyetini artırır" }
+      ],
+      "beforeAfter": [],
+      "specialSections": [
+        {
+          "title": "Getir Bayileri için Geliştirildi",
+          "items": [
+            { "title": "Kurumsal Düzeyde Çözüm", "desc": "Şu anda birden fazla bölgedeki Getir'in kapsamlı bayi ağını destekliyor" },
+            { "title": "Ölçekte Kanıtlanmış", "desc": "Dünyanın önde gelen isteğe bağlı teslimat platformlarından biri tarafından güvenilir" },
+            { "title": "Gerçek Dünya Performansı", "desc": "Günlük binlerce işlemi güvenilirlik ve hızla işliyor" }
+          ]
+        }
+      ]
+    },
+    "courier-shift-planner": {
+      "title": "Kurye Vardiya Planlama Sistemi",
+      "excerpt": "Kurye şirketleri için akıllı vardiya planlama sistemi. Otomatik saat hesaplamalarıyla görsel haftalık planlama ve Excel raporlama.",
+      "category": "İş Gücü Yönetimi",
+      "intro": "Kurye şirketleri ve işletmeler için haftalık vardiya planlamasını basitleştirmek üzere tasarlanmış akıllı bir web uygulaması. Kuryelerinizin çalışma saatlerini, izin günlerini ve vardiya dengelerini tek ekrandan yönetin.",
+      "features": [
+        { "title": "Görsel Haftalık Planlama", "description": "Tüm vardiyaları bir bakışta görmek için 7 günlük haftalık görünüm ve sürükle-bırak yeniden sıralama" },
+        { "title": "Akıllı Zaman Yönetimi", "description": "Tek tıkla vardiya saatlerini düzenleyin, hızlı ayarlama düğmeleri ve kolay izin işaretleme" },
+        { "title": "Otomatik Hesaplamalar", "description": "Renk kodlu durum göstergeleriyle toplam çalışma saatlerinin gerçek zamanlı hesaplanması" },
+        { "title": "Esnek Kurye Yönetimi", "description": "Emoji avatar desteğiyle kurye ekleyin, düzenleyin, gizleyin veya silin" },
+        { "title": "Gün Gizleme Özelliği", "description": "Gereksiz günleri gizleyerek görünümü basitleştirin ve anında geri yükleyin" },
+        { "title": "Veri Dışa Aktarma", "description": "Planları JSON formatında kaydedin ve tek tıkla Excel raporları oluşturun" },
+        { "title": "Gerçek Zamanlı Güncellemeler", "description": "Saatler değiştiğinde otomatik yeniden hesaplama, manuel işlem gerekmez" },
+        { "title": "Varsayılan Ayarlar", "description": "Yeni kuryeler için varsayılan saat ve zamanları otomatik olarak yapılandırın" }
+      ],
+      "benefits": [
+        { "title": "Zaman Tasarrufu", "description": "Saatlerce süren manuel Excel planlamasını dakikalar içinde görsel düzenlemeyle değiştirin" },
+        { "title": "Hata Önleme", "description": "Otomatik doğrulama, zamanlama hatalarını ve eksik kapsama alanını önler" },
+        { "title": "Adil Dağıtım", "description": "Tüm ekip üyeleri arasında dengeli çalışma saatlerini otomatik olarak sağlayın" },
+        { "title": "Profesyonel Raporlar", "description": "Muhasebe ve yönetim incelemesi için hazır Excel raporları oluşturun" },
+        { "title": "Kullanıcı Dostu Arayüz", "description": "Sezgisel tasarım eğitim gerektirmez, tüm cihazlarda çalışır" },
+        { "title": "Veri Güvenliği", "description": "Güvenli JSON kaydetme/yükleme sistemi veri kaybını önler ve kolay yedekleme sağlar" }
+      ],
+      "beforeAfter": [],
+      "specialSections": []
+    }
   }
 }
